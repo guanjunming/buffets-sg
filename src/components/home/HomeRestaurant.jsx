@@ -1,8 +1,31 @@
 import { Rating } from "@mui/material";
+import React from "react";
+import { useState } from "react";
+import RestaurantModal from "./RestaurantModal";
 
-const HomeRestaurant = ({ img, name, rating, review, description }) => {
+const HomeRestaurant = ({
+  id,
+  name,
+  img,
+  address,
+  time,
+  adultPrice,
+  childPrice,
+  description,
+  cuisine,
+  website,
+  rating,
+  review,
+}) => {
+  const [showRestaurantModal, setShowRestaurantModal] = useState(false);
+
   return (
-    <div className="item-center flex h-full flex-col justify-between gap-5 overflow-hidden rounded-3xl border border-gray-400 pb-5 hover:cursor-pointer hover:border-white">
+    <div
+      className="item-center flex h-full flex-col justify-between gap-5 overflow-hidden rounded-3xl border border-gray-400 pb-5 hover:cursor-pointer hover:border-white"
+      onClick={() => {
+        setShowRestaurantModal(true);
+      }}
+    >
       <img
         src={img}
         alt={name}
@@ -24,6 +47,25 @@ const HomeRestaurant = ({ img, name, rating, review, description }) => {
         </div>
 
         <div className="text-gray-400">{description}</div>
+      </div>
+      <div>
+        {showRestaurantModal && (
+          <RestaurantModal
+            id={id}
+            name={name}
+            img={img}
+            address={address}
+            time={time}
+            adultPrice={adultPrice}
+            childPrice={childPrice}
+            description={description}
+            cuisine={cuisine}
+            website={website}
+            rating={rating}
+            review={review}
+            setShowRestaurantModal={setShowRestaurantModal}
+          />
+        )}
       </div>
     </div>
   );
