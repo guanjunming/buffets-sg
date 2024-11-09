@@ -5,11 +5,13 @@ import { IoClose } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "../../api/api";
 import { useEffect, useState } from "react";
+import { useModalContext } from "../../context/contextHooks";
 
-const SignupModal = ({ open, onClose }) => {
+const SignupModal = () => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
   const fullscreen = useMediaQuery("(max-width:768px)");
+  const { isSignupOpen, closeSignupModal, openLoginModal } = useModalContext();
 
   const {
     mutate,
@@ -25,17 +27,17 @@ const SignupModal = ({ open, onClose }) => {
       //     userId: data.id,
       //     username: data.fields.Username,
       //   });
-      onClose();
+      closeSignupModal();
     },
   });
 
   useEffect(() => {
-    if (open) {
+    if (isSignupOpen) {
       setIsError(false);
       setError("");
       reset();
     }
-  }, [open, reset]);
+  }, [isSignupOpen, reset]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -67,10 +69,14 @@ const SignupModal = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullScreen={fullscreen}>
+    <Dialog
+      open={isSignupOpen}
+      onClose={closeSignupModal}
+      fullScreen={fullscreen}
+    >
       <div
         className="absolute right-2.5 top-2.5 cursor-pointer p-1 hover:opacity-85"
-        onClick={onClose}
+        onClick={closeSignupModal}
       >
         <IoClose size={28} />
       </div>
@@ -111,11 +117,13 @@ const SignupModal = ({ open, onClose }) => {
             >
               Sign up
             </button>
-            <p className="mt-4 cursor-pointer text-center text-black hover:opacity-85">
+            <div
+              className="mt-4 cursor-pointer text-center text-black hover:opacity-85"
+              onClick={openLoginModal}
+            >
               {"Already have an account? "}
-              <span className="font-semibold underline">Log in</span>
-              {"."}
-            </p>
+              <span className="font-semibold underline">Log in</span>.
+            </div>
           </div>
         </form>
       </div>

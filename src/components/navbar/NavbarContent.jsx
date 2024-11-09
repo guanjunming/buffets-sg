@@ -1,10 +1,9 @@
 import NavbarLogo from "./NavbarLogo";
 import NavbarDrawer from "./NavbarDrawer";
-import { useContext } from "react";
-import { ModalContext } from "../../App";
+import { useModalContext } from "../../context/contextHooks";
 
 const NavbarContent = () => {
-  const { openLoginModal, openSignupModal } = useContext(ModalContext);
+  const { openLoginModal } = useModalContext();
 
   return (
     <div className="flex items-center justify-between gap-5 bg-neutral-900 p-5 shadow shadow-white">
@@ -22,15 +21,12 @@ const NavbarContent = () => {
         </div>
       </div>
 
-      <div className="hidden items-center justify-between gap-5 md:flex">
+      <div className="hidden md:block">
         <div
-          className="rounded border px-3 py-2 hover:cursor-pointer hover:bg-neutral-700"
+          className="rounded bg-blue-900 px-3 py-2 hover:cursor-pointer hover:bg-blue-800"
           onClick={openLoginModal}
         >
-          Login
-        </div>
-        <div className="rounded bg-blue-900 px-3 py-2 hover:cursor-pointer hover:bg-blue-800">
-          Sign Up
+          Sign in
         </div>
       </div>
 

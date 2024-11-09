@@ -5,9 +5,11 @@ import { IoClose } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/api";
 import { useEffect } from "react";
+import { useModalContext } from "../../context/contextHooks";
 
-const LoginModal = ({ open, onClose }) => {
+const LoginModal = () => {
   const fullscreen = useMediaQuery("(max-width:768px)");
+  const { isLoginOpen, closeLoginModal, openSignupModal } = useModalContext();
 
   const { mutate, isPending, isError, error, reset } = useMutation({
     mutationFn: login,
@@ -17,15 +19,15 @@ const LoginModal = ({ open, onClose }) => {
       //     userId: data.id,
       //     username: data.fields.Username,
       //   });
-      onClose();
+      closeLoginModal();
     },
   });
 
   useEffect(() => {
-    if (open) {
+    if (isLoginOpen) {
       reset();
     }
-  }, [open, reset]);
+  }, [isLoginOpen, reset]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,10 +38,14 @@ const LoginModal = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullScreen={fullscreen}>
+    <Dialog
+      open={isLoginOpen}
+      onClose={closeLoginModal}
+      fullScreen={fullscreen}
+    >
       <div
         className="absolute right-2.5 top-2.5 cursor-pointer p-1 hover:opacity-85"
-        onClick={onClose}
+        onClick={closeLoginModal}
       >
         <IoClose size={28} />
       </div>
@@ -78,11 +84,13 @@ const LoginModal = ({ open, onClose }) => {
             >
               Sign in
             </button>
-            <p className="mt-4 cursor-pointer text-center text-black hover:opacity-85">
+            <div
+              className="mt-4 cursor-pointer text-center text-black hover:opacity-85"
+              onClick={openSignupModal}
+            >
               {"Don't have an account? "}
-              <span className="font-semibold underline">Sign up</span>
-              {"."}
-            </p>
+              <span className="font-semibold underline">Sign up</span>.
+            </div>
           </div>
         </form>
       </div>
