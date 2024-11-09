@@ -49,7 +49,7 @@ const RestaurantModal = ({
         <br></br>
         <p>Price:</p>
         <p>Adult : {adultPrice}</p>
-        <p>Child : {childPrice}</p>
+        {childPrice && <p>Child: {childPrice}</p>}
         <br></br>
         <p>Rating: {rating}</p>
         <br></br>
