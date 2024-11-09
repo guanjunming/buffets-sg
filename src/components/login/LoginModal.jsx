@@ -4,11 +4,12 @@ import { SiIfood } from "react-icons/si";
 import { IoClose } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/api";
+import { useEffect } from "react";
 
 const LoginModal = ({ open, onClose }) => {
   const fullscreen = useMediaQuery("(max-width:768px)");
 
-  const { mutate, isPending, isError, error } = useMutation({
+  const { mutate, isPending, isError, error, reset } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
       console.log(data);
@@ -19,6 +20,12 @@ const LoginModal = ({ open, onClose }) => {
       onClose();
     },
   });
+
+  useEffect(() => {
+    if (open) {
+      reset();
+    }
+  }, [open, reset]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
