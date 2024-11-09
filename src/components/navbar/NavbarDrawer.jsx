@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Drawer } from "@mui/material";
 import { IoMenu, IoClose } from "react-icons/io5";
+import { ModalContext } from "../../App";
 
 const NavbarDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { openLoginModal, openSignupModal } = useContext(ModalContext);
 
   return (
-    <div className="flex lg:hidden">
+    <div className="flex md:hidden">
       <IoMenu
         color="white"
         size={50}
@@ -40,7 +42,10 @@ const NavbarDrawer = () => {
           </div>
 
           <div className="m-5">
-            <div className="m-3 rounded border px-2 py-1 hover:cursor-pointer hover:bg-neutral-700">
+            <div
+              className="m-3 rounded border px-2 py-1 hover:cursor-pointer hover:bg-neutral-700"
+              onClick={openLoginModal}
+            >
               Login
             </div>
             <div className="m-3 rounded bg-blue-900 px-2 py-1 hover:cursor-pointer hover:bg-blue-800">
