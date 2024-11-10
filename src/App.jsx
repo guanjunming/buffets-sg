@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Footer from "./components/footer/Footer";
+import RestaurantDetails from "./components/home/RestaurantDetails";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
@@ -17,6 +18,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/restaurant/:id" element={<RestaurantDetails />} />
         </Routes>
 
         <Footer />
