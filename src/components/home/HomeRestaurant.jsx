@@ -45,6 +45,7 @@ const HomeRestaurant = ({
         src={img}
         alt={name}
         className="mb-5 aspect-video w-full border-b border-gray-400 object-cover"
+        title={name}
       />
 
       <div className="mx-5 flex h-20 items-center justify-center overflow-hidden font-semibold lg:text-xl lg:font-bold">

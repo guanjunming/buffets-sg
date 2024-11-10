@@ -24,6 +24,7 @@ const NavbarDrawer = () => {
         size={50}
         onClick={() => setIsDrawerOpen(true)}
         className="rounded-lg border border-gray-400 px-2 py-1 hover:cursor-pointer hover:border-white hover:bg-neutral-700"
+        title="Open"
       />
       <Drawer
         anchor="top"
@@ -37,6 +38,7 @@ const NavbarDrawer = () => {
               size={40}
               onClick={() => setIsDrawerOpen(false)}
               className="rounded-lg border border-gray-400 p-1 hover:cursor-pointer hover:border-white hover:bg-neutral-700"
+              title="Close"
             />
           </div>
 
