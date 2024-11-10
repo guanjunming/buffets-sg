@@ -1,6 +1,5 @@
-import { Rating } from "@mui/material";
-import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Rating } from "@mui/material";
 
 const HomeRestaurant = ({
   id,
@@ -13,8 +12,8 @@ const HomeRestaurant = ({
   description,
   cuisine,
   website,
-  rating,
-  review,
+  rating = Math.floor(Math.random() * 50) / 10,
+  review = Math.floor(Math.random() * 200),
 }) => {
   const navigate = useNavigate();
 
@@ -39,32 +38,33 @@ const HomeRestaurant = ({
 
   return (
     <div
-      className="item-center flex h-full flex-col justify-between gap-5 overflow-hidden rounded-3xl border border-gray-400 pb-5 hover:cursor-pointer hover:border-white"
+      className="overflow-hidden rounded-3xl border border-gray-400 hover:cursor-pointer hover:border-white hover:outline hover:outline-4"
       onClick={handleRestaurantClick}
     >
       <img
         src={img}
         alt={name}
-        className="aspect-video border-b border-gray-400 object-cover hover:brightness-125"
+        className="mb-5 aspect-video border-b border-gray-400 object-cover"
       />
-      <div>
-        <div className="text-2xl font-bold">{name}</div>
 
-        <div className="flex flex-col items-center justify-center gap-1 lg:flex-row">
-          <Rating
-            defaultValue={rating}
-            precision={0.1}
-            sx={{ color: "blue", "& .MuiRating-icon": { color: "blue" } }}
-            readOnly
-          />
-          <div>
-            <span className="font-medium">{rating} </span>({review} Reviews)
-          </div>
-        </div>
+      <div className="mx-5 flex h-20 items-center justify-center text-2xl font-bold">
+        {name}
+      </div>
 
-        <div className="mx-3 line-clamp-5 text-justify text-gray-400">
-          {description}
+      <div className="flex flex-col items-center justify-center gap-1 lg:flex-row">
+        <Rating
+          defaultValue={rating}
+          precision={0.1}
+          sx={{ color: "blue", "& .MuiRating-icon": { color: "blue" } }}
+          readOnly
+        />
+        <div>
+          <span className="font-medium">{rating} </span>({review} Reviews)
         </div>
+      </div>
+
+      <div className="m-5 line-clamp-5 text-justify text-gray-400">
+        {description}
       </div>
     </div>
   );
