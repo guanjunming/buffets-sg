@@ -47,7 +47,7 @@ const HomeRestaurant = ({
         className="mb-5 aspect-video border-b border-gray-400 object-cover"
       />
 
-      <div className="mx-5 flex h-20 items-center justify-center text-2xl font-bold">
+      <div className="mx-5 flex h-20 items-center justify-center overflow-hidden font-semibold lg:text-xl lg:font-bold">
         {name}
       </div>
 
@@ -63,7 +63,7 @@ const HomeRestaurant = ({
         </div>
       </div>
 
-      <div className="m-5 line-clamp-5 text-justify text-gray-400">
+      <div className="m-5 line-clamp-2 text-justify text-gray-400 lg:line-clamp-5">
         {description}
       </div>
     </div>
