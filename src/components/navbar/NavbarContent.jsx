@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import NavbarLogo from "./NavbarLogo";
 import NavbarDrawer from "./NavbarDrawer";
 
@@ -5,7 +6,10 @@ const NavbarContent = () => {
   return (
     <div className="flex items-center justify-between gap-5 bg-neutral-900 p-5 shadow shadow-white">
       <div className="flex items-center justify-between gap-5">
-        <NavbarLogo />
+        <Link to="/" title="BuffetsSG Home">
+          <NavbarLogo />
+        </Link>
+
         <div className="hidden items-center justify-between gap-5 lg:flex">
           {["Directory", "Popular", "Review", "About"].map((item, idx) => (
             <div
