@@ -5,13 +5,15 @@ import { IoClose } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "../../api/api";
 import { useEffect, useState } from "react";
-import { useModalContext } from "../../context/contextHooks";
+import { useModal } from "../../context/ModalContext";
+import { useAuth } from "../../context/AuthContext";
 
 const SignupModal = () => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
   const fullscreen = useMediaQuery("(max-width:768px)");
-  const { isSignupOpen, closeSignupModal, openLoginModal } = useModalContext();
+  const { isSignupOpen, closeSignupModal, openLoginModal } = useModal();
+  const { loginUser } = useAuth();
 
   const {
     mutate,
@@ -22,11 +24,7 @@ const SignupModal = () => {
   } = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
-      console.log(data);
-      //   loginUser({
-      //     userId: data.id,
-      //     username: data.fields.Username,
-      //   });
+      loginUser(data);
       closeSignupModal();
     },
   });

@@ -1,9 +1,9 @@
 import NavbarLogo from "./NavbarLogo";
 import NavbarDrawer from "./NavbarDrawer";
-import { useModalContext } from "../../context/contextHooks";
+import { useModal } from "../../context/ModalContext";
 
 const NavbarContent = () => {
-  const { openLoginModal } = useModalContext();
+  const { openLoginModal } = useModal();
 
   return (
     <div className="flex items-center justify-between gap-5 bg-neutral-900 p-5 shadow shadow-white">
@@ -21,7 +21,7 @@ const NavbarContent = () => {
         </div>
       </div>
 
-      <div className="hidden md:block">
+      <div className="hidden md:flex">
         <div
           className="rounded bg-blue-900 px-3 py-2 hover:cursor-pointer hover:bg-blue-800"
           onClick={openLoginModal}

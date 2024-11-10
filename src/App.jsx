@@ -7,25 +7,28 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
 import { ModalProvider } from "./context/ModalContext";
+import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ModalProvider>
-        <Navbar />
+      <AuthProvider>
+        <ModalProvider>
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/restaurant/:id" element={<RestaurantDetails />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/restaurant/:id" element={<RestaurantDetails />} />
+          </Routes>
 
-        <Footer />
+          <Footer />
 
-        <LoginModal />
-        <SignupModal />
-      </ModalProvider>
+          <LoginModal />
+          <SignupModal />
+        </ModalProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

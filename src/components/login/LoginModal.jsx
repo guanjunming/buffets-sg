@@ -5,20 +5,18 @@ import { IoClose } from "react-icons/io5";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/api";
 import { useEffect } from "react";
-import { useModalContext } from "../../context/contextHooks";
+import { useModal } from "../../context/ModalContext";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginModal = () => {
   const fullscreen = useMediaQuery("(max-width:768px)");
-  const { isLoginOpen, closeLoginModal, openSignupModal } = useModalContext();
+  const { isLoginOpen, closeLoginModal, openSignupModal } = useModal();
+  const { loginUser } = useAuth();
 
   const { mutate, isPending, isError, error, reset } = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      console.log(data);
-      //   loginUser({
-      //     userId: data.id,
-      //     username: data.fields.Username,
-      //   });
+      loginUser(data);
       closeLoginModal();
     },
   });

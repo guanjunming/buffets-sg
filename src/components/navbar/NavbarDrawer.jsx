@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Drawer } from "@mui/material";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { useModalContext } from "../../context/contextHooks";
+import { useModal } from "../../context/ModalContext";
 
 const NavbarDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { openLoginModal } = useModalContext();
+  const { openLoginModal } = useModal();
 
   return (
     <div className="flex md:hidden">
