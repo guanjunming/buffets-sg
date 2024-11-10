@@ -1,12 +1,24 @@
-import { useState } from "react";
-import { Drawer } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Drawer, useMediaQuery } from "@mui/material";
 import { IoMenu, IoClose } from "react-icons/io5";
+import { useModal } from "../../context/ModalContext";
+import { useAuth } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const NavbarDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { openLoginModal } = useModal();
+  const isAboveMd = useMediaQuery("(min-width:768px)");
+  const { user, logoutUser } = useAuth();
+
+  useEffect(() => {
+    if (isAboveMd && isDrawerOpen) {
+      setIsDrawerOpen(false);
+    }
+  }, [isAboveMd, isDrawerOpen]);
 
   return (
-    <div className="flex lg:hidden">
+    <div className="flex md:hidden">
       <IoMenu
         color="white"
         size={50}
@@ -42,12 +54,33 @@ const NavbarDrawer = () => {
           </div>
 
           <div className="m-5">
-            <div className="m-3 rounded border px-2 py-1 hover:cursor-pointer hover:bg-neutral-700">
-              Login
-            </div>
-            <div className="m-3 rounded bg-blue-900 px-2 py-1 hover:cursor-pointer hover:bg-blue-800">
-              Sign Up
-            </div>
+            {user ? (
+              <div className="text-left">
+                <Link
+                  to="/profile"
+                  onClick={() => setIsDrawerOpen(false)}
+                  className="block rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-700"
+                >
+                  Profile
+                </Link>
+                <div
+                  onClick={() => {
+                    logoutUser();
+                    setIsDrawerOpen(false);
+                  }}
+                  className="rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-700"
+                >
+                  Sign out
+                </div>
+              </div>
+            ) : (
+              <div
+                className="m-3 rounded bg-blue-900 px-2 py-1 hover:cursor-pointer hover:bg-blue-800"
+                onClick={openLoginModal}
+              >
+                Sign in
+              </div>
+            )}
           </div>
         </div>
       </Drawer>
