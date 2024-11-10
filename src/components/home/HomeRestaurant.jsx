@@ -44,7 +44,7 @@ const HomeRestaurant = ({
       <img
         src={img}
         alt={name}
-        className="mb-5 aspect-video border-b border-gray-400 object-cover"
+        className="mb-5 aspect-video w-full border-b border-gray-400 object-cover"
       />
 
       <div className="mx-5 flex h-20 items-center justify-center overflow-hidden font-semibold lg:text-xl lg:font-bold">
