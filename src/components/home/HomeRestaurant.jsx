@@ -53,7 +53,7 @@ const HomeRestaurant = ({
 
       <div className="flex flex-col items-center justify-center gap-1 lg:flex-row">
         <Rating
-          defaultValue={rating}
+          value={rating}
           precision={0.1}
           sx={{ color: "blue", "& .MuiRating-icon": { color: "blue" } }}
           readOnly
