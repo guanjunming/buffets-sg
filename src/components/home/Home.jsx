@@ -4,10 +4,20 @@ import HomeSearch from "./HomeSearch";
 import HomeFilter from "./HomeFilter";
 import HomeSkeleton from "./HomeSkeleton";
 import HomeRestaurant from "./HomeRestaurant";
-import useFetchRestaurants from "../../data/useFetchRestaurants.js";
+import { useQuery } from "@tanstack/react-query";
+import { getRestaurants } from "../../api/api";
 
 const Home = () => {
-  const { restaurants, loading, error } = useFetchRestaurants();
+  const {
+    data: restaurants = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["restaurants"],
+    queryFn: getRestaurants,
+  });
+
   const [search, setSearch] = useState("");
 
   const handleSearch = (e) => setSearch(e.target.value);
@@ -21,12 +31,12 @@ const Home = () => {
           <HomeSearch
             search={search}
             handleSearch={handleSearch}
-            names={restaurants.map((restaurant) => restaurant.restaurant_name)}
+            names={restaurants.map((restaurant) => restaurant.name)}
           />
           <HomeFilter />
         </div>
 
-        {loading && (
+        {isLoading && (
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {Array(4)
               .fill("a")
@@ -36,26 +46,26 @@ const Home = () => {
           </div>
         )}
 
-        {error && <div>{error}</div>}
+        {isError && (
+          <div>Error: {error.message || "Failed to fetch restaurants"}</div>
+        )}
 
-        {!loading && !error && (
+        {!isLoading && !error && (
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {restaurants
               .filter((restaurant) =>
-                restaurant.restaurant_name
-                  .toLowerCase()
-                  .includes(search.toLowerCase()),
+                restaurant.name.toLowerCase().includes(search.toLowerCase()),
               )
               .map((restaurant, idx) => (
                 <HomeRestaurant
                   key={idx}
                   id={restaurant._id}
-                  name={restaurant.restaurant_name}
+                  name={restaurant.name}
                   img={restaurant.img}
                   address={restaurant.address}
-                  time={restaurant.opening_hours}
-                  adultPrice={restaurant.price_range_adult}
-                  childPrice={restaurant.price_range_child}
+                  openingHours={restaurant.openingHours}
+                  adultPrice={restaurant.adultPrice}
+                  childPrice={restaurant.childPrice}
                   description={restaurant.description}
                   cuisine={restaurant.cuisine}
                   website={restaurant.website}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
@@ -52,6 +53,16 @@ apiInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+export const getRestaurants = async () => {
+  const response = await apiInstance.get("/restaurants");
+  return response.data;
+};
+
+export const getRestaurantById = async (id) => {
+  const response = await apiInstance.post("/restaurants", { id });
+  return response.data;
+};
 
 export const signup = async (userData) => {
   try {
