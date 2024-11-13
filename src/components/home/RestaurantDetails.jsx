@@ -40,11 +40,13 @@ const RestaurantDetails = () => {
       <br></br>
       <p>Price:</p>
       <p>
-        Adult: ${restaurant.adultPrice?.min} - ${restaurant.adultPrice?.max}
+        Adult: from ${restaurant.adultPrice?.min}{" "}
+        {restaurant.adultPrice.max && ` - ${restaurant.adultPrice.max}`}++
       </p>
       {restaurant.childPrice && (
         <p>
-          Child: ${restaurant.childPrice.min} - ${restaurant.childPrice.max}
+          Child: from ${restaurant.childPrice.min}{" "}
+          {restaurant.childPrice.max && ` - ${restaurant.childPrice.max}`}++
         </p>
       )}
       <br />
