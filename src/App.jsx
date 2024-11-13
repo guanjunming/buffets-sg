@@ -8,6 +8,7 @@ import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
 import { ModalProvider } from "./context/ModalContext";
 import { AuthProvider } from "./context/AuthContext";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/restaurant/:id" element={<Detail />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
 
             <Footer />

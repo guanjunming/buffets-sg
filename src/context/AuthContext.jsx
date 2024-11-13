@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loginUser,
     logoutUser,
+    isLoggedIn: !!localStorage.getItem("accessToken"),
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

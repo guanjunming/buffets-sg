@@ -1,16 +1,15 @@
-const Input = ({ name, label, styles, ...props }) => {
+const Input = ({ id, type, label, placeholder }) => {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="text-sm font-semibold text-black">
+      <label htmlFor={id} className="text-sm font-semibold">
         {label}
       </label>
       <input
-        id={name}
-        name={name}
-        className={`${
-          styles || ""
-        }w-full rounded border-2 border-gray-200 px-2 py-3 text-sm font-medium text-black shadow-sm focus:outline-none`}
-        {...props}
+        id={id}
+        name={id}
+        type={type}
+        placeholder={placeholder}
+        className="w-full rounded border-2 border-gray-200 px-2 py-3 text-sm font-medium shadow-sm focus:outline-none"
         required
       />
     </div>

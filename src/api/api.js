@@ -2,6 +2,12 @@ import axios from "axios";
 
 const SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
+// instance for authentication
+const axiosInstance = axios.create({
+  baseURL: SERVER_BASE_URL,
+});
+
+// instance with interceptors
 const apiInstance = axios.create({
   baseURL: SERVER_BASE_URL,
 });
@@ -26,11 +32,7 @@ apiInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (
-      error.response.status === 401 &&
-      originalRequest.url !== "/login" &&
-      !originalRequest._retry
-    ) {
+    if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       const refreshToken = localStorage.getItem("refreshToken");
@@ -53,6 +55,29 @@ apiInstance.interceptors.response.use(
   },
 );
 
+export const signup = async (userData) => {
+  try {
+    const response = await axiosInstance.post("/signup", userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const login = async (userData) => {
+  try {
+    const response = await axiosInstance.post("/login", userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const refreshAccessToken = async (token) => {
+  const response = await axiosInstance.post("refresh", token);
+  return response.data;
+};
+
 export const getRestaurants = async () => {
   try {
     const response = await apiInstance.get("/restaurants");
@@ -69,30 +94,6 @@ export const getRestaurantById = async (id) => {
   } catch (error) {
     throw new Error(error.response.data.message);
   }
-};
-
-export const signup = async (userData) => {
-  try {
-    const response = await apiInstance.post("/signup", userData);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message);
-  }
-};
-
-export const login = async (userData) => {
-  try {
-    const response = await apiInstance.post("/login", userData);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message);
-  }
-};
-
-export const refreshAccessToken = async (token) => {
-  // this doesn't use apiInstance so as to not cause loop in response interceptor if fail
-  const response = await axios.post(`${SERVER_BASE_URL}/refresh`, token);
-  return response.data;
 };
 
 export default apiInstance;
