@@ -23,7 +23,7 @@ const HomeRestaurant = ({
           {name}
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-1">
+        <div className="mx-5 flex flex-col items-center justify-center gap-1">
           <Rating
             value={rating}
             precision={0.1}
@@ -34,21 +34,20 @@ const HomeRestaurant = ({
             readOnly
           />
           <div>
-            <span className="font-semibold">{rating} </span>({review} Reviews)
+            <span className="font-semibold">({rating}) </span>
+            {review} Reviews
           </div>
         </div>
 
-        <div className="m-5 line-clamp-2 text-justify text-gray-400">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {cuisine.map((cuisine, index) => (
-              <span
-                key={index}
-                className="rounded-full bg-blue-800 px-3 py-1 text-sm font-semibold text-white"
-              >
-                {cuisine}
-              </span>
-            ))}
-          </div>
+        <div className="m-5 flex flex-wrap items-center justify-center gap-2">
+          {cuisine.map((cuisine, index) => (
+            <span
+              key={index}
+              className="rounded-full bg-blue-800 px-3 py-1 text-sm font-semibold text-white"
+            >
+              {cuisine}
+            </span>
+          ))}
         </div>
       </div>
     </Link>
