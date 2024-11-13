@@ -10,15 +10,15 @@ import {
 
 const FooterSocial = () => {
   return (
-    <div className="flex items-center justify-between gap-2 lg:gap-5">
-      <div className="hidden lg:block">Follow Us</div>
-      <FaFacebook color="white" size={20} />
-      <FaYoutube color="white" size={20} />
-      <FaInstagram color="white" size={20} />
-      <FaTwitter color="white" size={20} />
-      <FaLinkedin color="white" size={20} />
-      <FaTelegram color="white" size={20} />
-      <FaTiktok color="white" size={20} />
+    <div className="flex items-center justify-between gap-2 md:gap-5">
+      <div className="hidden md:block">Follow Us</div>
+      <FaFacebook size={20} />
+      <FaYoutube size={20} />
+      <FaInstagram size={20} />
+      <FaTwitter size={20} />
+      <FaLinkedin size={20} />
+      <FaTelegram size={20} />
+      <FaTiktok size={20} />
     </div>
   );
 };

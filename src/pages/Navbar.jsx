@@ -1,5 +1,5 @@
 import { Slide, useScrollTrigger } from "@mui/material";
-import NavbarContent from "./NavbarContent";
+import NavbarContent from "../components/navbar/NavbarContent";
 
 const Navbar = () => {
   const trigger = useScrollTrigger();
@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <>
       <Slide appear={false} direction="down" in={!trigger}>
-        <div className="fixed w-full">
+        <div className="fixed w-full bg-neutral-100 shadow shadow-black">
           <NavbarContent />
         </div>
       </Slide>

@@ -11,27 +11,30 @@ const HomeRestaurant = ({
 }) => {
   return (
     <Link to={`/restaurant/${id}`}>
-      <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-gray-400 hover:cursor-pointer hover:border-white hover:outline hover:outline-4">
+      <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-500 hover:cursor-pointer hover:border-black hover:outline hover:outline-2">
         <img
           src={img}
           alt={name}
-          className="mb-5 aspect-video w-full border-b border-gray-400 object-cover"
+          className="mb-5 aspect-video w-full border-b border-neutral-500 object-cover"
           title={name}
         />
 
-        <div className="mx-5 flex h-20 items-center justify-center overflow-hidden font-semibold lg:text-xl lg:font-bold">
+        <div className="mx-5 flex h-20 items-center justify-center overflow-hidden text-center text-xl font-bold">
           {name}
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-1 lg:flex-row">
+        <div className="flex flex-col items-center justify-center gap-1">
           <Rating
             value={rating}
             precision={0.1}
-            sx={{ color: "blue", "& .MuiRating-icon": { color: "blue" } }}
+            sx={{
+              color: "rgb(30,64,175)",
+              "& .MuiRating-icon": { color: "rgb(30,64,175)" },
+            }}
             readOnly
           />
           <div>
-            <span className="font-medium">{rating} </span>({review} Reviews)
+            <span className="font-semibold">{rating} </span>({review} Reviews)
           </div>
         </div>
 
@@ -40,7 +43,7 @@ const HomeRestaurant = ({
             {cuisine.map((cuisine, index) => (
               <span
                 key={index}
-                className="rounded-full bg-blue-500 px-3 py-1 text-sm font-semibold text-white"
+                className="rounded-full bg-blue-800 px-3 py-1 text-sm font-semibold text-white"
               >
                 {cuisine}
               </span>

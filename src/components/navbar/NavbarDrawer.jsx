@@ -4,6 +4,7 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { useModal } from "../../context/ModalContext";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import NavbarSearch from "./NavbarSearch";
 
 const NavbarDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -20,10 +21,9 @@ const NavbarDrawer = () => {
   return (
     <div className="flex md:hidden">
       <IoMenu
-        color="white"
         size={50}
         onClick={() => setIsDrawerOpen(true)}
-        className="rounded-lg border border-gray-400 px-2 py-1 hover:cursor-pointer hover:border-white hover:bg-neutral-700"
+        className="rounded-lg border border-neutral-500 px-2 py-1 hover:cursor-pointer hover:border-black hover:bg-neutral-200"
         title="Open"
       />
       <Drawer
@@ -31,26 +31,14 @@ const NavbarDrawer = () => {
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
       >
-        <div className="border-b border-gray-400 bg-neutral-900 text-white">
+        <div className="bg-neutral-100">
           <div className="m-5 flex items-center justify-end">
             <IoClose
-              color="white"
               size={40}
               onClick={() => setIsDrawerOpen(false)}
-              className="rounded-lg border border-gray-400 p-1 hover:cursor-pointer hover:border-white hover:bg-neutral-700"
+              className="rounded-lg border border-neutral-500 p-1 hover:cursor-pointer hover:border-black hover:bg-neutral-200"
               title="Close"
             />
-          </div>
-
-          <div className="m-5 text-left">
-            {["Directory", "Popular", "Review", "About"].map((item, idx) => (
-              <div
-                key={idx}
-                className="rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-700"
-              >
-                {item}
-              </div>
-            ))}
           </div>
 
           <div className="m-5">
@@ -59,7 +47,7 @@ const NavbarDrawer = () => {
                 <Link
                   to="/profile"
                   onClick={() => setIsDrawerOpen(false)}
-                  className="block rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-700"
+                  className="block rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-200"
                 >
                   Profile
                 </Link>
@@ -68,19 +56,23 @@ const NavbarDrawer = () => {
                     logoutUser();
                     setIsDrawerOpen(false);
                   }}
-                  className="rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-700"
+                  className="rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-200"
                 >
                   Sign out
                 </div>
               </div>
             ) : (
               <div
-                className="m-3 rounded bg-blue-900 px-2 py-1 hover:cursor-pointer hover:bg-blue-800"
+                className="m-3 rounded bg-blue-900 px-3 py-2 text-center text-white hover:cursor-pointer hover:bg-blue-800"
                 onClick={openLoginModal}
               >
                 Sign in
               </div>
             )}
+          </div>
+
+          <div className="m-auto my-5 max-w-md p-5">
+            <NavbarSearch />
           </div>
         </div>
       </Drawer>

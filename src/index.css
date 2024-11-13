@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-center font-montserrat text-white;
+  @apply font-inter;
 }
 
 @layer utilities {
