@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import NavbarLogo from "./NavbarLogo";
+import NavbarSearch from "./NavbarSearch";
 import NavbarDrawer from "./NavbarDrawer";
 import { useModal } from "../../context/ModalContext";
 import { useAuth } from "../../context/AuthContext";
@@ -10,22 +11,13 @@ const NavbarContent = () => {
   const { user } = useAuth();
 
   return (
-    <div className="flex items-center justify-between gap-5 bg-neutral-900 p-5 shadow shadow-white">
-      <div className="flex items-center justify-between gap-5">
-        <Link to="/" title="BuffetsSG Home">
-          <NavbarLogo />
-        </Link>
+    <div className="m-auto flex max-w-screen-xl items-center justify-between gap-10 p-5">
+      <Link to="/" title="BuffetsSG Home">
+        <NavbarLogo />
+      </Link>
 
-        <div className="hidden items-center justify-between gap-5 md:flex">
-          {["Directory", "Popular", "Review", "About"].map((item, idx) => (
-            <div
-              key={idx}
-              className="rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-700"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
+      <div className="hidden w-full max-w-md md:block">
+        <NavbarSearch />
       </div>
 
       <div className="hidden md:block">
@@ -33,7 +25,7 @@ const NavbarContent = () => {
           <AccountAvatar />
         ) : (
           <div
-            className="rounded bg-blue-900 px-3 py-2 hover:cursor-pointer hover:bg-blue-800"
+            className="rounded bg-blue-900 px-3 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
             onClick={openLoginModal}
           >
             Sign in

@@ -1,9 +1,8 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getRestaurantById } from "../../api/api";
+import { getRestaurantById } from "../api/api";
 
-const RestaurantDetails = () => {
+const Detail = () => {
   const { id } = useParams();
 
   const {
@@ -71,4 +70,4 @@ const RestaurantDetails = () => {
   );
 };
 
-export default RestaurantDetails;
+export default Detail;
