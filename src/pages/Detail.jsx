@@ -35,7 +35,7 @@ const Detail = () => {
 
   return (
     <div className="m-auto mx-9 max-w-screen-xl text-left">
-      <h2 className="mb-4 text-2xl font-bold">{restaurant.name}</h2>
+      <h2 className="mb-4 text-center text-2xl font-bold">{restaurant.name}</h2>
       <div className="my-2.5 flex items-center justify-center">
         <img
           src={restaurant.img}
@@ -72,15 +72,18 @@ const Detail = () => {
             <div className="flex-1 border-r border-gray-200 px-4">
               <h2 className="text-sm-custom mb-2 font-semibold">DETAILS</h2>
               <div className="my-4 border-t border-gray-300">
-                <strong>
-                  <p className="mt-4">Opening Hours:</p>
-                </strong>
+                <div className="mt-4">
+                  <strong>Opening Hours:</strong>
+                </div>
                 <br />
-                {restaurant.openingHours}
+                {restaurant.openingHours.split("/").map((hour, index) => (
+                  <p key={index}>{hour.trim()}</p> // Trim whitespace before rendering
+                ))}
               </div>
               <div className="mt-4">
                 <strong>Cuisine:</strong>
-                <br></br>
+                <br />
+
                 {restaurant.cuisine.map((cuisine, index) => (
                   <span
                     key={index}

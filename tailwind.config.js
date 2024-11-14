@@ -8,7 +8,8 @@ export default {
       },
       colors: { primary: "#333333" },
       fontSize: {
-        "sm-custom": "0.875rem", // Example custom size
+        "sm-custom": "0.875rem",
+        "sm-custom2": "0.75rem",
         "2xl-custom": "1rem",
       },
     },
