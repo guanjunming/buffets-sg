@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
-import { getRestaurants } from "../../api/api";
+import { getRestaurantsByQuery } from "../../api/api";
 
 const NavbarSearch = ({ isSuggest }) => {
   const [search, setSearch] = useState("");
@@ -15,11 +15,14 @@ const NavbarSearch = ({ isSuggest }) => {
     data: restaurants = [],
     isPending,
     isError,
-  } = useQuery({ queryKey: ["restaurants"], queryFn: getRestaurants });
+  } = useQuery({
+    queryKey: ["restaurants", search],
+    queryFn: () => getRestaurantsByQuery(search),
+  });
 
   const handleSearch = (e) => {
     e.preventDefault();
-    search !== "" && navigate("/restaurants?search=" + search);
+    search !== "" && navigate("/search?search=" + search);
   };
 
   useEffect(() => {
