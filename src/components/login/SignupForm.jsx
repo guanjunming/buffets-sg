@@ -39,13 +39,19 @@ const SignupForm = ({ onSuccessCb, goToLogin }) => {
 
     if (userData.name === "") {
       setIsError(true);
-      setError("Please enter your name.");
+      setError("Name is required.");
       return;
     }
 
-    if (userData.password.length < 6) {
+    if (userData.email === "") {
       setIsError(true);
-      setError("Your password must be at least 6 characters.");
+      setError("Email address is required.");
+      return;
+    }
+
+    if (userData.password.length < 8) {
+      setIsError(true);
+      setError("Password must be at least 8 characters.");
       return;
     }
 
