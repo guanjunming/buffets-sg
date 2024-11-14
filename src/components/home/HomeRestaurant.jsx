@@ -10,7 +10,7 @@ const HomeRestaurant = ({
   review = Math.floor(Math.random() * 200),
 }) => {
   return (
-    <Link to={`/restaurant/${id}`}>
+    <Link to={"/restaurant/" + id}>
       <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-500 hover:cursor-pointer hover:border-black hover:outline hover:outline-2">
         <img
           src={img}
