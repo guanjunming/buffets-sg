@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Drawer, useMediaQuery } from "@mui/material";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { useModal } from "../../context/ModalContext";
-import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
 import NavbarSearch from "./NavbarSearch";
 
@@ -10,7 +10,7 @@ const NavbarDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { openLoginModal } = useModal();
   const isAboveMd = useMediaQuery("(min-width:768px)");
-  const { user, logoutUser } = useAuth();
+  const { isLoggedIn, logoutUser } = useAuth();
 
   useEffect(() => {
     if (isAboveMd && isDrawerOpen) {
@@ -42,7 +42,7 @@ const NavbarDrawer = () => {
           </div>
 
           <div className="m-5">
-            {user ? (
+            {isLoggedIn ? (
               <div className="text-left">
                 <Link
                   to="/profile"

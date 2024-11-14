@@ -2,7 +2,7 @@ import { useClickOutside } from "@mantine/hooks";
 import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthProvider";
 
 const AccountAvatar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
