@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-inter;
+  @apply text-primary font-inter;
 }
 
 @layer utilities {
