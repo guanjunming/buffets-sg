@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import NavbarLogo from "./NavbarLogo";
 import NavbarSearch from "./NavbarSearch";
+import AccountAvatar from "./AccountAvatar";
 import NavbarDrawer from "./NavbarDrawer";
 import { useModal } from "../../context/ModalProvider";
 import { useAuth } from "../../context/AuthProvider";
-import AccountAvatar from "./AccountAvatar";
 
 const NavbarContent = () => {
   const { openLoginModal } = useModal();
@@ -17,7 +17,7 @@ const NavbarContent = () => {
       </Link>
 
       <div className="hidden w-full max-w-md md:block">
-        <NavbarSearch />
+        <NavbarSearch isSuggest={true} />
       </div>
 
       <div className="hidden md:block">

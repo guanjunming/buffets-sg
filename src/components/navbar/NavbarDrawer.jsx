@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Drawer, useMediaQuery } from "@mui/material";
 import { IoMenu, IoClose } from "react-icons/io5";
+import NavbarSearch from "./NavbarSearch";
 import { useModal } from "../../context/ModalProvider";
 import { useAuth } from "../../context/AuthProvider";
-import { Link } from "react-router-dom";
-import NavbarSearch from "./NavbarSearch";
 
 const NavbarDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { openLoginModal } = useModal();
   const isAboveMd = useMediaQuery("(min-width:768px)");
+  const location = useLocation();
+  const { openLoginModal } = useModal();
   const { isLoggedIn, logoutUser } = useAuth();
 
   useEffect(() => {
@@ -17,6 +18,10 @@ const NavbarDrawer = () => {
       setIsDrawerOpen(false);
     }
   }, [isAboveMd, isDrawerOpen]);
+
+  useEffect(() => {
+    setIsDrawerOpen(false);
+  }, [location]);
 
   return (
     <div className="flex md:hidden">
@@ -72,7 +77,7 @@ const NavbarDrawer = () => {
           </div>
 
           <div className="m-auto my-5 max-w-md p-5">
-            <NavbarSearch />
+            <NavbarSearch isSuggest={false} />
           </div>
         </div>
       </Drawer>

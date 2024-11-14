@@ -8,13 +8,10 @@ import { getRestaurants } from "../api/api";
 const Home = () => {
   const {
     data: restaurants = [],
-    isLoading,
+    isPending,
     isError,
     error,
-  } = useQuery({
-    queryKey: ["restaurants"],
-    queryFn: getRestaurants,
-  });
+  } = useQuery({ queryKey: ["restaurants"], queryFn: getRestaurants });
 
   return (
     <>
@@ -23,7 +20,7 @@ const Home = () => {
 
         <HomeFilter />
 
-        {isLoading && (
+        {isPending && (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
             {Array(9)
               .fill("a")
@@ -34,24 +31,18 @@ const Home = () => {
         )}
 
         {isError && (
-          <div>Error: {error.message || "Failed to fetch restaurants"}</div>
+          <div>Error: {error?.message || "Failed to fetch restaurants"}</div>
         )}
 
-        {!isLoading && !error && (
+        {!isPending && !isError && (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
-            {restaurants.map((restaurant, idx) => (
+            {restaurants.map((restaurant) => (
               <HomeRestaurant
-                key={idx}
+                key={restaurant._id}
                 id={restaurant._id}
                 name={restaurant.name}
                 img={restaurant.img}
-                address={restaurant.address}
-                openingHours={restaurant.openingHours}
-                adultPrice={restaurant.adultPrice}
-                childPrice={restaurant.childPrice}
-                description={restaurant.description}
                 cuisine={restaurant.cuisine}
-                website={restaurant.website}
                 rating={restaurant.rating} //to add
                 review={restaurant.review} //to add
               />

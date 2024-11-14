@@ -60,6 +60,23 @@ export const getRestaurants = async () => {
   }
 };
 
+export const getRestaurantsByQuery = async (
+  search,
+  minPrice = "",
+  maxPrice = "",
+  sortBy = "name",
+  sortOrder = "asc",
+) => {
+  try {
+    const response = await apiInstance.get(
+      `/restaurants/search?search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
 export const getRestaurantById = async (id) => {
   try {
     const response = await apiInstance.get(`/restaurants/${id}`);
