@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import NavbarLogo from "./NavbarLogo";
 import NavbarSearch from "./NavbarSearch";
 import NavbarDrawer from "./NavbarDrawer";
-import { useModal } from "../../context/ModalContext";
-import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalProvider";
+import { useAuth } from "../../context/AuthProvider";
 import AccountAvatar from "./AccountAvatar";
 
 const NavbarContent = () => {

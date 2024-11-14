@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Drawer, useMediaQuery } from "@mui/material";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { useModal } from "../../context/ModalContext";
-import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
 import NavbarSearch from "./NavbarSearch";
 

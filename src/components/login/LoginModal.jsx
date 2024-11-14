@@ -1,6 +1,6 @@
 import { Dialog, useMediaQuery } from "@mui/material";
 import { IoClose } from "react-icons/io5";
-import { useModal } from "../../context/ModalContext";
+import { useModal } from "../../context/ModalProvider";
 import LoginForm from "./LoginForm";
 
 const LoginModal = () => {

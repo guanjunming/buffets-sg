@@ -3,7 +3,7 @@ import { SiIfood } from "react-icons/si";
 import Input from "./Input";
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "../../api/api";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthProvider";
 
 const SignupForm = ({ onSuccessCb, goToLogin }) => {
   const [isError, setIsError] = useState(false);
