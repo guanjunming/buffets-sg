@@ -33,6 +33,7 @@ const NavbarSearch = ({ isSuggest }) => {
   return (
     <form
       className="relative flex w-full items-center rounded border-2 border-black bg-white"
+      autoComplete="off"
       onSubmit={handleSearch}
     >
       <label
@@ -56,7 +57,7 @@ const NavbarSearch = ({ isSuggest }) => {
         ref={inputRef}
       />
 
-      {isSuggest && isFocus && !isPending && !isError && (
+      {search.length > 0 && isSuggest && isFocus && !isPending && !isError && (
         <div
           className="absolute top-full mt-1 w-full rounded border-2 border-black bg-white p-2 shadow-2xl shadow-neutral-500"
           onMouseDown={(e) => e.preventDefault()}
