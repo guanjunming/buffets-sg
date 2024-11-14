@@ -3,8 +3,8 @@ import NavbarLogo from "./NavbarLogo";
 import NavbarSearch from "./NavbarSearch";
 import AccountAvatar from "./AccountAvatar";
 import NavbarDrawer from "./NavbarDrawer";
-import { useModal } from "../../context/ModalContext";
-import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalProvider";
+import { useAuth } from "../../context/AuthProvider";
 
 const NavbarContent = () => {
   const { openLoginModal } = useModal();

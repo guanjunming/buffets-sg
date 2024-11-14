@@ -3,12 +3,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "./pages/Navbar";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
+import Login from "./pages/Login";
 import Footer from "./pages/Footer";
 import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
 import { ModalProvider } from "./context/ModalProvider";
 import { AuthProvider } from "./context/AuthProvider";
-import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 

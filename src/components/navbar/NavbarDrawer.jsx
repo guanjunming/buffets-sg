@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Drawer, useMediaQuery } from "@mui/material";
 import { IoMenu, IoClose } from "react-icons/io5";
 import NavbarSearch from "./NavbarSearch";
-import { useModal } from "../../context/ModalContext";
-import { useAuth } from "../../context/AuthContext";
+import { useModal } from "../../context/ModalProvider";
+import { useAuth } from "../../context/AuthProvider";
 
 const NavbarDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
