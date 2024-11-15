@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getRestaurantById } from "../api/api";
 import { Rating } from "@mui/material";
@@ -123,12 +123,12 @@ const Detail = () => {
               <h2 className="mb-2 text-sm font-semibold">RATINGS & REVIEWS</h2>
               <div className="my-4 border-t border-gray-300">
                 <strong>
-                  <p className="text-text-base mt-4">4.5/5</p>
+                  <p className="text-text-base mt-4">{`${restaurant.averageRating}/5`}</p>
                 </strong>
               </div>
               <div className="flex flex-col items-center justify-center gap-1">
                 <Rating
-                  value={rating}
+                  value={restaurant.averageRating}
                   precision={0.1}
                   sx={{
                     color: "rgb(30,64,175)",
@@ -143,7 +143,7 @@ const Detail = () => {
                   onClick={goToReviews} // Scroll to the reviews section on click
                   className="text-blue-500 underline hover:text-blue-700"
                 >
-                  120 reviews
+                  {restaurant.reviewCount} reviews
                 </button>
               </p>
               <div className="relative h-40">
@@ -165,9 +165,16 @@ const Detail = () => {
             <div className="md:flex-column flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
               <div
                 ref={reviewsRef}
-                className="flex-1 border-b border-gray-200 pb-4 pr-4"
+                className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4"
               >
                 <h2 className="mb-2 text-sm font-semibold">REVIEWS</h2>
+
+                <Link
+                  to={`/review/${id}`}
+                  className="rounded-full bg-blue-900 px-4 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
+                >
+                  Write a review
+                </Link>
               </div>
 
               <div className="flex-1 border-b border-gray-200 pb-4 pr-4">

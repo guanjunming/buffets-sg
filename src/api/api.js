@@ -86,4 +86,19 @@ export const getRestaurantById = async (id) => {
   }
 };
 
+export const getReviewByRestaurantId = async (id) => {
+  const response = await apiInstance.get(`/reviews/${id}`);
+  return response.data;
+};
+
+export const createUserReview = async (id, reviewData) => {
+  const response = await apiInstance.post(`/reviews/${id}`, reviewData);
+  return response.data;
+};
+
+export const updateUserReview = async (id, reviewData) => {
+  const response = await apiInstance.patch(`/reviews/${id}`, reviewData);
+  return response.data;
+};
+
 export default apiInstance;
