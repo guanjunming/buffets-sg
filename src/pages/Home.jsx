@@ -14,43 +14,41 @@ const Home = () => {
   } = useQuery({ queryKey: ["restaurants"], queryFn: getRestaurants });
 
   return (
-    <>
-      <div className="flex flex-col gap-5 p-5 sm:p-10">
-        <HomeTitle />
+    <div className="flex flex-col gap-5 p-5 sm:p-10">
+      <HomeTitle />
 
-        <HomeFilter />
+      <HomeFilter />
 
-        {isPending && (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
-            {Array(9)
-              .fill("a")
-              .map((item, idx) => (
-                <HomeSkeleton key={idx} />
-              ))}
-          </div>
-        )}
-
-        {isError && (
-          <div>Error: {error?.message || "Failed to fetch restaurants"}</div>
-        )}
-
-        {!isPending && !isError && (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
-            {restaurants.map((restaurant) => (
-              <HomeRestaurant
-                key={restaurant._id}
-                id={restaurant._id}
-                name={restaurant.name}
-                img={restaurant.img}
-                cuisine={restaurant.cuisine}
-                rating={restaurant.rating} //to add
-                review={restaurant.review} //to add
-              />
+      {isPending && (
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
+          {Array(9)
+            .fill("a")
+            .map((item, idx) => (
+              <HomeSkeleton key={idx} />
             ))}
-          </div>
-        )}
-      </div>
-    </>
+        </div>
+      )}
+
+      {isError && (
+        <div>Error: {error?.message || "Failed to fetch restaurants"}</div>
+      )}
+
+      {!isPending && !isError && (
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
+          {restaurants.map((restaurant) => (
+            <HomeRestaurant
+              key={restaurant._id}
+              id={restaurant._id}
+              name={restaurant.name}
+              img={restaurant.img}
+              cuisine={restaurant.cuisine}
+              rating={restaurant.rating} //to add
+              review={restaurant.review} //to add
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

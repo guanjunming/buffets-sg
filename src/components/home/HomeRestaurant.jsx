@@ -28,6 +28,7 @@ const HomeRestaurant = ({
             value={rating}
             precision={0.1}
             sx={{
+              zIndex: -1,
               color: "rgb(30,64,175)",
               "& .MuiRating-icon": { color: "rgb(30,64,175)" },
             }}
