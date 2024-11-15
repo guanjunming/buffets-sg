@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <>
       <Slide appear={false} direction="down" in={!trigger}>
-        <div className="fixed w-full bg-neutral-100 shadow shadow-black">
+        <div className="fixed z-10 w-full bg-neutral-100 shadow shadow-black">
           <NavbarContent />
         </div>
       </Slide>
