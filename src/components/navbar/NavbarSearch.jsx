@@ -18,6 +18,7 @@ const NavbarSearch = ({ isSuggest }) => {
   } = useQuery({
     queryKey: ["restaurants", search],
     queryFn: () => getRestaurantsByQuery(search),
+    enabled: !!search,
   });
 
   const handleSearch = (e) => {

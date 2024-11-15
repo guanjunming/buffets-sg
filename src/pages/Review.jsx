@@ -107,16 +107,19 @@ const Review = () => {
   }
 
   return (
-    <div className="px-5 py-4">
-      <div className="mx-auto flex max-w-[600px] flex-col gap-6">
-        <div className="rounded border border-gray-200">
-          <div className="flex gap-3 p-4">
+    <div className="mx-auto mb-20 max-w-screen-lg px-5 py-5 lg:py-10">
+      <div className="mx-auto flex max-w-[600px] flex-col gap-6 lg:max-w-none lg:flex-row lg:gap-14">
+        <div className="border-gray-200 lg:w-[350px] lg:border-r">
+          <h1 className="mb-8 hidden w-80 text-4xl font-extrabold leading-tight lg:block">
+            How was your visit?
+          </h1>
+          <div className="flex gap-4 rounded border border-gray-200 p-4 lg:w-64 lg:flex-col">
             <Link to={`/restaurant/${id}`}>
               {restaurant ? (
                 <img
                   src={restaurant.img}
                   alt={restaurant.name}
-                  className="aspect-square h-20 w-20 min-w-20 object-cover"
+                  className="aspect-square h-20 w-20 min-w-20 object-cover lg:h-full lg:w-full"
                 />
               ) : (
                 <Skeleton variant="rectangular" width={80} height={80} />
@@ -133,7 +136,7 @@ const Review = () => {
             )}
           </div>
         </div>
-        <div>
+        <div className="flex-1">
           <form onSubmit={handleSubmit} className="flex flex-col gap-8">
             <div>
               <div className="text-xl font-bold">
