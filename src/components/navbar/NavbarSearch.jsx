@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
-import { getRestaurantsByQuery } from "../../api/api";
+import { getRestaurantsMaxPrice, getRestaurantsByQuery } from "../../api/api";
 
 const NavbarSearch = ({ isSuggest }) => {
   const [search, setSearch] = useState("");
@@ -11,18 +11,31 @@ const NavbarSearch = ({ isSuggest }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const query = useQuery({
+    queryKey: ["restaurantsMaxPrice"],
+    queryFn: getRestaurantsMaxPrice,
+    initialData: [{ maxPrice: 5 }],
+  });
+
   const {
     data: restaurants = [],
     isPending,
     isError,
   } = useQuery({
     queryKey: ["restaurants", search],
-    queryFn: () => getRestaurantsByQuery(search),
+    queryFn: () => getRestaurantsByQuery(search, "0", "", "name", "asc"),
   });
 
   const handleSearch = (e) => {
     e.preventDefault();
-    search !== "" && navigate("/search?search=" + search);
+    search !== "" &&
+      navigate(
+        "/search?search=" +
+          search +
+          "&minPrice=0&maxPrice=" +
+          query.data[0].maxPrice +
+          "&sortBy=name&sortOrder=asc",
+      );
   };
 
   useEffect(() => {
