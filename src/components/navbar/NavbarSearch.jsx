@@ -3,9 +3,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
 import { getRestaurantsMaxPrice, getRestaurantsByQuery } from "../../api/api";
+import { useDebouncedValue } from "@mantine/hooks";
 
 const NavbarSearch = ({ isSuggest }) => {
   const [search, setSearch] = useState("");
+  const [debouncedSearch] = useDebouncedValue(search, 500);
   const [isFocus, setIsFocus] = useState(false);
   const inputRef = useRef();
   const navigate = useNavigate();
@@ -22,13 +24,15 @@ const NavbarSearch = ({ isSuggest }) => {
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["restaurants", search],
-    queryFn: () => getRestaurantsByQuery(search, "0", "", "name", "asc"),
+    queryKey: ["restaurants", debouncedSearch],
+    queryFn: () =>
+      getRestaurantsByQuery(debouncedSearch, "0", "", "name", "asc"),
+    enabled: !!debouncedSearch,
   });
 
   const handleSearch = (e) => {
     e.preventDefault();
-    search !== "" &&
+    if (search !== "") {
       navigate(
         "/search?search=" +
           search +
@@ -36,6 +40,7 @@ const NavbarSearch = ({ isSuggest }) => {
           query.data[0].maxPrice +
           "&sortBy=name&sortOrder=asc",
       );
+    }
   };
 
   useEffect(() => {
@@ -85,7 +90,7 @@ const NavbarSearch = ({ isSuggest }) => {
                 >
                   <img
                     className="aspect-video h-10 rounded object-cover"
-                    src={restaurant.img}
+                    src={restaurant.img[0]}
                     alt={restaurant.name}
                     title={restaurant.name}
                   />
