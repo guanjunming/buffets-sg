@@ -11,10 +11,14 @@ const SearchSort = ({ sort, handleSortChange }) => {
         value={sort}
         onChange={handleSortChange}
       >
-        <option value="name,asc">Name (A to Z)</option>
-        <option value="name,desc">Name (Z to A)</option>
-        <option value="price,asc">Price (lowest first)</option>
-        <option value="price,desc">Price (highest first)</option>
+        <optgroup label="Name">
+          <option value="name,asc">Name (A to Z)</option>
+          <option value="name,desc">Name (Z to A)</option>
+        </optgroup>
+        <optgroup label="Price">
+          <option value="price,asc">Price (lowest first)</option>
+          <option value="price,desc">Price (highest first)</option>
+        </optgroup>
       </select>
     </div>
   );

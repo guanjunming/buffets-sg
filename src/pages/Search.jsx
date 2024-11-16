@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getRestaurantsMaxPrice, getRestaurantsByQuery } from "../api/api";
+import { LuFolderSearch } from "react-icons/lu";
+import {
+  getRestaurantsMaxPrice,
+  getRestaurantsCuisines,
+  getRestaurantsByQuery,
+} from "../api/api";
 import SearchFilter from "../components/search/SearchFilter";
 import SearchSort from "../components/search/SearchSort";
+import SearchCuisine from "../components/search/SearchCuisine";
 import HomeSkeleton from "../components/home/HomeSkeleton";
 import HomeRestaurant from "../components/home/HomeRestaurant";
 
 const Search = () => {
   const [searchParams] = useSearchParams();
   const initialSearch = searchParams?.get("search") || "";
+  const initialCuisine =
+    searchParams?.get("cuisine") || "0c1c2c3c4c5c6c7c8c9c10c11c12c13c14c15";
   const initialMinPrice = searchParams?.get("minPrice") || "0";
   const initialMaxPrice = searchParams?.get("maxPrice") || "";
   const initialSortBy = searchParams?.get("sortBy") || "name";
@@ -20,6 +28,9 @@ const Search = () => {
     parseInt(initialMaxPrice) || parseInt(initialMinPrice) + 5 || 5,
   ]);
   const [sort, setSort] = useState(initialSortBy + "," + initialSortOrder);
+  const [selectedCuisine, setSelectedCuisine] = useState(
+    initialCuisine.split("c").map((item) => parseInt(item)),
+  );
 
   const navigate = useNavigate();
 
@@ -27,6 +38,11 @@ const Search = () => {
     queryKey: ["restaurantsMaxPrice"],
     queryFn: getRestaurantsMaxPrice,
     initialData: [{ maxPrice: 5 }],
+  });
+
+  const { data: cuisines = [] } = useQuery({
+    queryKey: ["restaurantsCuisines"],
+    queryFn: getRestaurantsCuisines,
   });
 
   const {
@@ -38,6 +54,7 @@ const Search = () => {
     queryKey: [
       "restaurants",
       initialSearch,
+      initialCuisine,
       initialMinPrice,
       initialMaxPrice,
       initialSortBy,
@@ -46,6 +63,7 @@ const Search = () => {
     queryFn: () =>
       getRestaurantsByQuery(
         initialSearch,
+        initialCuisine,
         initialMinPrice,
         initialMaxPrice,
         initialSortBy,
@@ -69,18 +87,29 @@ const Search = () => {
 
   const handleSortChange = (e) => setSort(e.target.value);
 
+  const handleCuisineChange = (idx) => {
+    setSelectedCuisine((prevSelectedCuisine) =>
+      prevSelectedCuisine.includes(idx)
+        ? prevSelectedCuisine.filter((item) => item !== idx)
+        : [...prevSelectedCuisine, idx].sort((a, b) => a - b),
+    );
+  };
+
   const handleFilterReset = () => {
     setPrice([
       parseInt(initialMinPrice) || 0,
       parseInt(initialMaxPrice) || parseInt(initialMinPrice) + 5 || 5,
     ]);
     setSort(initialSortBy + "," + initialSortOrder);
+    setSelectedCuisine(initialCuisine.split("c").map((item) => parseInt(item)));
   };
 
   const handleFilterSubmit = () => {
     navigate(
       "/search?search=" +
         initialSearch +
+        "&cuisine=" +
+        selectedCuisine.join("c") +
         "&minPrice=" +
         price[0] +
         "&maxPrice=" +
@@ -105,6 +134,12 @@ const Search = () => {
           />
           <SearchSort sort={sort} handleSortChange={handleSortChange} />
         </div>
+
+        <SearchCuisine
+          cuisines={cuisines}
+          selectedCuisine={selectedCuisine}
+          handleCuisineChange={handleCuisineChange}
+        />
 
         <div className="flex items-center justify-center gap-5">
           <div
@@ -149,6 +184,12 @@ const Search = () => {
               review={restaurant.reviewCount}
             />
           ))}
+        </div>
+      )}
+      {!isPending && !isError && restaurants.length === 0 && (
+        <div className="m-5 flex flex-col items-center justify-center gap-5">
+          <LuFolderSearch size={80} />
+          <div className="text-2xl">No matches found</div>
         </div>
       )}
     </div>

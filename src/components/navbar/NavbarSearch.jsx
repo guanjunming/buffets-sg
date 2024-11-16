@@ -2,13 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
-import { getRestaurantsMaxPrice, getRestaurantsByQuery } from "../../api/api";
+import {
+  getRestaurantsMaxPrice,
+  getRestaurantsCuisines,
+  getRestaurantsByQuery,
+} from "../../api/api";
 import { useDebouncedValue } from "@mantine/hooks";
 
 const NavbarSearch = ({ isSuggest }) => {
   const [search, setSearch] = useState("");
-  const [debouncedSearch] = useDebouncedValue(search, 500);
   const [isFocus, setIsFocus] = useState(false);
+  const [debouncedSearch] = useDebouncedValue(search, 500);
   const inputRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,6 +23,11 @@ const NavbarSearch = ({ isSuggest }) => {
     initialData: [{ maxPrice: 5 }],
   });
 
+  const { data: cuisines = [] } = useQuery({
+    queryKey: ["restaurantsCuisines"],
+    queryFn: getRestaurantsCuisines,
+  });
+
   const {
     data: restaurants = [],
     isPending,
@@ -26,7 +35,7 @@ const NavbarSearch = ({ isSuggest }) => {
   } = useQuery({
     queryKey: ["restaurants", debouncedSearch],
     queryFn: () =>
-      getRestaurantsByQuery(debouncedSearch, "0", "", "name", "asc"),
+      getRestaurantsByQuery(debouncedSearch, "", "0", "", "name", "asc"),
     enabled: !!debouncedSearch,
   });
 
@@ -36,6 +45,8 @@ const NavbarSearch = ({ isSuggest }) => {
       navigate(
         "/search?search=" +
           search +
+          "&cuisine=" +
+          cuisines.map((_, idx) => idx).join("c") +
           "&minPrice=0&maxPrice=" +
           query.data[0].maxPrice +
           "&sortBy=name&sortOrder=asc",
