@@ -182,6 +182,8 @@ const Search = () => {
               cuisine={restaurant.cuisine}
               rating={restaurant.averageRating}
               review={restaurant.reviewCount}
+              max={query.data[0].maxPrice}
+              cuisines={cuisines}
             />
           ))}
         </div>

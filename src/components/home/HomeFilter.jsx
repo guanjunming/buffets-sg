@@ -1,20 +1,43 @@
-const HomeFilter = () => {
+const HomeFilter = ({
+  isAll,
+  sortByAlphabet,
+  isRating,
+  sortByHighestRatings,
+  isReview,
+  sortByMostReviewed,
+}) => {
   return (
-    <div className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center md:justify-start">
-      {[
-        "All categories",
-        "Nearby",
-        "Recently viewed",
-        "Most reviewed",
-        "Highest ratings",
-      ].map((item, idx) => (
-        <div
-          key={idx}
-          className="rounded-full border border-neutral-500 px-3 py-1 hover:cursor-pointer hover:border-black hover:bg-neutral-200"
-        >
-          {item}
-        </div>
-      ))}
+    <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center sm:justify-start">
+      <div
+        className={
+          isAll
+            ? "rounded-full border border-black bg-black px-3 py-1 text-white hover:cursor-pointer hover:bg-neutral-800"
+            : "rounded-full border border-black px-3 py-1 text-black hover:cursor-pointer hover:bg-neutral-200"
+        }
+        onClick={sortByAlphabet}
+      >
+        All categories
+      </div>
+      <div
+        className={
+          isRating
+            ? "rounded-full border border-black bg-black px-3 py-1 text-white hover:cursor-pointer hover:bg-neutral-800"
+            : "rounded-full border border-black px-3 py-1 text-black hover:cursor-pointer hover:bg-neutral-200"
+        }
+        onClick={sortByHighestRatings}
+      >
+        Highest ratings
+      </div>
+      <div
+        className={
+          isReview
+            ? "rounded-full border border-black bg-black px-3 py-1 text-white hover:cursor-pointer hover:bg-neutral-800"
+            : "rounded-full border border-black px-3 py-1 text-black hover:cursor-pointer hover:bg-neutral-200"
+        }
+        onClick={sortByMostReviewed}
+      >
+        Most reviewed
+      </div>
     </div>
   );
 };
