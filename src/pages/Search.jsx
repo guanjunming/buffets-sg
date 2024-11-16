@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { LuFolderSearch } from "react-icons/lu";
 import { getRestaurantsMaxPrice, getRestaurantsByQuery } from "../api/api";
 import SearchFilter from "../components/search/SearchFilter";
 import SearchSort from "../components/search/SearchSort";
@@ -149,6 +150,12 @@ const Search = () => {
               review={restaurant.review} //to add
             />
           ))}
+        </div>
+      )}
+      {!isPending && !isError && restaurants.length === 0 && (
+        <div className="m-5 flex flex-col items-center justify-center gap-5">
+          <LuFolderSearch size={80} />
+          <div className="text-2xl">No matches found</div>
         </div>
       )}
     </div>

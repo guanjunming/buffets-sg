@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import NotFound from "./pages/NotFound";
 import Footer from "./pages/Footer";
 import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
@@ -26,6 +27,7 @@ function App() {
               <Route path="/restaurant/:id" element={<Detail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
 
             <Footer />
