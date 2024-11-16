@@ -13,7 +13,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import ReviewCard from "../components/detail/ReviewCard";
+import ReviewsSection from "../components/detail/ReviewsSection";
 
 const Detail = () => {
   const { id } = useParams();
@@ -210,27 +210,21 @@ const Detail = () => {
           </div>
         </div>
 
-        <div className="mx-auto max-w-4xl p-6">
+        <div ref={reviewsRef} className="relative mx-auto max-w-4xl p-6">
+          {/* <div  className="absolute -top-14"></div> */}
           <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-            <div
-              ref={reviewsRef}
-              className="flex items-center justify-between border-b border-gray-200 pb-4"
-            >
+            <div className="flex items-center justify-between border-b border-gray-200 pb-4">
               <h2 className="mb-2 text-sm font-semibold">REVIEWS</h2>
 
               <Link
                 to={`/review/${id}`}
-                className="rounded-md bg-blue-900 px-4 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
+                className="rounded-md bg-blue-900 px-4 py-3 text-white hover:cursor-pointer hover:bg-blue-800"
               >
                 Write a review
               </Link>
             </div>
 
-            <div>
-              {restaurant.reviews.map((review) => (
-                <ReviewCard key={review._id} review={review} />
-              ))}
-            </div>
+            <ReviewsSection id={id} reviews={restaurant.reviews} />
           </div>
         </div>
       </div>
