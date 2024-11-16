@@ -11,6 +11,7 @@ import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
 import { ModalProvider } from "./context/ModalProvider";
 import { AuthProvider } from "./context/AuthProvider";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ function App() {
         <ModalProvider>
           <Navbar />
 
+          <ScrollToTop />
           <div className="m-auto max-w-screen-xl">
             <Routes>
               <Route path="/" element={<Home />} />
