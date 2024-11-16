@@ -6,7 +6,7 @@ const HomeRestaurant = ({ id, name, img, cuisine, rating, review }) => {
     <Link to={"/restaurant/" + id}>
       <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-500 hover:cursor-pointer hover:border-black hover:outline hover:outline-2">
         <img
-          src={img}
+          src={img[0]}
           alt={name}
           className="mb-5 aspect-video w-full border-b border-neutral-500 object-cover"
           title={name}
@@ -21,6 +21,7 @@ const HomeRestaurant = ({ id, name, img, cuisine, rating, review }) => {
             value={rating}
             precision={0.1}
             sx={{
+              zIndex: -1,
               color: "rgb(30,64,175)",
               "& .MuiRating-icon": { color: "rgb(30,64,175)" },
             }}

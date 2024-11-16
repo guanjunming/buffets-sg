@@ -60,9 +60,18 @@ export const getRestaurants = async () => {
   }
 };
 
+export const getRestaurantsMaxPrice = async () => {
+  try {
+    const response = await apiInstance.get("/restaurants/maxprice");
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
 export const getRestaurantsByQuery = async (
-  search,
-  minPrice = "",
+  search = "",
+  minPrice = "0",
   maxPrice = "",
   sortBy = "name",
   sortOrder = "asc",

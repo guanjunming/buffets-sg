@@ -8,6 +8,12 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { useRef } from "react";
 import { GoHeart, GoHeartFill } from "react-icons/go";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 const Detail = () => {
   const { id } = useParams();
@@ -16,6 +22,7 @@ const Detail = () => {
   const maxLength = 300;
   const reviewsRef = useRef(null);
   const [hover, setHover] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const goToReviews = () => {
     reviewsRef.current.scrollIntoView({ behavior: "smooth" });
@@ -50,12 +57,56 @@ const Detail = () => {
                 {hover ? <GoHeartFill /> : <GoHeart />}
               </div>
             </div>
-            <div className="my-2.5 flex items-center justify-center">
-              <img
-                src={restaurant.img}
-                alt={restaurant.name}
-                className="aspect-video h-auto w-full border-b border-gray-400 object-cover"
-              />
+            <div>
+              {restaurant?.img?.length > 0 ? (
+                <>
+                  <Swiper
+                    style={{
+                      "--swiper-navigation-color": "#fff",
+                      "--swiper-pagination-color": "#fff",
+                    }}
+                    spaceBetween={10}
+                    navigation={true}
+                    thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+                    modules={[FreeMode, Navigation, Thumbs]}
+                    className="mySwiper2"
+                  >
+                    {restaurant.img.map((img, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="thumbnailbg">
+                          <img
+                            src={img}
+                            alt={`${restaurant.name} ${index + 1}`}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  <Swiper
+                    onSwiper={setThumbsSwiper}
+                    loop={true}
+                    spaceBetween={10}
+                    slidesPerView={4}
+                    freeMode={true}
+                    watchSlidesProgress={true}
+                    modules={[FreeMode, Navigation, Thumbs]}
+                    className="mySwiper"
+                  >
+                    {restaurant.img.map((img, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="thumbnail">
+                          <img
+                            src={img}
+                            alt={`${restaurant.name} ${index + 1}`}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </>
+              ) : (
+                <p>No images available</p>
+              )}
             </div>
           </div>
         </div>
