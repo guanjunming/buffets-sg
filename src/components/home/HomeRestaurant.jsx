@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
 
-const HomeRestaurant = ({
-  id,
-  name,
-  img,
-  cuisine,
-  rating = Math.floor(Math.random() * 50) / 10,
-  review = Math.floor(Math.random() * 200),
-}) => {
+const HomeRestaurant = ({ id, name, img, cuisine, rating, review }) => {
   return (
     <Link to={"/restaurant/" + id}>
       <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-neutral-500 hover:cursor-pointer hover:border-black hover:outline hover:outline-2">

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import Review from "./pages/Review";
 import Footer from "./pages/Footer";
 import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
@@ -24,6 +25,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/restaurant/:id" element={<Detail />} />
+              <Route path="/review/:id" element={<Review />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
             </Routes>

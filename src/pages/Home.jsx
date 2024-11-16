@@ -42,8 +42,8 @@ const Home = () => {
               name={restaurant.name}
               img={restaurant.img}
               cuisine={restaurant.cuisine}
-              rating={restaurant.rating} //to add
-              review={restaurant.review} //to add
+              rating={restaurant.averageRating}
+              review={restaurant.reviewCount}
             />
           ))}
         </div>
