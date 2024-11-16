@@ -5,7 +5,6 @@ import { Rating } from "@mui/material";
 import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import { CgProfile } from "react-icons/cg";
 import { useRef } from "react";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,10 +13,10 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import ReviewCard from "../components/detail/ReviewCard";
 
 const Detail = () => {
   const { id } = useParams();
-  const rating = Math.floor(Math.random() * 50) / 10;
   const [isReadMore, setIsReadMore] = useState(false);
   const maxLength = 300;
   const reviewsRef = useRef(null);
@@ -30,7 +29,7 @@ const Detail = () => {
 
   const {
     data: restaurant,
-    isLoading,
+    isPending,
     isError,
     error,
   } = useQuery({
@@ -38,7 +37,7 @@ const Detail = () => {
     queryFn: () => getRestaurantById(id),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isPending) return <div>Loading...</div>;
   if (isError) return <div>Error {error.message}</div>;
   const shortenInfo = restaurant.description.slice(0, maxLength);
 
@@ -211,69 +210,26 @@ const Detail = () => {
           </div>
         </div>
 
-        <div className="text-sm">
-          <div className="mx-auto max-w-4xl p-6">
-            <div className="md:flex-column flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-              <div
-                ref={reviewsRef}
-                className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4"
+        <div className="mx-auto max-w-4xl p-6">
+          <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <div
+              ref={reviewsRef}
+              className="flex items-center justify-between border-b border-gray-200 pb-4"
+            >
+              <h2 className="mb-2 text-sm font-semibold">REVIEWS</h2>
+
+              <Link
+                to={`/review/${id}`}
+                className="rounded-md bg-blue-900 px-4 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
               >
-                <h2 className="mb-2 text-sm font-semibold">REVIEWS</h2>
+                Write a review
+              </Link>
+            </div>
 
-                <Link
-                  to={`/review/${id}`}
-                  className="rounded-full bg-blue-900 px-4 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
-                >
-                  Write a review
-                </Link>
-              </div>
-
-              <div className="flex-1 border-b border-gray-200 pb-4 pr-4">
-                <div className="flex flex-row items-center justify-between">
-                  <div className="flex items-center gap-2 font-semibold">
-                    <CgProfile />
-                    <p>Jane</p>
-                  </div>
-                  <div className="flex items-center">
-                    <Rating
-                      value={rating}
-                      precision={0.1}
-                      sx={{
-                        color: "rgb(30,64,175)",
-                        "& .MuiRating-icon": { color: "rgb(30,64,175)" },
-                      }}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Reiciendis commodi est asperiores deleniti magni provident illum
-                cum eius, iste incidunt numquam aut necessitatibus libero
-                expedita recusandae maxime laboriosam soluta adipisci.
-              </div>
-
-              <div className="flex-1 border-b border-gray-200 pb-4 pr-4">
-                <div className="flex flex-row items-center justify-between">
-                  <div className="flex items-center gap-2 font-semibold">
-                    <CgProfile />
-                    <p>Clifford</p>
-                  </div>
-                  <div className="flex items-center">
-                    <Rating
-                      value={rating}
-                      precision={0.1}
-                      sx={{
-                        color: "rgb(30,64,175)",
-                        "& .MuiRating-icon": { color: "rgb(30,64,175)" },
-                      }}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Reercitationem iure vero! adipisci possimus blanditiis eligendi!
-                Ips viksdnvs fesfa.
-              </div>
+            <div>
+              {restaurant.reviews.map((review) => (
+                <ReviewCard key={review._id} review={review} />
+              ))}
             </div>
           </div>
         </div>

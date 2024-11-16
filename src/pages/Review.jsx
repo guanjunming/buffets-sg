@@ -129,7 +129,7 @@ const Review = () => {
             <Link to={`/restaurant/${id}`}>
               {restaurant ? (
                 <img
-                  src={restaurant.img}
+                  src={restaurant.img[0]}
                   alt={restaurant.name}
                   className="aspect-square h-20 w-20 min-w-20 object-cover lg:h-full lg:w-full"
                 />
@@ -242,7 +242,7 @@ const Review = () => {
               <div>
                 <button
                   disabled={isCreatePending}
-                  className="w-full rounded-full bg-blue-900 px-3 py-4 font-bold text-white hover:cursor-pointer hover:bg-blue-800 disabled:opacity-80"
+                  className="w-full rounded bg-blue-900 px-3 py-4 font-bold text-white hover:cursor-pointer hover:bg-blue-800 disabled:opacity-80"
                 >
                   {isCreatePending ? (
                     <CircularProgress
