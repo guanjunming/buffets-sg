@@ -23,11 +23,11 @@ const AccountAvatar = () => {
       </button>
 
       <div
-        className={`box-shadow absolute right-0 z-10 -mr-1 mt-3 w-36 rounded bg-gray-50 p-2 transition-opacity duration-300 ease-in-out ${
+        className={`box-shadow absolute right-0 z-10 -mr-1 mt-3 w-36 rounded bg-white p-2 transition-opacity duration-300 ease-in-out ${
           dropdownOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        <div className="absolute -top-2 right-4 h-0 w-0 border-b-8 border-l-8 border-r-8 border-transparent border-b-gray-50"></div>
+        <div className="absolute -top-2 right-4 h-0 w-0 border-b-8 border-l-8 border-r-8 border-transparent border-b-white"></div>
 
         <Link
           to="/profile"

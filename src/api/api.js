@@ -120,4 +120,9 @@ export const updateUserReview = async (id, reviewData) => {
   return response.data;
 };
 
+export const deleteUserReview = async (id) => {
+  const response = await apiInstance.delete(`/reviews/${id}`);
+  return response.data;
+};
+
 export default apiInstance;

@@ -31,7 +31,6 @@ const Review = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const [showSysMsg, setShowSysMsg] = useState(false);
   const [sysMsg, setSysMsg] = useState("");
-
   const { openLoginModal } = useModal();
   const { isLoggedIn } = useAuth();
 
@@ -257,7 +256,7 @@ const Review = () => {
                   <div className="mt-0.5 text-xs text-red-700">
                     {Array.isArray(createError.response.data.message)
                       ? createError.response.data.message[0]
-                      : "An error occured."}
+                      : createError.response.data.message}
                   </div>
                 )}
               </div>
