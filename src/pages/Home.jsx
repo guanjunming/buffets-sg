@@ -1,11 +1,27 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import HomeTitle from "../components/home/HomeTitle";
 import HomeFilter from "../components/home/HomeFilter";
 import HomeSkeleton from "../components/home/HomeSkeleton";
 import HomeRestaurant from "../components/home/HomeRestaurant";
-import { getRestaurants } from "../api/api";
+import {
+  getRestaurantsMaxPrice,
+  getRestaurantsCuisines,
+  getRestaurants,
+} from "../api/api";
 
 const Home = () => {
+  const query = useQuery({
+    queryKey: ["restaurantsMaxPrice"],
+    queryFn: getRestaurantsMaxPrice,
+    initialData: [{ maxPrice: 5 }],
+  });
+
+  const { data: cuisines = [] } = useQuery({
+    queryKey: ["restaurantsCuisines"],
+    queryFn: getRestaurantsCuisines,
+  });
+
   const {
     data: restaurants = [],
     isPending,
@@ -13,11 +29,38 @@ const Home = () => {
     error,
   } = useQuery({ queryKey: ["restaurants"], queryFn: getRestaurants });
 
+  const [isAll, setIsAll] = useState(true);
+  const [isRating, setIsRating] = useState(false);
+  const [isReview, setIsReview] = useState(false);
+
+  const sortByAlphabet = () => {
+    setIsAll(true);
+    setIsRating(false);
+    setIsReview(false);
+  };
+  const sortByHighestRatings = () => {
+    setIsAll(false);
+    setIsRating(true);
+    setIsReview(false);
+  };
+  const sortByMostReviewed = () => {
+    setIsAll(false);
+    setIsRating(false);
+    setIsReview(true);
+  };
+
   return (
     <div className="flex flex-col gap-5 p-5 sm:p-10">
       <HomeTitle />
 
-      <HomeFilter />
+      <HomeFilter
+        isAll={isAll}
+        sortByAlphabet={sortByAlphabet}
+        isRating={isRating}
+        sortByHighestRatings={sortByHighestRatings}
+        isReview={isReview}
+        sortByMostReviewed={sortByMostReviewed}
+      />
 
       {isPending && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
@@ -35,17 +78,26 @@ const Home = () => {
 
       {!isPending && !isError && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
-          {restaurants.map((restaurant) => (
-            <HomeRestaurant
-              key={restaurant._id}
-              id={restaurant._id}
-              name={restaurant.name}
-              img={restaurant.img}
-              cuisine={restaurant.cuisine}
-              rating={restaurant.averageRating}
-              review={restaurant.reviewCount}
-            />
-          ))}
+          {restaurants
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .sort(
+              (a, b) =>
+                (isRating && b.averageRating - a.averageRating) ||
+                (isReview && b.reviewCount - a.reviewCount),
+            )
+            .map((restaurant) => (
+              <HomeRestaurant
+                key={restaurant._id}
+                id={restaurant._id}
+                name={restaurant.name}
+                img={restaurant.img}
+                cuisine={restaurant.cuisine}
+                rating={restaurant.averageRating}
+                review={restaurant.reviewCount}
+                max={query.data[0].maxPrice}
+                cuisines={cuisines}
+              />
+            ))}
         </div>
       )}
     </div>
