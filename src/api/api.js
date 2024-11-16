@@ -69,8 +69,18 @@ export const getRestaurantsMaxPrice = async () => {
   }
 };
 
+export const getRestaurantsCuisines = async () => {
+  try {
+    const response = await apiInstance.get("/restaurants/cuisines");
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
 export const getRestaurantsByQuery = async (
   search = "",
+  cuisine = "",
   minPrice = "0",
   maxPrice = "",
   sortBy = "name",
@@ -78,7 +88,7 @@ export const getRestaurantsByQuery = async (
 ) => {
   try {
     const response = await apiInstance.get(
-      `/restaurants/search?search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+      `/restaurants/search?search=${search}&cuisine=${cuisine}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
     );
     return response.data;
   } catch (error) {
