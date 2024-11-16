@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
     refreshTokenOnLoad();
   }, []);
-  
+
   useEffect(() => {
     // add access token to request headers
     const requestInterceptor = apiInstance.interceptors.request.use(
@@ -63,6 +63,9 @@ export const AuthProvider = ({ children }) => {
           originalRequest._retry = true;
 
           const refreshToken = localStorage.getItem("refreshToken");
+          if (!refreshToken) {
+            return Promise.reject(error);
+          }
 
           try {
             const data = await refreshAccessToken({ token: refreshToken });
