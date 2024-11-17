@@ -6,6 +6,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const loginUser = (data) => {
     setUser(data.userData);
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
     const refreshTokenOnLoad = async () => {
       const refreshToken = localStorage.getItem("refreshToken");
       if (!refreshToken) {
+        setLoading(false);
         return;
       }
 
@@ -35,6 +37,8 @@ export const AuthProvider = ({ children }) => {
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
         logoutUser();
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -96,6 +100,7 @@ export const AuthProvider = ({ children }) => {
     loginUser,
     logoutUser,
     isLoggedIn: !!accessToken,
+    loading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

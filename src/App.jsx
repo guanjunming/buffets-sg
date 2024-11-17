@@ -7,12 +7,14 @@ import Review from "./pages/Review";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 import Footer from "./pages/Footer";
 import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
 import { ModalProvider } from "./context/ModalProvider";
 import { AuthProvider } from "./context/AuthProvider";
 import ScrollToTop from "./components/common/ScrollToTop";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -21,20 +23,30 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ModalProvider>
-          <Navbar />
+          <div className="min-h-screen">
+            <Navbar />
 
-          <ScrollToTop />
-          <div className="m-auto max-w-screen-xl">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/restaurant/:id" element={<Detail />} />
-              <Route path="/review/:id" element={<Review />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <ScrollToTop />
+            <div className="m-auto max-w-screen-xl">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/restaurant/:id" element={<Detail />} />
+                <Route path="/review/:id" element={<Review />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/search" element={<Search />} />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
 
-            <Footer />
+              <Footer />
+            </div>
           </div>
 
           <LoginModal />
