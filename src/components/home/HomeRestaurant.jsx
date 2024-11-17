@@ -54,7 +54,7 @@ const HomeRestaurant = ({
               max +
               "&sortBy=name&sortOrder=asc"
             }
-            className="rounded-full bg-blue-800 px-3 py-1 text-sm font-semibold text-white hover:cursor-pointer"
+            className="rounded-full bg-blue-900 px-3 py-1 text-sm font-semibold text-white hover:cursor-pointer hover:bg-blue-800"
           >
             {cuisin}
           </Link>
