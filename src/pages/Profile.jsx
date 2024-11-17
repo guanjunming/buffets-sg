@@ -6,6 +6,8 @@ import UserReviewCard from "../components/review/UserReviewCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { PiCalendarDots } from "react-icons/pi";
 import { formatDateShort } from "../utils/utils";
+import { useAuth } from "../context/AuthProvider";
+import { CircularProgress } from "@mui/material";
 
 const Tab = ({ children, index, activeTab, onClick }) => {
   return (
@@ -36,10 +38,12 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [reviewsToShow, setReviewsToShow] = useState(PAGE_SIZE);
   const location = useLocation();
+  const { isLoggedIn } = useAuth();
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["profile"],
     queryFn: getUserProfile,
+    enabled: isLoggedIn,
   });
 
   const handleTabClick = (tab) => {
@@ -51,7 +55,11 @@ const Profile = () => {
   };
 
   if (isPending) {
-    return <div>Fetching</div>;
+    return (
+      <div className="m-10 flex justify-center">
+        <CircularProgress size={50} />
+      </div>
+    );
   }
 
   if (isError) {
