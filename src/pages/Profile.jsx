@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getUserProfileById } from "../api/api";
+import { getUserProfile } from "../api/api";
 import UserReviewCard from "../components/review/UserReviewCard";
+import { IoIosArrowDown } from "react-icons/io";
 
 const Tab = ({ children, index, activeTab, onClick }) => {
   return (
@@ -27,25 +28,32 @@ function TabPanel({ children, index, activeTab }) {
   );
 }
 
+const PAGE_SIZE = 15;
+
 const Profile = () => {
-  const { id } = useParams();
   const [activeTab, setActiveTab] = useState(0);
+  const [reviewsToShow, setReviewsToShow] = useState(PAGE_SIZE);
+  const location = useLocation();
 
   const { data, isPending, isError } = useQuery({
-    queryKey: ["user", id],
-    queryFn: () => getUserProfileById(id),
+    queryKey: ["profile"],
+    queryFn: getUserProfile,
   });
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  //   if (isError) {
-  //     return <Navigate to="/login" state={{ returnTo: location }} replace />;
-  //   }
+  const handleShowMore = () => {
+    setReviewsToShow((prev) => prev + PAGE_SIZE);
+  };
 
   if (isPending) {
     return <div>Fetching</div>;
+  }
+
+  if (isError) {
+    return <Navigate to="/login" state={{ returnTo: location }} replace />;
   }
 
   return (
@@ -65,28 +73,57 @@ const Profile = () => {
         <TabPanel index={0} activeTab={activeTab}>
           <div className="w-full rounded-lg border border-gray-300 p-6 lg:max-w-[800px]">
             {data.reviews.length > 0 ? (
-              <div className="space-y-5">
-                {data.reviews.map((review) => (
-                  <UserReviewCard
-                    key={review._id}
-                    review={review}
-                    userId={id}
-                    name={data.user.name}
-                  />
-                ))}
+              <div>
+                <div className="space-y-5">
+                  {data.reviews.slice(0, reviewsToShow).map((review) => (
+                    <UserReviewCard
+                      key={review._id}
+                      review={review}
+                      name={data.user.name}
+                    />
+                  ))}
+                </div>
+                {reviewsToShow < data.reviews.length && (
+                  <div className="mt-6 flex justify-center">
+                    <button
+                      onClick={handleShowMore}
+                      className="rounded-lg bg-blue-900 px-4 py-3 text-white hover:bg-blue-800"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Show more</span>
+                        <span>
+                          <IoIosArrowDown />
+                        </span>
+                      </div>
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
-              <div>no reviews</div>
+              <div className="m-auto max-w-[550px] p-6">
+                <div className="flex flex-col items-center justify-center gap-4 text-center">
+                  <h3 className="text-xl font-bold">
+                    Write your first review!
+                  </h3>
+                  <p className="text-gray-600">
+                    Your thoughts can guide others to the best dining
+                    experiences. Start by reviewing your favorite buffet
+                    restaurant!
+                  </p>
+                  <Link
+                    to="/"
+                    className="rounded-md bg-blue-900 px-4 py-3 text-white hover:bg-blue-800"
+                  >
+                    Find Buffet
+                  </Link>
+                </div>
+              </div>
             )}
           </div>
         </TabPanel>
         <TabPanel index={1} activeTab={activeTab}>
           <div>
-            <h2 className="mb-4 text-2xl font-semibold">Account Settings</h2>
-            <p>
-              Here, you can update your personal information, change your
-              password, and more.
-            </p>
+            <p>Update name, change password</p>
           </div>
         </TabPanel>
       </div>

@@ -4,13 +4,13 @@ import { formatDate } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
-const UserReviewCard = ({ review, userId, name }) => {
+const UserReviewCard = ({ review, name }) => {
   const { restaurant } = review;
   const queryClient = useQueryClient();
 
   const handleDeleteSuccess = () => {
     queryClient.invalidateQueries({
-      queryKey: ["user", userId],
+      queryKey: ["profile"],
     });
   };
 
