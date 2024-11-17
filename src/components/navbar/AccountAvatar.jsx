@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthProvider";
 const AccountAvatar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useClickOutside(() => setDropdownOpen(false));
-  const { logoutUser } = useAuth();
+  const { user, logoutUser } = useAuth();
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
@@ -30,7 +30,7 @@ const AccountAvatar = () => {
         <div className="absolute -top-2 right-4 h-0 w-0 border-b-8 border-l-8 border-r-8 border-transparent border-b-white"></div>
 
         <Link
-          to="/profile"
+          to={`/profile/${user.id}`}
           onClick={() => setDropdownOpen(false)}
           className="block rounded px-3 py-2 text-left font-medium text-black hover:bg-gray-200"
         >

@@ -125,4 +125,13 @@ export const deleteUserReview = async (id) => {
   return response.data;
 };
 
+export const getUserProfileById = async (id) => {
+  try {
+    const response = await apiInstance.get(`/users/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+
 export default apiInstance;

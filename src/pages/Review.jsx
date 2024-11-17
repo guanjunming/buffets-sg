@@ -46,11 +46,9 @@ const Review = () => {
   });
 
   useEffect(() => {
-    if (userReview) {
-      setRating(userReview.rating || 0);
-      setTitle(userReview.title || "");
-      setReview(userReview.review || "");
-    }
+    setRating(userReview?.rating || 0);
+    setTitle(userReview?.title || "");
+    setReview(userReview?.review || "");
   }, [userReview]);
 
   const {

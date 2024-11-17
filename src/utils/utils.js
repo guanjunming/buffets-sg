@@ -1,9 +1,9 @@
-export const formatDate = (isoDateString) => {
+export const formatDate = (isoDateString, fullMonth = true) => {
   const date = new Date(isoDateString);
 
   const formatter = new Intl.DateTimeFormat("en-GB", {
     day: "numeric",
-    month: "long",
+    month: fullMonth ? "long" : "short",
     year: "numeric",
   });
 

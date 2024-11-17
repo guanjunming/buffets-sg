@@ -11,7 +11,7 @@ const NavbarDrawer = () => {
   const isAboveMd = useMediaQuery("(min-width:768px)");
   const location = useLocation();
   const { openLoginModal } = useModal();
-  const { isLoggedIn, logoutUser } = useAuth();
+  const { user, isLoggedIn, logoutUser } = useAuth();
 
   useEffect(() => {
     if (isAboveMd && isDrawerOpen) {
@@ -50,7 +50,7 @@ const NavbarDrawer = () => {
             {isLoggedIn ? (
               <div className="text-left">
                 <Link
-                  to="/profile"
+                  to={`/profile/${user.id}`}
                   onClick={() => setIsDrawerOpen(false)}
                   className="block rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-200"
                 >
