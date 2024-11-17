@@ -51,7 +51,7 @@ const UserReviewCard = ({ review, name }) => {
 
       <Link
         to={`/restaurant/${review.restaurant._id}`}
-        className="mt-3 block max-w-[400px] overflow-hidden"
+        className="mt-3 block max-w-[360px] overflow-hidden"
       >
         <div className="flex items-center gap-2 rounded border border-gray-200">
           <img
