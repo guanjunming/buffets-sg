@@ -1,6 +1,6 @@
 import { Slider } from "@mui/material";
 
-const SearchFilter = ({ max, price, handleSliderChange }) => {
+const SearchPrice = ({ max, price, handlePriceChange }) => {
   return (
     <div className="flex flex-col items-center gap-5 lg:flex-row">
       <div className="text-xl">Price Range :</div>
@@ -9,7 +9,7 @@ const SearchFilter = ({ max, price, handleSliderChange }) => {
         min={0}
         max={max}
         value={price}
-        onChange={handleSliderChange}
+        onChange={handlePriceChange}
         valueLabelDisplay="on"
         disableSwap
         sx={{
@@ -41,4 +41,4 @@ const SearchFilter = ({ max, price, handleSliderChange }) => {
   );
 };
 
-export default SearchFilter;
+export default SearchPrice;
