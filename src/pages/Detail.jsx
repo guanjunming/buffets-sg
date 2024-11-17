@@ -218,7 +218,7 @@ const Detail = () => {
 
               <Link
                 to={`/review/${id}`}
-                className="rounded-md bg-blue-900 px-4 py-3 text-white hover:cursor-pointer hover:bg-blue-800"
+                className="rounded-md bg-blue-900 px-4 py-3 text-white hover:bg-blue-800"
               >
                 Write a review
               </Link>
