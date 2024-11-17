@@ -9,12 +9,12 @@ import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Footer from "./pages/Footer";
+import ProtectedRoute from "./pages/ProtectedRoute";
 import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
 import { ModalProvider } from "./context/ModalProvider";
 import { AuthProvider } from "./context/AuthProvider";
 import ScrollToTop from "./components/common/ScrollToTop";
-import ProtectedRoute from "./pages/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
