@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { LuFolderSearch } from "react-icons/lu";
@@ -7,7 +7,7 @@ import {
   getRestaurantsCuisines,
   getRestaurantsByQuery,
 } from "../api/api";
-import SearchFilter from "../components/search/SearchFilter";
+import SearchPrice from "../components/search/SearchPrice";
 import SearchSort from "../components/search/SearchSort";
 import SearchCuisine from "../components/search/SearchCuisine";
 import HomeSkeleton from "../components/home/HomeSkeleton";
@@ -23,14 +23,9 @@ const Search = () => {
   const initialSortBy = searchParams?.get("sortBy") || "name";
   const initialSortOrder = searchParams?.get("sortOrder") || "asc";
 
-  const [price, setPrice] = useState([
-    parseInt(initialMinPrice) || 0,
-    parseInt(initialMaxPrice) || parseInt(initialMinPrice) + 5 || 5,
-  ]);
-  const [sort, setSort] = useState(initialSortBy + "," + initialSortOrder);
-  const [selectedCuisine, setSelectedCuisine] = useState(
-    initialCuisine.split("c").map((item) => parseInt(item)),
-  );
+  const [price, setPrice] = useState([]);
+  const [sort, setSort] = useState("");
+  const [selectedCuisine, setSelectedCuisine] = useState([]);
 
   const navigate = useNavigate();
 
@@ -71,7 +66,7 @@ const Search = () => {
       ),
   });
 
-  const handleSliderChange = (e, newPrice, activeThumb) => {
+  const handlePriceChange = (e, newPrice, activeThumb) => {
     if (newPrice[1] - newPrice[0] < 5) {
       if (activeThumb === 0) {
         const min = Math.min(newPrice[0], query.data[0].maxPrice - 5);
@@ -88,10 +83,10 @@ const Search = () => {
   const handleSortChange = (e) => setSort(e.target.value);
 
   const handleCuisineChange = (idx) => {
-    setSelectedCuisine((prevSelectedCuisine) =>
-      prevSelectedCuisine.includes(idx)
-        ? prevSelectedCuisine.filter((item) => item !== idx)
-        : [...prevSelectedCuisine, idx].sort((a, b) => a - b),
+    setSelectedCuisine((prev) =>
+      prev.includes(idx)
+        ? prev.filter((item) => item !== idx)
+        : [...prev, idx].sort((a, b) => a - b),
     );
   };
 
@@ -121,20 +116,30 @@ const Search = () => {
     );
   };
 
+  useEffect(() => {
+    handleFilterReset();
+  }, [searchParams]);
+
+  const isFilterEqualSearchParams =
+    price[0] === (parseInt(initialMinPrice) || 0) &&
+    price[1] ===
+      (parseInt(initialMaxPrice) || parseInt(initialMinPrice) + 5 || 5) &&
+    sort === initialSortBy + "," + initialSortOrder &&
+    selectedCuisine.join("c") === initialCuisine;
+
   return (
     <div className="flex flex-col gap-5 p-5 sm:p-10">
       <div className="text-2xl">Search results for: {initialSearch}</div>
 
       <div className="flex flex-col gap-10 rounded-3xl bg-neutral-100 px-10 pb-5 pt-10 sm:mx-5 lg:gap-5">
         <div className="flex flex-col items-center justify-between gap-5 md:flex-row md:items-start lg:items-center">
-          <SearchFilter
+          <SearchPrice
             max={query.data[0].maxPrice}
             price={price}
-            handleSliderChange={handleSliderChange}
+            handlePriceChange={handlePriceChange}
           />
           <SearchSort sort={sort} handleSortChange={handleSortChange} />
         </div>
-
         <SearchCuisine
           cuisines={cuisines}
           selectedCuisine={selectedCuisine}
@@ -143,13 +148,21 @@ const Search = () => {
 
         <div className="flex items-center justify-center gap-5">
           <div
-            className="rounded border border-blue-900 px-3 py-2 font-medium text-blue-900 hover:cursor-pointer hover:bg-neutral-200"
+            className={
+              isFilterEqualSearchParams
+                ? "rounded border border-neutral-300 px-3 py-2 font-medium text-neutral-300"
+                : "rounded border border-blue-900 px-3 py-2 font-medium text-blue-900 hover:cursor-pointer hover:bg-neutral-200"
+            }
             onClick={handleFilterReset}
           >
             Reset
           </div>
           <div
-            className="rounded bg-blue-900 px-3 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
+            className={
+              isFilterEqualSearchParams
+                ? "rounded bg-neutral-300 px-3 py-2 text-neutral-100"
+                : "rounded bg-blue-900 px-3 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
+            }
             onClick={handleFilterSubmit}
           >
             Apply
@@ -171,7 +184,7 @@ const Search = () => {
           Error: {error?.message || "Failed to fetch restaurants by query"}
         </div>
       )}
-      {!isPending && !isError && (
+      {!isPending && !isError && restaurants.length > 0 && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
           {restaurants.map((restaurant) => (
             <HomeRestaurant
@@ -182,8 +195,8 @@ const Search = () => {
               cuisine={restaurant.cuisine}
               rating={restaurant.averageRating}
               review={restaurant.reviewCount}
-              max={query.data[0].maxPrice}
               cuisines={cuisines}
+              max={query.data[0].maxPrice}
             />
           ))}
         </div>

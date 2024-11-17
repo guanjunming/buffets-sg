@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { LuFolderSearch } from "react-icons/lu";
 import HomeTitle from "../components/home/HomeTitle";
 import HomeFilter from "../components/home/HomeFilter";
 import HomeSkeleton from "../components/home/HomeSkeleton";
@@ -38,11 +39,13 @@ const Home = () => {
     setIsRating(false);
     setIsReview(false);
   };
+
   const sortByHighestRatings = () => {
     setIsAll(false);
     setIsRating(true);
     setIsReview(false);
   };
+
   const sortByMostReviewed = () => {
     setIsAll(false);
     setIsRating(false);
@@ -76,7 +79,7 @@ const Home = () => {
         <div>Error: {error?.message || "Failed to fetch restaurants"}</div>
       )}
 
-      {!isPending && !isError && (
+      {!isPending && !isError && restaurants.length > 0 && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
           {restaurants
             .sort((a, b) => a.name.localeCompare(b.name))
@@ -94,10 +97,16 @@ const Home = () => {
                 cuisine={restaurant.cuisine}
                 rating={restaurant.averageRating}
                 review={restaurant.reviewCount}
-                max={query.data[0].maxPrice}
                 cuisines={cuisines}
+                max={query.data[0].maxPrice}
               />
             ))}
+        </div>
+      )}
+      {!isPending && !isError && restaurants.length === 0 && (
+        <div className="m-5 flex flex-col items-center justify-center gap-5">
+          <LuFolderSearch size={80} />
+          <div className="text-2xl">No matches found</div>
         </div>
       )}
     </div>
