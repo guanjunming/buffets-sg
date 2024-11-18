@@ -8,6 +8,8 @@ import { PiCalendarDots } from "react-icons/pi";
 import { formatDateShort } from "../utils/utils";
 import { useAuth } from "../context/AuthProvider";
 import { CircularProgress } from "@mui/material";
+import { getAllFavourites, getRestaurantsCuisines } from "../api/api";
+import { Rating } from "@mui/material";
 
 const Tab = ({ children, index, activeTab, onClick }) => {
   return (
@@ -46,6 +48,11 @@ const Profile = () => {
     enabled: isLoggedIn,
   });
 
+  const { data: cuisines = [] } = useQuery({
+    queryKey: ["restaurantsCuisines"],
+    queryFn: getRestaurantsCuisines,
+  });
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
@@ -53,6 +60,20 @@ const Profile = () => {
   const handleShowMore = () => {
     setReviewsToShow((prev) => prev + PAGE_SIZE);
   };
+
+  const {
+    data: favourites = [], // Default to an empty array if undefined
+    isLoading: isLoadingFav,
+    isError: isErrorFav,
+    error: favouritesError,
+  } = useQuery({
+    queryKey: ["favourites"],
+    queryFn: getAllFavourites,
+  });
+
+  if (isLoadingFav) return <p>Loading favourites...</p>;
+  if (isErrorFav)
+    return <p>Error loading favourites: {favouritesError.message}</p>;
 
   if (isPending) {
     return (
@@ -75,6 +96,9 @@ const Profile = () => {
           </Tab>
           <Tab index={1} activeTab={activeTab} onClick={handleTabClick}>
             Account Settings
+          </Tab>
+          <Tab index={2} activeTab={activeTab} onClick={handleTabClick}>
+            Favourites
           </Tab>
         </nav>
       </div>
@@ -145,6 +169,66 @@ const Profile = () => {
           <TabPanel index={1} activeTab={activeTab}>
             <div>
               <p>Update name, change password</p>
+            </div>
+          </TabPanel>
+          <TabPanel index={2} activeTab={activeTab}>
+            <div className="grid grid-cols-2 gap-4">
+              {favourites.length > 0 ? (
+                <>
+                  {favourites.map((fav, index) => (
+                    <div className="flex h-full flex-col rounded-3xl border border-neutral-500">
+                      <Link to={"/restaurant/" + fav.id}>
+                        <img
+                          src={fav.img[0]}
+                          alt={fav.name}
+                          className="mb-5 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:outline hover:outline-2 hover:brightness-110"
+                          title={fav.name}
+                        />
+                      </Link>
+
+                      <div className="mx-5 flex h-20 items-center justify-center overflow-hidden text-center text-xl font-bold">
+                        {fav.name}
+                      </div>
+
+                      <div className="mx-5 flex flex-col items-center justify-center gap-1">
+                        <Rating
+                          value={fav.averageRating}
+                          precision={0.1}
+                          sx={{
+                            zIndex: -1,
+                            color: "rgb(30,64,175)",
+                            "& .MuiRating-icon": { color: "rgb(30,64,175)" },
+                          }}
+                          readOnly
+                        />
+                        <div>
+                          <span className="font-semibold">
+                            ({fav.averageRating}){" "}
+                          </span>
+                          {fav.reviewCount} Reviews
+                        </div>
+                      </div>
+
+                      <div className="m-5 flex flex-wrap items-center justify-center gap-2">
+                        {fav.cuisine.map((cuisin, idx) => (
+                          <Link
+                            key={idx}
+                            to={
+                              "/search?search=&cuisine=" +
+                              cuisines.indexOf(cuisin)
+                            }
+                            className="rounded-full bg-blue-900 px-3 py-1 text-sm font-semibold text-white hover:cursor-pointer hover:bg-blue-800"
+                          >
+                            {cuisin}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <p>No favourites yet.</p>
+              )}
             </div>
           </TabPanel>
         </div>

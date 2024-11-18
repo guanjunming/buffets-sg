@@ -144,4 +144,9 @@ export const getAllFavourites = async () => {
   return response.data;
 };
 
+export const removeFavourite = async (id) => {
+  const response = await apiInstance.delete(`/favourites/${id}`);
+  return response.data;
+};
+
 export default apiInstance;

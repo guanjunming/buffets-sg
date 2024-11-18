@@ -4,6 +4,7 @@ import {
   addToFavourites,
   getRestaurantById,
   getAllFavourites,
+  removeFavourite,
 } from "../api/api";
 import { Rating } from "@mui/material";
 import { useState } from "react";
@@ -19,6 +20,7 @@ import { useEffect } from "react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ReviewsSection from "../components/detail/ReviewsSection";
 import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Detail = () => {
   const { id } = useParams();
@@ -27,6 +29,7 @@ const Detail = () => {
   const [hover, setHover] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const queryClient = useQueryClient();
 
   const {
     data: restaurant,
@@ -38,10 +41,9 @@ const Detail = () => {
     queryFn: () => getRestaurantById(id),
   });
 
-  const mutation = useMutation({
+  const addMutation = useMutation({
     mutationFn: (id) => addToFavourites(id),
-    onSuccess: (data) => {
-      console.log("Successfully added to favourites:", data.message);
+    onSuccess: () => {
       setIsFavorite(true);
     },
     onError: (error) => {
@@ -49,6 +51,17 @@ const Detail = () => {
         "Failed to add to favourites:",
         error.response?.data || error.message,
       );
+    },
+  });
+
+  const removeMutation = useMutation({
+    mutationFn: (id) => removeFavourite(id),
+    onSuccess: () => {
+      setIsFavorite(false);
+      queryClient.invalidateQueries(["favourites"]);
+    },
+    onError: (error) => {
+      console.error("Failed to remove from favourites:", error);
     },
   });
 
@@ -70,7 +83,15 @@ const Detail = () => {
       console.error("Restaurant ID is undefined!");
       return;
     }
-    mutation.mutate(id);
+    addMutation.mutate(id);
+  };
+
+  const handleRemoveFavourite = () => {
+    if (id) {
+      removeMutation.mutate(id);
+    } else {
+      console.error("ID is undefined!");
+    }
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -88,8 +109,10 @@ const Detail = () => {
                 className="cursor-pointer text-2xl text-rose-500"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
-                onClick={handleFavourite}
-                aria-label="Add to favourites"
+                onClick={isFavorite ? handleRemoveFavourite : handleFavourite} // Conditionally trigger the appropriate function
+                aria-label={
+                  isFavorite ? "Remove from favourites" : "Add to favourites"
+                }
               >
                 {isFavorite ? <GoHeartFill /> : <GoHeart />}
               </button>
