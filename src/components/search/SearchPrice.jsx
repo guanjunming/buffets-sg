@@ -2,8 +2,8 @@ import { Slider } from "@mui/material";
 
 const SearchPrice = ({ max, price, handlePriceChange }) => {
   return (
-    <div className="flex flex-col items-center gap-5 lg:flex-row">
-      <div className="text-xl">Price Range :</div>
+    <div className="flex flex-col items-center gap-5 lg:items-start">
+      <div className="text-xl">Price Range</div>
 
       <Slider
         min={0}
@@ -13,7 +13,7 @@ const SearchPrice = ({ max, price, handlePriceChange }) => {
         valueLabelDisplay="on"
         disableSwap
         sx={{
-          width: 250,
+          width: 200,
           color: "black",
           "& .MuiSlider-thumb": {
             width: 5,
