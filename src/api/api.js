@@ -60,18 +60,9 @@ export const getRestaurants = async () => {
   }
 };
 
-export const getRestaurantsMaxPrice = async () => {
+export const getRestaurantsMaxPriceCuisines = async () => {
   try {
-    const response = await apiInstance.get("/restaurants/maxprice");
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message);
-  }
-};
-
-export const getRestaurantsCuisines = async () => {
-  try {
-    const response = await apiInstance.get("/restaurants/cuisines");
+    const response = await apiInstance.get("/restaurants/maxpricecuisines");
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);

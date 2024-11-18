@@ -1,8 +1,8 @@
 const SearchSort = ({ sort, handleSortChange }) => {
   return (
-    <div className="flex flex-col items-center gap-2 lg:flex-row">
+    <div className="flex flex-col items-center gap-2 lg:items-start">
       <label className="text-xl" htmlFor="sort">
-        Sort By :
+        Sort By
       </label>
 
       <select

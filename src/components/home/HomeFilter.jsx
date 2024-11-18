@@ -11,7 +11,7 @@ const HomeFilter = ({
       <div
         className={
           isAll
-            ? "rounded-full border border-black bg-black px-3 py-1 text-white hover:cursor-pointer hover:bg-neutral-800"
+            ? "rounded-full border border-black bg-black px-3 py-1 text-white"
             : "rounded-full border border-black px-3 py-1 text-black hover:cursor-pointer hover:bg-neutral-200"
         }
         onClick={sortByAlphabet}
@@ -21,7 +21,7 @@ const HomeFilter = ({
       <div
         className={
           isRating
-            ? "rounded-full border border-black bg-black px-3 py-1 text-white hover:cursor-pointer hover:bg-neutral-800"
+            ? "rounded-full border border-black bg-black px-3 py-1 text-white"
             : "rounded-full border border-black px-3 py-1 text-black hover:cursor-pointer hover:bg-neutral-200"
         }
         onClick={sortByHighestRatings}
@@ -31,7 +31,7 @@ const HomeFilter = ({
       <div
         className={
           isReview
-            ? "rounded-full border border-black bg-black px-3 py-1 text-white hover:cursor-pointer hover:bg-neutral-800"
+            ? "rounded-full border border-black bg-black px-3 py-1 text-white"
             : "rounded-full border border-black px-3 py-1 text-black hover:cursor-pointer hover:bg-neutral-200"
         }
         onClick={sortByMostReviewed}

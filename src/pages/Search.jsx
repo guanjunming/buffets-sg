@@ -3,15 +3,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { LuFolderSearch } from "react-icons/lu";
 import {
-  getRestaurantsMaxPrice,
-  getRestaurantsCuisines,
+  getRestaurantsMaxPriceCuisines,
   getRestaurantsByQuery,
 } from "../api/api";
 import SearchPrice from "../components/search/SearchPrice";
 import SearchSort from "../components/search/SearchSort";
 import SearchCuisine from "../components/search/SearchCuisine";
-import HomeSkeleton from "../components/home/HomeSkeleton";
-import HomeRestaurant from "../components/home/HomeRestaurant";
+import SearchSkeleton from "../components/search/SearchSkeleton";
+import SearchRestaurant from "../components/search/SearchRestaurant";
 
 const Search = () => {
   const [searchParams] = useSearchParams();
@@ -29,16 +28,13 @@ const Search = () => {
 
   const navigate = useNavigate();
 
-  const query = useQuery({
-    queryKey: ["restaurantsMaxPrice"],
-    queryFn: getRestaurantsMaxPrice,
-    initialData: [{ maxPrice: 5 }],
+  const { data } = useQuery({
+    queryKey: ["restaurantsMaxPriceCuisines"],
+    queryFn: getRestaurantsMaxPriceCuisines,
+    staleTime: Infinity,
   });
-
-  const { data: cuisines = [] } = useQuery({
-    queryKey: ["restaurantsCuisines"],
-    queryFn: getRestaurantsCuisines,
-  });
+  const maxPrice = data?.maxPrice || 5;
+  const cuisines = data?.cuisines || [];
 
   const {
     data: restaurants = [],
@@ -69,7 +65,7 @@ const Search = () => {
   const handlePriceChange = (e, newPrice, activeThumb) => {
     if (newPrice[1] - newPrice[0] < 5) {
       if (activeThumb === 0) {
-        const min = Math.min(newPrice[0], query.data[0].maxPrice - 5);
+        const min = Math.min(newPrice[0], maxPrice - 5);
         setPrice([min, min + 5]);
       } else {
         const max = Math.max(newPrice[1], 5);
@@ -129,84 +125,93 @@ const Search = () => {
 
   return (
     <div className="flex flex-col gap-5 p-5 sm:p-10">
-      <div className="text-2xl">Search results for: {initialSearch}</div>
-
-      <div className="flex flex-col gap-10 rounded-3xl bg-neutral-100 px-10 pb-5 pt-10 sm:mx-5 lg:gap-5">
-        <div className="flex flex-col items-center justify-between gap-5 md:flex-row md:items-start lg:items-center">
-          <SearchPrice
-            max={query.data[0].maxPrice}
-            price={price}
-            handlePriceChange={handlePriceChange}
-          />
-          <SearchSort sort={sort} handleSortChange={handleSortChange} />
-        </div>
-        <SearchCuisine
-          cuisines={cuisines}
-          selectedCuisine={selectedCuisine}
-          handleCuisineChange={handleCuisineChange}
-        />
-
-        <div className="flex items-center justify-center gap-5">
-          <div
-            className={
-              isFilterEqualSearchParams
-                ? "rounded border border-neutral-300 px-3 py-2 font-medium text-neutral-300"
-                : "rounded border border-blue-900 px-3 py-2 font-medium text-blue-900 hover:cursor-pointer hover:bg-neutral-200"
-            }
-            onClick={handleFilterReset}
-          >
-            Reset
-          </div>
-          <div
-            className={
-              isFilterEqualSearchParams
-                ? "rounded bg-neutral-300 px-3 py-2 text-neutral-100"
-                : "rounded bg-blue-900 px-3 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
-            }
-            onClick={handleFilterSubmit}
-          >
-            Apply
-          </div>
-        </div>
+      <div className="text-2xl">
+        Search results {initialSearch ? `for "${initialSearch}"` : ""}
       </div>
 
-      {isPending && (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
-          {Array(9)
-            .fill("a")
-            .map((item, idx) => (
-              <HomeSkeleton key={idx} />
-            ))}
-        </div>
-      )}
-      {isError && (
-        <div>
-          Error: {error?.message || "Failed to fetch restaurants by query"}
-        </div>
-      )}
-      {!isPending && !isError && restaurants.length > 0 && (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
-          {restaurants.map((restaurant) => (
-            <HomeRestaurant
-              key={restaurant._id}
-              id={restaurant._id}
-              name={restaurant.name}
-              img={restaurant.img}
-              cuisine={restaurant.cuisine}
-              rating={restaurant.averageRating}
-              review={restaurant.reviewCount}
-              cuisines={cuisines}
-              max={query.data[0].maxPrice}
+      <div className="flex flex-col gap-5 lg:flex-row">
+        <div className="flex flex-col gap-10 rounded-3xl bg-neutral-100 px-10 pb-5 pt-10 sm:mx-5 lg:h-min lg:w-1/3">
+          <div className="hidden text-2xl font-bold text-black lg:block">
+            FILTERS
+          </div>
+
+          <div className="flex flex-col items-center justify-between gap-5 md:flex-row md:items-start lg:flex-col">
+            <SearchPrice
+              max={maxPrice}
+              price={price}
+              handlePriceChange={handlePriceChange}
             />
-          ))}
+            <SearchSort sort={sort} handleSortChange={handleSortChange} />
+          </div>
+
+          <SearchCuisine
+            cuisines={cuisines}
+            selectedCuisine={selectedCuisine}
+            handleCuisineChange={handleCuisineChange}
+          />
+
+          <div className="flex items-center justify-center gap-5">
+            <div
+              className={
+                isFilterEqualSearchParams
+                  ? "rounded border border-neutral-300 px-3 py-2 font-medium text-neutral-300"
+                  : "rounded border border-blue-900 px-3 py-2 font-medium text-blue-900 hover:cursor-pointer hover:bg-neutral-200"
+              }
+              onClick={handleFilterReset}
+            >
+              Reset
+            </div>
+            <div
+              className={
+                isFilterEqualSearchParams
+                  ? "rounded bg-neutral-300 px-3 py-2 text-neutral-100"
+                  : "rounded bg-blue-900 px-3 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
+              }
+              onClick={handleFilterSubmit}
+            >
+              Apply
+            </div>
+          </div>
         </div>
-      )}
-      {!isPending && !isError && restaurants.length === 0 && (
-        <div className="m-5 flex flex-col items-center justify-center gap-5">
-          <LuFolderSearch size={80} />
-          <div className="text-2xl">No matches found</div>
-        </div>
-      )}
+
+        {isPending && (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 lg:flex lg:w-2/3 lg:flex-col lg:items-start">
+            {Array(9)
+              .fill("a")
+              .map((item, idx) => (
+                <SearchSkeleton key={idx} />
+              ))}
+          </div>
+        )}
+        {isError && (
+          <div>
+            Error: {error?.message || "Failed to fetch restaurants by query"}
+          </div>
+        )}
+        {!isPending && !isError && restaurants.length > 0 && (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 lg:flex lg:w-2/3 lg:flex-col lg:items-start">
+            {restaurants.map((restaurant) => (
+              <SearchRestaurant
+                key={restaurant._id}
+                id={restaurant._id}
+                name={restaurant.name}
+                img={restaurant.img}
+                cuisine={restaurant.cuisine}
+                rating={restaurant.averageRating}
+                review={restaurant.reviewCount}
+                cuisines={cuisines}
+                max={maxPrice}
+              />
+            ))}
+          </div>
+        )}
+        {!isPending && !isError && restaurants.length === 0 && (
+          <div className="m-5 flex flex-col items-center justify-center gap-5 lg:w-2/3 lg:justify-start">
+            <LuFolderSearch size={80} />
+            <div className="text-2xl">No matches found</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
