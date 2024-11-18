@@ -12,7 +12,7 @@ const ProfileReviewsPanel = ({ reviews, user }) => {
   };
 
   return (
-    <div className="w-full rounded-md border border-gray-200 p-6">
+    <div className="w-full p-6">
       {reviews.length > 0 ? (
         <div>
           <div className="space-y-5">

@@ -51,6 +51,34 @@ export const refreshAccessToken = async (token) => {
   return response.data;
 };
 
+export const updateProfile = async (userData) => {
+  try {
+    const response = await apiInstance.patch("/updateProfile", userData);
+    return response.data;
+  } catch (error) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const updatePassword = async (userData) => {
+  try {
+    const response = await apiInstance.patch("/updatePassword", userData);
+    return response.data;
+  } catch (error) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
 export const getRestaurants = async () => {
   try {
     const response = await apiInstance.get("/restaurants");

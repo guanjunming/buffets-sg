@@ -7,6 +7,7 @@ import { formatDateShort } from "../utils/utils";
 import { useAuth } from "../context/AuthProvider";
 import { CircularProgress } from "@mui/material";
 import ProfileReviewsPanel from "../components/profile/ProfileReviewsPanel";
+import AccountSettingsPanel from "../components/profile/AccountSettingsPanel";
 
 const Tab = ({ children, index, activeTab, onClick }) => {
   return (
@@ -72,8 +73,8 @@ const Profile = () => {
       </div>
 
       <div className="mt-6 flex flex-col gap-6 lg:flex-row">
-        <div className="hidden w-1/4 space-y-3 border-r lg:block">
-          <div className="space-y-3 p-6">
+        <div className="hidden w-1/4 border-r lg:block">
+          <div className="mr-6 space-y-3 rounded border border-gray-200 p-6">
             <div className="font-bold">Intro</div>
             <div className="mb-3 flex items-center gap-1">
               <PiCalendarDots />
@@ -82,14 +83,12 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="w-full lg:w-3/5">
+        <div className="w-full rounded border border-gray-200 lg:w-3/5">
           <TabPanel index={0} activeTab={activeTab}>
             <ProfileReviewsPanel reviews={data.reviews} user={data.user} />
           </TabPanel>
           <TabPanel index={1} activeTab={activeTab}>
-            <div>
-              <p>Update name, change password</p>
-            </div>
+            <AccountSettingsPanel user={data.user} />
           </TabPanel>
         </div>
       </div>
