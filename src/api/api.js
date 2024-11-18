@@ -134,4 +134,9 @@ export const getUserProfile = async () => {
   }
 };
 
+export const addToFavourites = async (id) => {
+  const response = await apiInstance.post(`/favourites/${id}`);
+  return response.data;
+};
+
 export default apiInstance;

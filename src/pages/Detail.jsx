@@ -1,11 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getRestaurantById } from "../api/api";
+import { addToFavourites, getRestaurantById } from "../api/api";
 import { Rating } from "@mui/material";
 import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import { useRef } from "react";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -14,22 +13,18 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ReviewsSection from "../components/detail/ReviewsSection";
+import { useMutation } from "@tanstack/react-query";
 
 const Detail = () => {
   const { id } = useParams();
   const [isReadMore, setIsReadMore] = useState(false);
   const maxLength = 300;
-  const reviewsRef = useRef(null);
   const [hover, setHover] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  const goToReviews = () => {
-    reviewsRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
   const {
     data: restaurant,
-    isPending,
+    isLoading,
     isError,
     error,
   } = useQuery({
@@ -37,7 +32,28 @@ const Detail = () => {
     queryFn: () => getRestaurantById(id),
   });
 
-  if (isPending) return <div>Loading...</div>;
+  const mutation = useMutation({
+    mutationFn: (id) => addToFavourites(id),
+    onSuccess: (data) => {
+      console.log("Successfully added to favourites:", data.message);
+    },
+    onError: (error) => {
+      console.error(
+        "Failed to add to favourites:",
+        error.response?.data || error.message,
+      );
+    },
+  });
+
+  const handleFavourite = () => {
+    if (!restaurant || !id) {
+      console.error("Restaurant ID is undefined!");
+      return;
+    }
+    mutation.mutate(id);
+  };
+
+  if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error {error.message}</div>;
   const shortenInfo = restaurant.description.slice(0, maxLength);
 
@@ -48,13 +64,15 @@ const Detail = () => {
           <div className="md:flex-column flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4">
               <h2 className="text-2xl font-bold">{restaurant.name}</h2>
-              <div
+              <button
                 className="cursor-pointer text-2xl text-rose-500"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
+                onClick={handleFavourite}
+                aria-label="Add to favourites"
               >
                 {hover ? <GoHeartFill /> : <GoHeart />}
-              </div>
+              </button>
             </div>
             <div>
               {restaurant?.img?.length > 0 ? (
