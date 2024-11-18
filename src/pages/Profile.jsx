@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getUserProfile } from "../api/api";
-import UserReviewCard from "../components/review/UserReviewCard";
-import { IoIosArrowDown } from "react-icons/io";
 import { PiCalendarDots } from "react-icons/pi";
 import { formatDateShort } from "../utils/utils";
 import { useAuth } from "../context/AuthProvider";
 import { CircularProgress } from "@mui/material";
+import ProfileReviewsPanel from "../components/profile/ProfileReviewsPanel";
+import AccountSettingsPanel from "../components/profile/AccountSettingsPanel";
 
 const Tab = ({ children, index, activeTab, onClick }) => {
   return (
@@ -32,11 +32,8 @@ function TabPanel({ children, index, activeTab }) {
   );
 }
 
-const PAGE_SIZE = 15;
-
 const Profile = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [reviewsToShow, setReviewsToShow] = useState(PAGE_SIZE);
   const location = useLocation();
   const { isLoggedIn } = useAuth();
 
@@ -48,10 +45,6 @@ const Profile = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const handleShowMore = () => {
-    setReviewsToShow((prev) => prev + PAGE_SIZE);
   };
 
   if (isPending) {
@@ -80,8 +73,8 @@ const Profile = () => {
       </div>
 
       <div className="mt-6 flex flex-col gap-6 lg:flex-row">
-        <div className="hidden w-1/4 space-y-3 border-r lg:block">
-          <div className="space-y-3 p-6">
+        <div className="hidden w-1/4 border-r lg:block">
+          <div className="mr-6 space-y-3 rounded border border-gray-200 p-6">
             <div className="font-bold">Intro</div>
             <div className="mb-3 flex items-center gap-1">
               <PiCalendarDots />
@@ -90,62 +83,12 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="w-full lg:w-3/5">
+        <div className="w-full rounded border border-gray-200 lg:w-3/5">
           <TabPanel index={0} activeTab={activeTab}>
-            <div className="w-full rounded-md border border-gray-200 p-6">
-              {data.reviews.length > 0 ? (
-                <div>
-                  <div className="space-y-5">
-                    {data.reviews.slice(0, reviewsToShow).map((review) => (
-                      <UserReviewCard
-                        key={review._id}
-                        review={review}
-                        name={data.user.name}
-                      />
-                    ))}
-                  </div>
-                  {reviewsToShow < data.reviews.length && (
-                    <div className="mt-6 flex justify-center">
-                      <button
-                        onClick={handleShowMore}
-                        className="rounded-lg bg-blue-900 px-4 py-3 text-white hover:bg-blue-800"
-                      >
-                        <div className="flex items-center gap-1">
-                          <span>Show more</span>
-                          <span>
-                            <IoIosArrowDown />
-                          </span>
-                        </div>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="m-auto max-w-[550px] p-6">
-                  <div className="flex flex-col items-center justify-center gap-4 text-center">
-                    <h3 className="text-xl font-bold">
-                      Write your first review!
-                    </h3>
-                    <p className="text-gray-600">
-                      Your thoughts can guide others to the best dining
-                      experiences. Start by reviewing your favorite buffet
-                      restaurant!
-                    </p>
-                    <Link
-                      to="/"
-                      className="rounded-md bg-blue-900 px-4 py-3 text-white hover:bg-blue-800"
-                    >
-                      Find Buffets
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
+            <ProfileReviewsPanel reviews={data.reviews} user={data.user} />
           </TabPanel>
           <TabPanel index={1} activeTab={activeTab}>
-            <div>
-              <p>Update name, change password</p>
-            </div>
+            <AccountSettingsPanel user={data.user} />
           </TabPanel>
         </div>
       </div>
