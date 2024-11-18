@@ -5,23 +5,16 @@ import HomeTitle from "../components/home/HomeTitle";
 import HomeFilter from "../components/home/HomeFilter";
 import HomeSkeleton from "../components/home/HomeSkeleton";
 import HomeRestaurant from "../components/home/HomeRestaurant";
-import {
-  getRestaurantsMaxPrice,
-  getRestaurantsCuisines,
-  getRestaurants,
-} from "../api/api";
+import { getRestaurantsMaxPriceCuisines, getRestaurants } from "../api/api";
 
 const Home = () => {
-  const query = useQuery({
-    queryKey: ["restaurantsMaxPrice"],
-    queryFn: getRestaurantsMaxPrice,
-    initialData: [{ maxPrice: 5 }],
+  const { data } = useQuery({
+    queryKey: ["restaurantsMaxPriceCuisines"],
+    queryFn: getRestaurantsMaxPriceCuisines,
+    staleTime: Infinity,
   });
-
-  const { data: cuisines = [] } = useQuery({
-    queryKey: ["restaurantsCuisines"],
-    queryFn: getRestaurantsCuisines,
-  });
+  const maxPrice = data?.maxPrice || 5;
+  const cuisines = data?.cuisines || [];
 
   const {
     data: restaurants = [],
@@ -85,7 +78,7 @@ const Home = () => {
 
       {!isPending && !isError && restaurants.length > 0 && (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8">
-          {restaurants
+          {[...restaurants]
             .sort((a, b) => a.name.localeCompare(b.name))
             .sort(
               (a, b) =>
@@ -102,7 +95,7 @@ const Home = () => {
                 rating={restaurant.averageRating}
                 review={restaurant.reviewCount}
                 cuisines={cuisines}
-                max={query.data[0].maxPrice}
+                max={maxPrice}
               />
             ))}
         </div>

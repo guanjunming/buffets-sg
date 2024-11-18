@@ -3,8 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { LuFolderSearch } from "react-icons/lu";
 import {
-  getRestaurantsMaxPrice,
-  getRestaurantsCuisines,
+  getRestaurantsMaxPriceCuisines,
   getRestaurantsByQuery,
 } from "../api/api";
 import SearchPrice from "../components/search/SearchPrice";
@@ -29,16 +28,13 @@ const Search = () => {
 
   const navigate = useNavigate();
 
-  const query = useQuery({
-    queryKey: ["restaurantsMaxPrice"],
-    queryFn: getRestaurantsMaxPrice,
-    initialData: [{ maxPrice: 5 }],
+  const { data } = useQuery({
+    queryKey: ["restaurantsMaxPriceCuisines"],
+    queryFn: getRestaurantsMaxPriceCuisines,
+    staleTime: Infinity,
   });
-
-  const { data: cuisines = [] } = useQuery({
-    queryKey: ["restaurantsCuisines"],
-    queryFn: getRestaurantsCuisines,
-  });
+  const maxPrice = data?.maxPrice || 5;
+  const cuisines = data?.cuisines || [];
 
   const {
     data: restaurants = [],
@@ -69,7 +65,7 @@ const Search = () => {
   const handlePriceChange = (e, newPrice, activeThumb) => {
     if (newPrice[1] - newPrice[0] < 5) {
       if (activeThumb === 0) {
-        const min = Math.min(newPrice[0], query.data[0].maxPrice - 5);
+        const min = Math.min(newPrice[0], maxPrice - 5);
         setPrice([min, min + 5]);
       } else {
         const max = Math.max(newPrice[1], 5);
@@ -134,7 +130,7 @@ const Search = () => {
       <div className="flex flex-col gap-10 rounded-3xl bg-neutral-100 px-10 pb-5 pt-10 sm:mx-5 lg:gap-5">
         <div className="flex flex-col items-center justify-between gap-5 md:flex-row md:items-start lg:items-center">
           <SearchPrice
-            max={query.data[0].maxPrice}
+            max={maxPrice}
             price={price}
             handlePriceChange={handlePriceChange}
           />
@@ -196,7 +192,7 @@ const Search = () => {
               rating={restaurant.averageRating}
               review={restaurant.reviewCount}
               cuisines={cuisines}
-              max={query.data[0].maxPrice}
+              max={maxPrice}
             />
           ))}
         </div>

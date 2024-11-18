@@ -3,8 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
 import {
-  getRestaurantsMaxPrice,
-  getRestaurantsCuisines,
+  getRestaurantsMaxPriceCuisines,
   getRestaurantsByQuery,
 } from "../../api/api";
 import { useDebouncedValue } from "@mantine/hooks";
@@ -17,16 +16,13 @@ const NavbarSearch = ({ isSuggest }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const query = useQuery({
-    queryKey: ["restaurantsMaxPrice"],
-    queryFn: getRestaurantsMaxPrice,
-    initialData: [{ maxPrice: 5 }],
+  const { data } = useQuery({
+    queryKey: ["restaurantsMaxPriceCuisines"],
+    queryFn: getRestaurantsMaxPriceCuisines,
+    staleTime: Infinity,
   });
-
-  const { data: cuisines = [] } = useQuery({
-    queryKey: ["restaurantsCuisines"],
-    queryFn: getRestaurantsCuisines,
-  });
+  const maxPrice = data?.maxPrice || 5;
+  const cuisines = data?.cuisines || [];
 
   const {
     data: restaurants = [],
@@ -48,7 +44,7 @@ const NavbarSearch = ({ isSuggest }) => {
           "&cuisine=" +
           cuisines.map((_, idx) => idx).join("c") +
           "&minPrice=0&maxPrice=" +
-          query.data[0].maxPrice +
+          maxPrice +
           "&sortBy=name&sortOrder=asc",
       );
     }
