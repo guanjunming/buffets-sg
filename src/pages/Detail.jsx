@@ -1,6 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { addToFavourites, getRestaurantById } from "../api/api";
+import {
+  addToFavourites,
+  getRestaurantById,
+  getAllFavourites,
+} from "../api/api";
 import { Rating } from "@mui/material";
 import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -11,6 +15,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import { useEffect } from "react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ReviewsSection from "../components/detail/ReviewsSection";
 import { useMutation } from "@tanstack/react-query";
@@ -21,6 +26,7 @@ const Detail = () => {
   const maxLength = 300;
   const [hover, setHover] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const {
     data: restaurant,
@@ -36,6 +42,7 @@ const Detail = () => {
     mutationFn: (id) => addToFavourites(id),
     onSuccess: (data) => {
       console.log("Successfully added to favourites:", data.message);
+      setIsFavorite(true);
     },
     onError: (error) => {
       console.error(
@@ -44,6 +51,19 @@ const Detail = () => {
       );
     },
   });
+
+  const { data: favourites } = useQuery({
+    queryKey: ["favourites"],
+    queryFn: getAllFavourites,
+  });
+
+  useEffect(() => {
+    // Check if the restaurant is in the favourites
+    if (favourites && restaurant) {
+      const isInFavourites = favourites.some((fav) => fav.id === restaurant.id);
+      setIsFavorite(isInFavourites);
+    }
+  }, [favourites, restaurant]);
 
   const handleFavourite = () => {
     if (!restaurant || !id) {
@@ -71,7 +91,7 @@ const Detail = () => {
                 onClick={handleFavourite}
                 aria-label="Add to favourites"
               >
-                {hover ? <GoHeartFill /> : <GoHeart />}
+                {isFavorite ? <GoHeartFill /> : <GoHeart />}
               </button>
             </div>
             <div>

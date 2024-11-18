@@ -139,4 +139,9 @@ export const addToFavourites = async (id) => {
   return response.data;
 };
 
+export const getAllFavourites = async () => {
+  const response = await apiInstance.get("/favourites");
+  return response.data;
+};
+
 export default apiInstance;
