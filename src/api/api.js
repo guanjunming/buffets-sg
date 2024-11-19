@@ -115,6 +115,23 @@ export const getRestaurantsByQuery = async (
   }
 };
 
+export const getRestaurantsByNearest = async (userLocation) => {
+  try {
+    const response = await apiInstance.post(
+      "/restaurants/nearest",
+      userLocation,
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
 export const getRestaurantById = async (id) => {
   try {
     const response = await apiInstance.get(`/restaurants/${id}`);
