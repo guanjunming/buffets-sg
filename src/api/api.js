@@ -170,4 +170,19 @@ export const getUserProfile = async () => {
   }
 };
 
+export const addToFavourites = async (id) => {
+  const response = await apiInstance.post(`/favourites/${id}`);
+  return response.data;
+};
+
+export const getAllFavourites = async () => {
+  const response = await apiInstance.get("/favourites");
+  return response.data;
+};
+
+export const removeFavourite = async (id) => {
+  const response = await apiInstance.delete(`/favourites/${id}`);
+  return response.data;
+};
+
 export default apiInstance;

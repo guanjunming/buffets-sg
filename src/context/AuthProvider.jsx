@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const loginUser = (data) => {
     setUser(data.userData);
@@ -46,6 +47,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (loading) return;
+
     // add access token to request headers
     const requestInterceptor = apiInstance.interceptors.request.use(
       (config) => {
@@ -89,11 +92,14 @@ export const AuthProvider = ({ children }) => {
       },
     );
 
+    setIsInitialized(true);
+
     return () => {
+      setIsInitialized(false);
       apiInstance.interceptors.request.eject(requestInterceptor);
       apiInstance.interceptors.response.eject(responseInterceptor);
     };
-  }, [accessToken]);
+  }, [accessToken, loading]);
 
   const value = {
     user,
@@ -101,6 +107,7 @@ export const AuthProvider = ({ children }) => {
     logoutUser,
     isLoggedIn: !!accessToken,
     loading,
+    isInitialized,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
