@@ -7,18 +7,18 @@ import { GoHeart, GoHeartFill } from "react-icons/go";
 const FavouriteButton = ({ restaurantId }) => {
   const [hover, setHover] = useState(false);
   const { isLoggedIn } = useAuth();
-  const { addFavorite, deleteFavourite, isFavorite, isPending } =
+  const { addFavourite, deleteFavourite, isFavourite, isPending } =
     useFavourites();
   const { openLoginModal } = useModal();
 
-  const isFilled = hover || isFavorite(restaurantId);
+  const isFilled = hover || isFavourite(restaurantId);
 
   const handleClick = () => {
     if (isLoggedIn) {
-      if (isFavorite(restaurantId)) {
+      if (isFavourite(restaurantId)) {
         deleteFavourite(restaurantId);
       } else {
-        addFavorite(restaurantId);
+        addFavourite(restaurantId);
       }
     } else {
       openLoginModal();

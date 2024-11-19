@@ -43,8 +43,7 @@ const Profile = () => {
   const { isLoggedIn, isInitialized } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
-  const initialTab = searchParams.get("tab") || "reviews"; // Get 'tab' from query params or default to 0
+  const initialTab = searchParams.get("tab") || "reviews";
   const [activeTab, setActiveTab] = useState(initialTab);
 
   const { data, isPending, isError } = useQuery({

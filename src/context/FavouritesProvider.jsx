@@ -4,17 +4,17 @@ import { addToFavourites, getAllFavourites, removeFavourite } from "../api/api";
 import { useAuth } from "./AuthProvider";
 import { useModal } from "./ModalProvider";
 
-export const FavouritesContext = createContext();
+const FavouritesContext = createContext();
 
 export const FavouritesProvider = ({ children }) => {
-  const { user, isLoggedIn, isInitialized } = useAuth();
+  const { user, isInitialized } = useAuth();
   const queryClient = useQueryClient();
   const { openLoginModal } = useModal();
 
   const { data: favourites } = useQuery({
     queryKey: ["favourites", user?.id],
-    queryFn: () => getAllFavourites(user.id),
-    enabled: isInitialized && !!user && isLoggedIn,
+    queryFn: getAllFavourites,
+    enabled: isInitialized && !!user,
   });
 
   const {
@@ -36,14 +36,14 @@ export const FavouritesProvider = ({ children }) => {
     },
   });
 
-  const addFavorite = (restaurantId) => {
-    if (isLoggedIn && !isFavorite(restaurantId)) {
+  const addFavourite = (restaurantId) => {
+    if (user && !isFavourite(restaurantId)) {
       addFavouriteMutate(restaurantId);
     }
   };
 
   const {
-    mutate: deleteFavoriteMutate,
+    mutate: deleteFavouriteMutate,
     isPending: isDeletePending,
     isError: isDeleteError,
     error: deleteError,
@@ -62,12 +62,12 @@ export const FavouritesProvider = ({ children }) => {
   });
 
   const deleteFavourite = (restaurantId) => {
-    if (isLoggedIn) {
-      deleteFavoriteMutate(restaurantId);
+    if (user) {
+      deleteFavouriteMutate(restaurantId);
     }
   };
 
-  const isFavorite = (restaurantId) => {
+  const isFavourite = (restaurantId) => {
     if (favourites) {
       return favourites.some((fav) => fav._id === restaurantId);
     }
@@ -76,9 +76,9 @@ export const FavouritesProvider = ({ children }) => {
 
   const value = {
     favourites,
-    addFavorite,
+    addFavourite,
     deleteFavourite,
-    isFavorite,
+    isFavourite,
     isPending: isAddPending || isDeletePending,
     isError: isAddError || isDeleteError,
     error: addError || deleteError,
