@@ -5,7 +5,6 @@ import { Rating } from "@mui/material";
 import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import { GoHeart, GoHeartFill } from "react-icons/go";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -14,12 +13,12 @@ import "swiper/css/thumbs";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ReviewsSection from "../components/detail/ReviewsSection";
+import FavouriteButton from "../components/common/FavouriteButton";
 
 const Detail = () => {
   const { id } = useParams();
   const [isReadMore, setIsReadMore] = useState(false);
   const maxLength = 300;
-  const [hover, setHover] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const {
@@ -43,13 +42,7 @@ const Detail = () => {
           <div className="md:flex-column flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4">
               <h2 className="text-2xl font-bold">{restaurant.name}</h2>
-              <button
-                className="cursor-pointer text-2xl text-rose-500"
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
-              >
-                {hover ? <GoHeartFill /> : <GoHeart />}
-              </button>
+              <FavouriteButton restaurantId={restaurant._id} />
             </div>
             <div>
               {restaurant?.img?.length > 0 ? (
