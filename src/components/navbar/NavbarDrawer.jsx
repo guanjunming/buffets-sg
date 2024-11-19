@@ -63,7 +63,7 @@ const NavbarDrawer = () => {
                   }}
                   className="rounded px-3 py-2 hover:cursor-pointer hover:bg-neutral-200"
                 >
-                  Sign out
+                  Logout
                 </div>
               </div>
             ) : (

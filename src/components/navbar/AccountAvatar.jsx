@@ -32,7 +32,7 @@ const AccountAvatar = () => {
         <Link
           to="/profile"
           onClick={() => setDropdownOpen(false)}
-          className="block rounded px-3 py-2 text-left font-medium text-black hover:bg-gray-200"
+          className="block rounded px-3 py-2 text-left font-medium hover:bg-neutral-200"
         >
           Profile
         </Link>
@@ -41,7 +41,7 @@ const AccountAvatar = () => {
             logoutUser();
             setDropdownOpen(false);
           }}
-          className="w-full rounded px-3 py-2 text-left font-medium text-black hover:bg-gray-200"
+          className="w-full rounded px-3 py-2 text-left font-medium hover:bg-neutral-200"
         >
           Logout
         </button>

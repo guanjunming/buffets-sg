@@ -39,7 +39,7 @@ const Detail = () => {
     <div className="m-auto mx-9 text-left">
       <div>
         <div className="mx-auto p-6">
-          <div className="md:flex-column flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4">
               <h2 className="text-2xl font-bold">{restaurant.name}</h2>
               <FavouriteButton restaurantId={restaurant._id} />
@@ -110,7 +110,7 @@ const Detail = () => {
                   {isReadMore ? restaurant.description : shortenInfo}
                   {restaurant.description.length > maxLength && (
                     <button
-                      className="ml-0 inline-flex items-center space-x-2 text-blue-500 hover:text-blue-700"
+                      className="ml-0 inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800"
                       onClick={() => setIsReadMore(!isReadMore)}
                     >
                       <span>{isReadMore ? "Read less" : "Read more"}</span>
@@ -143,7 +143,7 @@ const Detail = () => {
                 {restaurant.cuisine.map((cuisine, index) => (
                   <span
                     key={index}
-                    className="mr-1 rounded-sm bg-blue-400 px-1 py-1 text-xs text-white"
+                    className="mr-1 rounded-sm bg-blue-900 px-1 py-1 text-xs text-white"
                   >
                     {cuisine}
                   </span>
@@ -168,7 +168,7 @@ const Detail = () => {
             <h2 className="mt-4 font-semibold">RATINGS</h2>
             <div className="my-4 border-t border-gray-300">
               <strong>
-                <p className="text-text-base mt-8">{`${restaurant.averageRating}/5`}</p>
+                <p className="mt-8">{`${restaurant.averageRating}/5`}</p>
               </strong>
             </div>
             <div className="flex flex-col gap-1">
@@ -190,7 +190,7 @@ const Detail = () => {
                 href={restaurant.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-0 mb-4 mr-4 text-blue-500 hover:text-blue-700"
+                className="absolute bottom-0 mb-4 mr-4 text-blue-600 hover:text-blue-800"
               >
                 Visit Website
               </a>

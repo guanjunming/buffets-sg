@@ -3,7 +3,7 @@ const NotFound = () => {
     <div className="m-auto mx-9 max-w-screen-xl text-left">
       <div className="text-sm">
         <div className="mx-auto max-w-4xl p-6">
-          <div className="md:flex-column flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-center border-b border-gray-200 pb-4 pr-4">
               <h2 className="text-center text-2xl font-bold">
                 404 - Page Not Found

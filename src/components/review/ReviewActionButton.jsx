@@ -36,7 +36,7 @@ const ReviewActionButton = ({ reviewId, restaurantId, onSuccessCb }) => {
             <div className="absolute -top-2 right-5 h-0 w-0 border-b-8 border-l-8 border-r-8 border-transparent border-b-white"></div>
             <Link
               to={`/review/${restaurantId}`}
-              className="block w-full rounded px-3 py-2 text-left font-medium text-black hover:bg-gray-200"
+              className="block w-full rounded px-3 py-2 text-left font-medium hover:bg-neutral-200"
             >
               Edit
             </Link>
@@ -45,7 +45,7 @@ const ReviewActionButton = ({ reviewId, restaurantId, onSuccessCb }) => {
                 setDialogOpen(true);
                 setDropdownOpen(false);
               }}
-              className="w-full rounded px-3 py-2 text-left font-medium text-black hover:bg-gray-200"
+              className="w-full rounded px-3 py-2 text-left font-medium hover:bg-neutral-200"
             >
               Delete
             </button>

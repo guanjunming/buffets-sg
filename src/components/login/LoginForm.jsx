@@ -25,7 +25,7 @@ const LoginForm = ({ onSuccessCb, goToSignup }) => {
 
   return (
     <div className="mx-auto w-[500px] px-[50px] pb-6 pt-12 text-left">
-      <SiIfood color="blue" size={50} />
+      <SiIfood color="rgb(30,58,138)" size={50} />
 
       {isError && (
         <div className="my-4 border border-red-500 p-2.5 text-xs font-semibold text-red-700">
@@ -54,7 +54,7 @@ const LoginForm = ({ onSuccessCb, goToSignup }) => {
         <div className="m-auto mt-6 w-80">
           <button
             disabled={isPending}
-            className="my-4 w-full rounded bg-black px-4 py-3 font-medium text-white shadow-lg hover:bg-gray-900"
+            className="my-4 w-full rounded bg-black px-4 py-3 font-medium text-white shadow-lg hover:bg-neutral-950"
           >
             Sign in
           </button>
