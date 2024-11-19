@@ -5,7 +5,6 @@ import { Rating } from "@mui/material";
 import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import { useRef } from "react";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -19,13 +18,8 @@ const Detail = () => {
   const { id } = useParams();
   const [isReadMore, setIsReadMore] = useState(false);
   const maxLength = 300;
-  const reviewsRef = useRef(null);
   const [hover, setHover] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  const goToReviews = () => {
-    reviewsRef.current.scrollIntoView({ behavior: "smooth" });
-  };
 
   const {
     data: restaurant,
@@ -45,7 +39,7 @@ const Detail = () => {
     <div className="m-auto mx-9 text-left">
       <div>
         <div className="mx-auto p-6">
-          <div className="md:flex-column flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4">
               <h2 className="text-2xl font-bold">{restaurant.name}</h2>
               <div
@@ -180,7 +174,7 @@ const Detail = () => {
             <h2 className="mt-4 font-semibold">RATINGS</h2>
             <div className="my-4 border-t border-gray-300">
               <strong>
-                <p className="text-text-base mt-8">{`${restaurant.averageRating}/5`}</p>
+                <p className="mt-8">{`${restaurant.averageRating}/5`}</p>
               </strong>
             </div>
             <div className="flex flex-col gap-1">
