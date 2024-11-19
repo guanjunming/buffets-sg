@@ -51,6 +51,34 @@ export const refreshAccessToken = async (token) => {
   return response.data;
 };
 
+export const updateProfile = async (userData) => {
+  try {
+    const response = await apiInstance.patch("/updateProfile", userData);
+    return response.data;
+  } catch (error) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
+export const updatePassword = async (userData) => {
+  try {
+    const response = await apiInstance.patch("/updatePassword", userData);
+    return response.data;
+  } catch (error) {
+    const message = error.response.data.message;
+    if (Array.isArray(message)) {
+      throw new Error(message[0]);
+    } else {
+      throw new Error(message);
+    }
+  }
+};
+
 export const getRestaurants = async () => {
   try {
     const response = await apiInstance.get("/restaurants");
@@ -60,18 +88,9 @@ export const getRestaurants = async () => {
   }
 };
 
-export const getRestaurantsMaxPrice = async () => {
+export const getRestaurantsMaxPriceCuisines = async () => {
   try {
-    const response = await apiInstance.get("/restaurants/maxprice");
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response.data.message);
-  }
-};
-
-export const getRestaurantsCuisines = async () => {
-  try {
-    const response = await apiInstance.get("/restaurants/cuisines");
+    const response = await apiInstance.get("/restaurants/maxpricecuisines");
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message);

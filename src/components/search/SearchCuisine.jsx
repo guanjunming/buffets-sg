@@ -3,9 +3,9 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 
 const SearchCuisine = ({ cuisines, selectedCuisine, handleCuisineChange }) => {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="text-xl">Cuisine :</div>
-      <div className="flex flex-wrap items-center justify-center gap-2">
+    <div className="flex flex-col items-center gap-2 lg:items-start">
+      <div className="text-xl">Cuisine</div>
+      <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
         {cuisines.map((cuisine, idx) => (
           <div
             key={idx}

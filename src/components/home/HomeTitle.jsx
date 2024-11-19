@@ -36,7 +36,7 @@ const HomeTitle = ({ restaurants, isPending, isError }) => {
                   src={restaurant.img[0]}
                   alt={restaurant.name}
                   title={restaurant.name}
-                  className="aspect-video w-full object-cover duration-500 hover:scale-105"
+                  className="aspect-video w-full border-4 border-black object-cover"
                 />
               </SwiperSlide>
             ))}
