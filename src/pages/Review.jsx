@@ -33,23 +33,36 @@ const Review = () => {
   const [sysMsg, setSysMsg] = useState("");
   const { openLoginModal } = useModal();
   const { isLoggedIn } = useAuth();
+  const [shouldFetchReview, setShouldFetchReview] = useState(false);
 
   const { data: restaurant, isError } = useQuery({
     queryKey: ["restaurant", id],
     queryFn: () => getRestaurantById(id),
   });
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      setShouldFetchReview(true);
+    }
+  }, []); // isLoggedIn not put as dependency in order to prevent fetching and overwriting current form if user logs in
+
   const { data: userReview } = useQuery({
     queryKey: ["review", id],
     queryFn: () => getReviewByRestaurantId(id),
-    enabled: !!restaurant && isLoggedIn,
+    enabled: !!restaurant && shouldFetchReview,
   });
 
   useEffect(() => {
-    setRating(userReview?.rating || 0);
-    setTitle(userReview?.title || "");
-    setReview(userReview?.review || "");
-  }, [userReview]);
+    if (shouldFetchReview && userReview) {
+      setRating(userReview.rating);
+      setTitle(userReview.title);
+      setReview(userReview.review);
+    } else {
+      setRating(0);
+      setTitle("");
+      setReview("");
+    }
+  }, [userReview, shouldFetchReview]);
 
   const {
     mutate,
