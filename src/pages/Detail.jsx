@@ -1,11 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import {
-  addToFavourites,
-  getRestaurantById,
-  getAllFavourites,
-  removeFavourite,
-} from "../api/api";
+import { getRestaurantById } from "../api/api";
 import { Rating } from "@mui/material";
 import { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -16,11 +11,9 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { useEffect } from "react";
+
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ReviewsSection from "../components/detail/ReviewsSection";
-import { useMutation } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
 
 const Detail = () => {
   const { id } = useParams();
@@ -28,8 +21,6 @@ const Detail = () => {
   const maxLength = 300;
   const [hover, setHover] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const queryClient = useQueryClient();
 
   const {
     data: restaurant,
@@ -40,59 +31,6 @@ const Detail = () => {
     queryKey: ["restaurant", id],
     queryFn: () => getRestaurantById(id),
   });
-
-  const addMutation = useMutation({
-    mutationFn: (id) => addToFavourites(id),
-    onSuccess: () => {
-      setIsFavorite(true);
-    },
-    onError: (error) => {
-      console.error(
-        "Failed to add to favourites:",
-        error.response?.data || error.message,
-      );
-    },
-  });
-
-  const removeMutation = useMutation({
-    mutationFn: (id) => removeFavourite(id),
-    onSuccess: () => {
-      setIsFavorite(false);
-      queryClient.invalidateQueries(["favourites"]);
-    },
-    onError: (error) => {
-      console.error("Failed to remove from favourites:", error);
-    },
-  });
-
-  const { data: favourites } = useQuery({
-    queryKey: ["favourites"],
-    queryFn: getAllFavourites,
-  });
-
-  useEffect(() => {
-    // Check if the restaurant is in the favourites
-    if (favourites && restaurant) {
-      const isInFavourites = favourites.some((fav) => fav.id === restaurant.id);
-      setIsFavorite(isInFavourites);
-    }
-  }, [favourites, restaurant]);
-
-  const handleFavourite = () => {
-    if (!restaurant || !id) {
-      console.error("Restaurant ID is undefined!");
-      return;
-    }
-    addMutation.mutate(id);
-  };
-
-  const handleRemoveFavourite = () => {
-    if (id) {
-      removeMutation.mutate(id);
-    } else {
-      console.error("ID is undefined!");
-    }
-  };
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error {error.message}</div>;
@@ -109,12 +47,8 @@ const Detail = () => {
                 className="cursor-pointer text-2xl text-rose-500"
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
-                onClick={isFavorite ? handleRemoveFavourite : handleFavourite} // Conditionally trigger the appropriate function
-                aria-label={
-                  isFavorite ? "Remove from favourites" : "Add to favourites"
-                }
               >
-                {isFavorite ? <GoHeartFill /> : <GoHeart />}
+                {hover ? <GoHeartFill /> : <GoHeart />}
               </button>
             </div>
             <div>

@@ -8,8 +8,6 @@ import { useAuth } from "../context/AuthProvider";
 import { CircularProgress } from "@mui/material";
 import ProfileReviewsPanel from "../components/profile/ProfileReviewsPanel";
 import AccountSettingsPanel from "../components/profile/AccountSettingsPanel";
-import { getAllFavourites, getRestaurantsCuisines } from "../api/api";
-import { Rating } from "@mui/material";
 
 const Tab = ({ children, index, activeTab, onClick }) => {
   return (
@@ -45,28 +43,28 @@ const Profile = () => {
     enabled: isLoggedIn,
   });
 
-  const { data: cuisines = [] } = useQuery({
-    queryKey: ["restaurantsCuisines"],
-    queryFn: getRestaurantsCuisines,
-  });
+  // const { data: cuisines = [] } = useQuery({
+  //   queryKey: ["restaurantsCuisines"],
+  //   queryFn: getRestaurantsCuisines,
+  // });
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  const {
-    data: favourites = [], // Default to an empty array if undefined
-    isLoading: isLoadingFav,
-    isError: isErrorFav,
-    error: favouritesError,
-  } = useQuery({
-    queryKey: ["favourites"],
-    queryFn: getAllFavourites,
-  });
+  // const {
+  //   data: favourites = [], // Default to an empty array if undefined
+  //   isLoading: isLoadingFav,
+  //   isError: isErrorFav,
+  //   error: favouritesError,
+  // } = useQuery({
+  //   queryKey: ["favourites"],
+  //   queryFn: getAllFavourites,
+  // });
 
-  if (isLoadingFav) return <p>Loading favourites...</p>;
-  if (isErrorFav)
-    return <p>Error loading favourites: {favouritesError.message}</p>;
+  // if (isLoadingFav) return <p>Loading favourites...</p>;
+  // if (isErrorFav)
+  //   return <p>Error loading favourites: {favouritesError.message}</p>;
 
   if (isPending) {
     return (
@@ -115,7 +113,7 @@ const Profile = () => {
             <AccountSettingsPanel user={data.user} />
           </TabPanel>
           <TabPanel index={2} activeTab={activeTab}>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {favourites.length > 0 ? (
                 <>
                   {favourites.map((fav, index) => (
@@ -172,7 +170,7 @@ const Profile = () => {
               ) : (
                 <p>No favourites yet.</p>
               )}
-            </div>
+            </div> */}
           </TabPanel>
         </div>
       </div>
