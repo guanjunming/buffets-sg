@@ -40,7 +40,7 @@ function TabPanel({ children, index, activeTab }) {
 
 const Profile = () => {
   const location = useLocation();
-  const { isLoggedIn, isInitialized } = useAuth();
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const initialTab = searchParams.get("tab") || "reviews";
@@ -49,7 +49,7 @@ const Profile = () => {
   const { data, isPending, isError } = useQuery({
     queryKey: ["profile"],
     queryFn: getUserProfile,
-    enabled: isLoggedIn && isInitialized,
+    enabled: isLoggedIn,
   });
 
   const handleTabClick = (tab) => {

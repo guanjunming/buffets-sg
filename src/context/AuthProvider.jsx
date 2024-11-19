@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginUser = (data) => {
     setUser(data.userData);
@@ -92,10 +92,10 @@ export const AuthProvider = ({ children }) => {
       },
     );
 
-    setIsInitialized(true);
+    setIsLoggedIn(!!accessToken);
 
     return () => {
-      setIsInitialized(false);
+      setIsLoggedIn(false);
       apiInstance.interceptors.request.eject(requestInterceptor);
       apiInstance.interceptors.response.eject(responseInterceptor);
     };
@@ -105,9 +105,8 @@ export const AuthProvider = ({ children }) => {
     user,
     loginUser,
     logoutUser,
-    isLoggedIn: !!accessToken,
+    isLoggedIn,
     loading,
-    isInitialized,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

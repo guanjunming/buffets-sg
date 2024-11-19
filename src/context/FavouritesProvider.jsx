@@ -7,14 +7,14 @@ import { useModal } from "./ModalProvider";
 const FavouritesContext = createContext();
 
 export const FavouritesProvider = ({ children }) => {
-  const { user, isInitialized } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const queryClient = useQueryClient();
   const { openLoginModal } = useModal();
 
   const { data: favourites } = useQuery({
     queryKey: ["favourites", user?.id],
     queryFn: getAllFavourites,
-    enabled: isInitialized && !!user,
+    enabled: isLoggedIn && !!user,
   });
 
   const {

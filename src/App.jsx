@@ -14,8 +14,8 @@ import LoginModal from "./components/login/LoginModal";
 import SignupModal from "./components/login/SignupModal";
 import { ModalProvider } from "./context/ModalProvider";
 import { AuthProvider } from "./context/AuthProvider";
-import ScrollToTop from "./components/common/ScrollToTop";
 import { FavouritesProvider } from "./context/FavouritesProvider";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -36,14 +36,9 @@ function App() {
                   <Route path="/review/:id" element={<Review />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/search" element={<Search />} />
-                  <Route
-                    path="/profile"
-                    element={
-                      <ProtectedRoute>
-                        <Profile />
-                      </ProtectedRoute>
-                    }
-                  />
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/profile" element={<Profile />} />
+                  </Route>
                   <Route path="*" element={<NotFound />} />
                 </Routes>
 
