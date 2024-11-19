@@ -46,13 +46,13 @@ const ProfileReviewsPanel = ({ reviews, user }) => {
             <h3 className="text-xl font-bold">Write your first review!</h3>
             <p className="text-gray-600">
               Your thoughts can guide others to the best dining experiences.
-              Start by reviewing your favorite buffet restaurant!
+              Start by reviewing your favourite buffet restaurant!
             </p>
             <Link
               to="/"
               className="rounded-md bg-blue-900 px-4 py-3 text-white hover:bg-blue-800"
             >
-              Find Buffets
+              Find Restaurants
             </Link>
           </div>
         </div>

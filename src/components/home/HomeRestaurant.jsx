@@ -44,21 +44,34 @@ const HomeRestaurant = ({
       </div>
 
       <div className="m-5 flex flex-wrap items-center justify-center gap-2">
-        {cuisine.map((cuisin, idx) => (
-          <Link
-            key={idx}
-            to={
-              "/search?search=&cuisine=" +
-              cuisines.indexOf(cuisin) +
-              "&minPrice=0&maxPrice=" +
-              max +
-              "&sortBy=name&sortOrder=asc"
-            }
-            className="rounded-full bg-blue-900 px-3 py-1 text-sm font-semibold text-white hover:cursor-pointer hover:bg-blue-800"
-          >
-            {cuisin}
-          </Link>
-        ))}
+        {cuisine.map((cuisin, idx) => {
+          if (cuisines && max) {
+            return (
+              <Link
+                key={idx}
+                to={
+                  "/search?search=&cuisine=" +
+                  cuisines.indexOf(cuisin) +
+                  "&minPrice=0&maxPrice=" +
+                  max +
+                  "&sortBy=name&sortOrder=asc"
+                }
+                className="rounded-full bg-blue-900 px-3 py-1 text-sm font-semibold text-white hover:cursor-pointer hover:bg-blue-800"
+              >
+                {cuisin}
+              </Link>
+            );
+          } else {
+            return (
+              <div
+                key={idx}
+                className="rounded-full bg-blue-900 px-3 py-1 text-sm font-semibold text-white"
+              >
+                {cuisin}
+              </div>
+            );
+          }
+        })}
       </div>
     </div>
   );

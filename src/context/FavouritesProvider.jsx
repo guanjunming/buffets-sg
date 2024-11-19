@@ -2,17 +2,19 @@ import { createContext, useContext } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { addToFavourites, getAllFavourites, removeFavourite } from "../api/api";
 import { useAuth } from "./AuthProvider";
+import { useModal } from "./ModalProvider";
 
 export const FavouritesContext = createContext();
 
 export const FavouritesProvider = ({ children }) => {
   const { user, isLoggedIn, isInitialized } = useAuth();
   const queryClient = useQueryClient();
+  const { openLoginModal } = useModal();
 
   const { data: favourites } = useQuery({
     queryKey: ["favourites", user?.id],
     queryFn: () => getAllFavourites(user.id),
-    enabled: isInitialized && !!user,
+    enabled: isInitialized && !!user && isLoggedIn,
   });
 
   const {
@@ -26,6 +28,11 @@ export const FavouritesProvider = ({ children }) => {
       queryClient.invalidateQueries({
         queryKey: ["favourites", user.id],
       });
+    },
+    onError: (error) => {
+      if (error.response.status === 401) {
+        openLoginModal();
+      }
     },
   });
 
@@ -46,6 +53,11 @@ export const FavouritesProvider = ({ children }) => {
       queryClient.invalidateQueries({
         queryKey: ["favourites", user.id],
       });
+    },
+    onError: (error) => {
+      if (error.response.status === 401) {
+        openLoginModal();
+      }
     },
   });
 
