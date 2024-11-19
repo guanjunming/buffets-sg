@@ -122,7 +122,7 @@ const Detail = () => {
                   {isReadMore ? restaurant.description : shortenInfo}
                   {restaurant.description.length > maxLength && (
                     <button
-                      className="ml-0 inline-flex items-center space-x-2 text-blue-500 hover:text-blue-700"
+                      className="ml-0 inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800"
                       onClick={() => setIsReadMore(!isReadMore)}
                     >
                       <span>{isReadMore ? "Read less" : "Read more"}</span>
@@ -155,7 +155,7 @@ const Detail = () => {
                 {restaurant.cuisine.map((cuisine, index) => (
                   <span
                     key={index}
-                    className="mr-1 rounded-sm bg-blue-400 px-1 py-1 text-xs text-white"
+                    className="mr-1 rounded-sm bg-blue-900 px-1 py-1 text-xs text-white"
                   >
                     {cuisine}
                   </span>
@@ -202,7 +202,7 @@ const Detail = () => {
                 href={restaurant.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-0 mb-4 mr-4 text-blue-500 hover:text-blue-700"
+                className="absolute bottom-0 mb-4 mr-4 text-blue-600 hover:text-blue-800"
               >
                 Visit Website
               </a>

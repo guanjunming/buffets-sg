@@ -65,7 +65,7 @@ const ReviewCard = ({ review }) => {
         {showReadMore && (
           <button
             onClick={() => setIsReadMore((prev) => !prev)}
-            className="flex items-center gap-1 text-blue-500 underline hover:text-blue-700"
+            className="flex items-center gap-1 text-blue-600 underline hover:text-blue-800"
           >
             <span>{isReadMore ? "Read less" : "Read more"}</span>{" "}
             {isReadMore ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
