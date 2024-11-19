@@ -10,6 +10,7 @@ const HomeRestaurant = ({
   review,
   cuisines,
   max,
+  distance,
 }) => {
   return (
     <div className="flex h-full flex-col rounded-3xl border border-neutral-500">
@@ -73,6 +74,12 @@ const HomeRestaurant = ({
           }
         })}
       </div>
+
+      {!!distance && (
+        <div className="mb-5 flex items-center justify-center text-center font-medium">
+          ({Math.floor(distance / 100) / 10} km away)
+        </div>
+      )}
     </div>
   );
 };
