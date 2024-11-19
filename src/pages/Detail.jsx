@@ -164,7 +164,7 @@ const Detail = () => {
         </div>
 
         <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm md:flex-row">
-          <div className="flex-1 basis-1/4 self-stretch border-r border-gray-200 p-4">
+          <div className="flex-1 basis-1/4 border-r border-gray-200 p-4">
             <h2 className="mt-4 font-semibold">RATINGS</h2>
             <div className="my-4 border-t border-gray-300">
               <strong>
@@ -197,7 +197,7 @@ const Detail = () => {
             </div>
           </div>
 
-          <div className="flex-1 basis-3/4 self-stretch p-6">
+          <div className="flex-1 basis-3/4 p-6">
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between border-b border-gray-200">
                 <h2 className="font-semibold">REVIEWS</h2>
