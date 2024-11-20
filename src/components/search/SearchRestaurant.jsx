@@ -17,8 +17,9 @@ const SearchRestaurant = ({
         <img
           src={img[0]}
           alt={name}
-          className="mb-5 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:brightness-110 lg:mb-0 lg:rounded-3xl lg:border"
+          className="mb-1 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:brightness-110 lg:mb-0 lg:rounded-3xl lg:border"
           title={name}
+          loading="lazy"
         />
       </Link>
 

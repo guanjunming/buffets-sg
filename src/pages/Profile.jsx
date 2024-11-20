@@ -90,7 +90,7 @@ const Profile = () => {
       </div>
 
       <div className="mt-6 flex flex-col gap-6 lg:flex-row">
-        <div className="hidden w-[40%] border-r lg:block">
+        <div className="hidden w-[30%] border-r lg:block">
           <div className="mr-6 space-y-3 rounded border border-gray-200 p-6">
             <div className="font-bold">Intro</div>
             <div className="mb-3 flex items-center gap-1">

@@ -5,7 +5,7 @@ const HomeSkeleton = () => {
     <div className="overflow-hidden rounded-3xl border border-neutral-500">
       <Skeleton
         variant="rectangular"
-        className="mb-8 border-b border-neutral-500 pt-[56.25%]"
+        className="mb-4 border-b border-neutral-500 pt-[56.25%]"
       />
 
       <Skeleton variant="rectangular" height={56} className="mx-5 mb-3" />

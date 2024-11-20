@@ -1,6 +1,6 @@
 const HomeFilter = ({ tab, sortBy }) => {
   return (
-    <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center sm:justify-start">
+    <div className="flex flex-wrap gap-2">
       <div
         className={
           tab?.all

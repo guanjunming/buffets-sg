@@ -5,7 +5,7 @@ import { useFavourites } from "../../context/FavouritesProvider";
 import HomeRestaurant from "../home/HomeRestaurant";
 
 const FavouritesPanel = () => {
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = 12;
   const [cardCount, setCardCount] = useState(PAGE_SIZE);
   const { favourites } = useFavourites();
 
@@ -17,7 +17,7 @@ const FavouritesPanel = () => {
     <div className="w-full">
       {favourites && favourites.length > 0 ? (
         <div>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
             {favourites.slice(0, cardCount).map((restaurant) => (
               <HomeRestaurant
                 key={restaurant._id}

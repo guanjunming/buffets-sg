@@ -20,8 +20,9 @@ const HomeRestaurant = ({
         <img
           src={img[0]}
           alt={name}
-          className="mb-5 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:brightness-110"
+          className="mb-1 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:brightness-110"
           title={name}
+          loading="lazy"
         />
       </Link>
 
