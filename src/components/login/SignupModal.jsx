@@ -2,10 +2,20 @@ import { Dialog, useMediaQuery } from "@mui/material";
 import { IoClose } from "react-icons/io5";
 import { useModal } from "../../context/ModalProvider";
 import SignupForm from "./SignupForm";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignupModal = () => {
   const fullscreen = useMediaQuery("(max-width:768px)");
   const { isSignupOpen, closeSignupModal, openLoginModal } = useModal();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSignupSuccess = () => {
+    closeSignupModal();
+    if (location.pathname === "/login") {
+      navigate("/", { replace: true });
+    }
+  };
 
   return (
     <Dialog
@@ -20,7 +30,10 @@ const SignupModal = () => {
         <IoClose size={28} />
       </div>
 
-      <SignupForm onSuccessCb={closeSignupModal} goToLogin={openLoginModal} />
+      <SignupForm
+        onSuccessCb={handleSignupSuccess}
+        goToLogin={openLoginModal}
+      />
     </Dialog>
   );
 };
