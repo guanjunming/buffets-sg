@@ -59,8 +59,8 @@ For back-end (buffet-server):
 ```
 PORT=5001
 MONGODB_URI=mongodb://127.0.0.1:27017/restaurants
-ACCESS_SECRET=<change this to a random key>
-REFRESH_SECRET=<change this to a random key>
+ACCESS_SECRET=<replace-with-a-random-key>
+REFRESH_SECRET=<replace-with-a-random-key>
 ```
 
 ## Running The Application
