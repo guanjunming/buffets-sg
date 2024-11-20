@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
+import FavouriteButton from "../common/FavouriteButton";
+import { IconContext } from "react-icons";
 
 const HomeRestaurant = ({
   id,
@@ -13,7 +15,7 @@ const HomeRestaurant = ({
   distance,
 }) => {
   return (
-    <div className="flex h-full flex-col rounded-3xl border border-neutral-500">
+    <div className="relative flex h-full flex-col rounded-3xl border border-neutral-500">
       <Link to={"/restaurant/" + id}>
         <img
           src={img[0]}
@@ -22,6 +24,12 @@ const HomeRestaurant = ({
           title={name}
         />
       </Link>
+
+      <div className="absolute right-3 top-3">
+        <IconContext.Provider value={{ size: "1.5rem" }}>
+          <FavouriteButton restaurantId={id} />
+        </IconContext.Provider>
+      </div>
 
       <div className="mx-5 flex h-20 items-center justify-center overflow-hidden text-center text-xl font-bold">
         {name}

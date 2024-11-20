@@ -14,6 +14,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import ReviewsSection from "../components/detail/ReviewsSection";
 import FavouriteButton from "../components/common/FavouriteButton";
+import { IconContext } from "react-icons";
 
 const Detail = () => {
   const { id } = useParams();
@@ -42,7 +43,9 @@ const Detail = () => {
           <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4">
               <h2 className="text-2xl font-bold">{restaurant.name}</h2>
-              <FavouriteButton restaurantId={restaurant._id} />
+              <IconContext.Provider value={{ size: "1.5rem" }}>
+                <FavouriteButton restaurantId={restaurant._id} />
+              </IconContext.Provider>
             </div>
             <div>
               {restaurant?.img?.length > 0 ? (

@@ -3,6 +3,7 @@ import ReviewActionButton from "./ReviewActionButton";
 import { formatDate } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import FavouriteButton from "../common/FavouriteButton";
 
 const UserReviewCard = ({ review, name }) => {
   const { restaurant } = review;
@@ -28,7 +29,6 @@ const UserReviewCard = ({ review, name }) => {
           </div>
         </div>
 
-        <></>
         <ReviewActionButton
           reviewId={review._id}
           restaurantId={review.restaurant._id}
@@ -49,41 +49,43 @@ const UserReviewCard = ({ review, name }) => {
       <div className="my-0.5 font-bold">{review.title}</div>
       <p className="line-clamp-3 break-words">{review.review}</p>
 
-      <Link
-        to={`/restaurant/${review.restaurant._id}`}
-        className="mt-3 block max-w-[360px] overflow-hidden"
-      >
-        <div className="flex items-center gap-2 rounded border border-gray-200">
-          <img
-            src={restaurant.img[0]}
-            alt={restaurant.name}
-            className="aspect-square h-16 w-16 min-w-16 rounded object-cover"
-          />
-          <div className="overflow-hidden">
-            <p className="truncate text-xs font-bold">{restaurant.name}</p>
-            <div className="flex items-end gap-1 text-xs">
-              <Rating
-                value={restaurant.averageRating}
-                precision={0.1}
-                size="small"
-                sx={{
-                  color: "rgb(30,64,175)",
-                  "& .MuiRating-icon": {
+      <div className="relative mt-3 block max-w-[360px] overflow-hidden">
+        <Link to={`/restaurant/${review.restaurant._id}`}>
+          <div className="flex gap-2 rounded border border-gray-200">
+            <img
+              src={restaurant.img[0]}
+              alt={restaurant.name}
+              className="aspect-square h-16 w-16 min-w-16 rounded object-cover"
+            />
+            <div className="max-w-[250px] flex-grow self-center overflow-hidden">
+              <p className="truncate text-xs font-bold">{restaurant.name}</p>
+              <div className="flex items-end gap-1 text-xs">
+                <Rating
+                  value={restaurant.averageRating}
+                  precision={0.1}
+                  size="small"
+                  sx={{
                     color: "rgb(30,64,175)",
-                    width: "1rem",
-                  },
-                }}
-                readOnly
-              />
-              <span className="font-bold">{restaurant.averageRating}</span>
-            </div>
+                    "& .MuiRating-icon": {
+                      color: "rgb(30,64,175)",
+                      width: "1rem",
+                    },
+                  }}
+                  readOnly
+                />
+                <span className="font-bold">{restaurant.averageRating}</span>
+              </div>
 
-            <div className="text-xs">
-              {`${restaurant.reviewCount} Review${restaurant.reviewCount > 1 ? "s" : ""}`}
+              <div className="text-xs">
+                {`${restaurant.reviewCount} Review${restaurant.reviewCount > 1 ? "s" : ""}`}
+              </div>
             </div>
           </div>
+        </Link>
+        <div className="absolute right-1 top-1">
+          <FavouriteButton restaurantId={review.restaurant._id} />
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

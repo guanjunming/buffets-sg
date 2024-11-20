@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import UserReviewCard from "../review/UserReviewCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import { useFavourites } from "../../context/FavouritesProvider";
