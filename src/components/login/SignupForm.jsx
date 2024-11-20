@@ -73,7 +73,13 @@ const SignupForm = ({ onSuccessCb, goToLogin }) => {
 
       <form onSubmit={handleSubmit} className="py-4">
         <div className="space-y-4">
-          <Input type="text" id="name" label="Name" placeholder="Name" />
+          <Input
+            type="text"
+            id="name"
+            label="Name"
+            placeholder="Name"
+            maxLength="40"
+          />
           <Input
             type="email"
             id="email"

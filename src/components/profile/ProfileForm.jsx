@@ -61,6 +61,7 @@ const ProfileForm = ({ name }) => {
               id="name"
               label="Name"
               placeholder="Name"
+              maxLength="40"
               value={nameInput}
               onChange={(e) => {
                 setNameInput(e.target.value);
