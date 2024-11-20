@@ -15,11 +15,19 @@ const ReviewCard = ({ review }) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (textRef.current) {
-      setShowReadMore(
-        textRef.current.scrollHeight > textRef.current.clientHeight,
-      );
-    }
+    const handleReadMore = () => {
+      if (textRef.current) {
+        setShowReadMore(
+          textRef.current.scrollHeight > textRef.current.clientHeight,
+        );
+      }
+    };
+
+    handleReadMore();
+    window.addEventListener("resize", handleReadMore);
+    return () => {
+      window.removeEventListener("resize", handleReadMore);
+    };
   }, []);
 
   const handleDeleteSuccess = () => {
@@ -57,11 +65,14 @@ const ReviewCard = ({ review }) => {
           readOnly
         />
       </div>
-      <div className="my-2 font-bold">{review.title}</div>
+      <div className="my-2 font-bold" style={{ wordBreak: "break-word" }}>
+        {review.title}
+      </div>
       <div>
         <p
           ref={textRef}
           className={`whitespace-pre-wrap break-words ${isReadMore ? "" : "line-clamp-3"}`}
+          style={{ wordBreak: "break-word" }}
         >
           {review.review}
         </p>

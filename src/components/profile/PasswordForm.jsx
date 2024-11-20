@@ -69,7 +69,7 @@ const PasswordForm = () => {
     <div>
       <div className="px-3">
         <h3 className="border-b border-gray-300 py-3 text-lg font-semibold">
-          Psssword Settings
+          Password Settings
         </h3>
       </div>
       <div className="mx-auto w-4/5 sm:w-3/5">
