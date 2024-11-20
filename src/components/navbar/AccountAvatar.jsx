@@ -3,11 +3,12 @@ import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
+import { getProfileImageUrl } from "../../utils/utils";
 
 const AccountAvatar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useClickOutside(() => setDropdownOpen(false));
-  const { logoutUser } = useAuth();
+  const { user, logoutUser } = useAuth();
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
@@ -19,7 +20,7 @@ const AccountAvatar = () => {
         onClick={toggleDropdown}
         className="group flex items-center gap-2"
       >
-        <Avatar />
+        <Avatar src={getProfileImageUrl(user?.profileImage)} />
       </button>
 
       <div
