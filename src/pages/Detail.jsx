@@ -150,7 +150,7 @@ const Detail = () => {
                 {restaurant.cuisine.map((cuisine, index) => (
                   <span
                     key={index}
-                    className="rounded-sm bg-blue-900 px-1.5 py-1 text-sm text-white"
+                    className="rounded-full bg-blue-900 px-3 py-1 text-sm text-white"
                   >
                     {cuisine}
                   </span>

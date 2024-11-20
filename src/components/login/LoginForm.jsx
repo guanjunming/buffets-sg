@@ -54,7 +54,7 @@ const LoginForm = ({ onSuccessCb, goToSignup }) => {
         <div className="m-auto mt-6 w-80">
           <button
             disabled={isPending}
-            className="my-4 w-full rounded bg-black px-4 py-3 font-medium text-white shadow-lg hover:bg-neutral-950"
+            className="my-4 w-full rounded bg-blue-900 px-4 py-3 font-medium text-white shadow-lg hover:bg-blue-800"
           >
             Sign in
           </button>

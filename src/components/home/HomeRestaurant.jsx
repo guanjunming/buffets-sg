@@ -25,7 +25,7 @@ const HomeRestaurant = ({
         />
       </Link>
 
-      <div className="absolute right-3 top-3">
+      <div className="absolute right-2.5 top-2.5">
         <IconContext.Provider value={{ size: "1.5rem" }}>
           <FavouriteButton restaurantId={id} />
         </IconContext.Provider>
@@ -50,7 +50,7 @@ const HomeRestaurant = ({
         />
         <div>
           <span className="font-semibold">({rating}) </span>
-          {review} Reviews
+          {review} Review{review > 1 ? "s" : ""}
         </div>
       </div>
 
