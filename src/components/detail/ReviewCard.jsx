@@ -34,11 +34,11 @@ const ReviewCard = ({ review }) => {
         <div className="flex items-center gap-2 font-semibold">
           <Avatar
             sx={{ width: 32, height: 32 }}
-            src={getProfileImageUrl(review.user.profileImage)}
+            src={getProfileImageUrl(review.user?.profileImage)}
           />
-          <p>{review.user.name || "Unknown"}</p>
+          <p>{review.user?.name || "Unknown"}</p>
         </div>
-        {review.user._id && user?.id === review.user._id && (
+        {review.user && review.user._id === user?._id && (
           <ReviewActionButton
             reviewId={review._id}
             restaurantId={review.restaurant}
