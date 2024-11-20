@@ -46,8 +46,15 @@ const UserReviewCard = ({ review, name }) => {
           readOnly
         />
       </div>
-      <div className="my-0.5 font-bold">{review.title}</div>
-      <p className="line-clamp-3 break-words">{review.review}</p>
+      <div className="my-0.5 font-bold" style={{ wordBreak: "break-word" }}>
+        {review.title}
+      </div>
+      <p
+        className="line-clamp-3 break-words"
+        style={{ wordBreak: "break-word" }}
+      >
+        {review.review}
+      </p>
 
       <div className="relative mt-3 block max-w-[360px] overflow-hidden">
         <Link to={`/restaurant/${review.restaurant._id}`}>

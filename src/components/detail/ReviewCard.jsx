@@ -54,11 +54,14 @@ const ReviewCard = ({ review }) => {
           readOnly
         />
       </div>
-      <div className="my-2 font-bold">{review.title}</div>
+      <div className="my-2 font-bold" style={{ wordBreak: "break-word" }}>
+        {review.title}
+      </div>
       <div>
         <p
           ref={textRef}
           className={`whitespace-pre-wrap break-words ${isReadMore ? "" : "line-clamp-3"}`}
+          style={{ wordBreak: "break-word" }}
         >
           {review.review}
         </p>
