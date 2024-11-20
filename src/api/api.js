@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 // instance for authentication
 const axiosInstance = axios.create({
-  baseURL: SERVER_BASE_URL,
+  baseURL: SERVER_URL + "/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
 
 // instance with interceptors
 const apiInstance = axios.create({
-  baseURL: SERVER_BASE_URL,
+  baseURL: SERVER_URL + "/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -159,6 +159,15 @@ export const updateUserReview = async (id, reviewData) => {
 export const deleteUserReview = async (id) => {
   const response = await apiInstance.delete(`/reviews/${id}`);
   return response.data;
+};
+
+export const getUserById = async (id) => {
+  try {
+    const response = await apiInstance.get(`/users/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
 };
 
 export const getUserProfile = async () => {

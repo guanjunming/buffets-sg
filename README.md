@@ -51,7 +51,7 @@ User Stories and Stretch Goals : [Trello board](https://trello.com/b/vJzdzWNm/bu
 For front-end (buffet-sg):
 
 ```
-VITE_SERVER_BASE_URL=http://localhost:5001/api
+VITE_SERVER_URL=http://localhost:5001
 ```
 
 For back-end (buffet-server):

@@ -1,11 +1,11 @@
 import { Avatar, Rating } from "@mui/material";
 import ReviewActionButton from "./ReviewActionButton";
-import { formatDate } from "../../utils/utils";
+import { formatDate, getProfileImageUrl } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import FavouriteButton from "../common/FavouriteButton";
 
-const UserReviewCard = ({ review, name }) => {
+const UserReviewCard = ({ review, user }) => {
   const { restaurant } = review;
   const queryClient = useQueryClient();
 
@@ -19,11 +19,14 @@ const UserReviewCard = ({ review, name }) => {
     <div className="border-b border-gray-300 bg-white pb-4">
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Avatar sx={{ width: 40, height: 40 }} />
+          <Avatar
+            sx={{ width: 40, height: 40 }}
+            src={getProfileImageUrl(user.profileImage)}
+          />
 
           <div>
             <p className="text-sm">
-              <span className="font-bold">{name}</span>
+              <span className="font-bold">{user.name}</span>
             </p>
             <div className="text-xs text-gray-500">{`${formatDate(review.createdAt, false)}`}</div>
           </div>

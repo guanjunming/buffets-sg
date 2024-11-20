@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import apiInstance, { refreshAccessToken } from "../api/api";
+import apiInstance, { getUserById, refreshAccessToken } from "../api/api";
 
 const AuthContext = createContext();
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginUser = (data) => {
-    setUser(data.userData);
+    setUser(data.user);
     setAccessToken(data.accessToken);
     localStorage.setItem("refreshToken", data.refreshToken);
   };
@@ -31,10 +31,13 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
+        // get new access token
         const data = await refreshAccessToken({ token: refreshToken });
-        const newAccessToken = data.accessToken;
-        setAccessToken(newAccessToken);
-        setUser(data.userData);
+        // get user data
+        const userData = await getUserById(data.userId);
+
+        setAccessToken(data.accessToken);
+        setUser(userData);
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
         logoutUser();

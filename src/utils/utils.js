@@ -1,3 +1,5 @@
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 export const formatDate = (isoDateString, fullMonth = true) => {
   const date = new Date(isoDateString);
 
@@ -19,4 +21,8 @@ export const formatDateShort = (isoDateString) => {
   };
 
   return date.toLocaleDateString("en-GB", options);
+};
+
+export const getProfileImageUrl = (path) => {
+  return SERVER_URL + path;
 };

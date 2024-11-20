@@ -24,12 +24,12 @@ const NavbarContent = () => {
         {isLoggedIn ? (
           <AccountAvatar />
         ) : (
-          <div
-            className="rounded bg-blue-900 px-3 py-2 text-white hover:cursor-pointer hover:bg-blue-800"
+          <button
+            className="rounded bg-blue-900 px-3 py-2 text-white hover:bg-blue-800"
             onClick={openLoginModal}
           >
             Sign in
-          </div>
+          </button>
         )}
       </div>
 
