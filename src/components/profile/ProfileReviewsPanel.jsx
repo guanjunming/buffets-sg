@@ -17,11 +17,7 @@ const ProfileReviewsPanel = ({ reviews, user }) => {
         <div>
           <div className="space-y-5">
             {reviews.slice(0, reviewsToShow).map((review) => (
-              <UserReviewCard
-                key={review._id}
-                review={review}
-                name={user.name}
-              />
+              <UserReviewCard key={review._id} review={review} user={user} />
             ))}
           </div>
           {reviewsToShow < reviews.length && (

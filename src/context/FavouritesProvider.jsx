@@ -12,7 +12,7 @@ export const FavouritesProvider = ({ children }) => {
   const { openLoginModal } = useModal();
 
   const { data: favourites } = useQuery({
-    queryKey: ["favourites", user?.id],
+    queryKey: ["favourites", user?._id],
     queryFn: getAllFavourites,
     enabled: isLoggedIn && !!user,
   });
@@ -26,7 +26,7 @@ export const FavouritesProvider = ({ children }) => {
     mutationFn: addToFavourites,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["favourites", user.id],
+        queryKey: ["favourites", user._id],
       });
     },
     onError: (error) => {
@@ -51,7 +51,7 @@ export const FavouritesProvider = ({ children }) => {
     mutationFn: removeFavourite,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["favourites", user.id],
+        queryKey: ["favourites", user._id],
       });
     },
     onError: (error) => {
