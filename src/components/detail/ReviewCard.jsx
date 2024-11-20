@@ -39,7 +39,7 @@ const ReviewCard = ({ review }) => {
   return (
     <div className="border-b border-gray-200 pb-4">
       <div className="mb-3 flex items-center justify-between">
-        <div className="flex items-center gap-2 font-semibold">
+        <div className="flex items-center gap-2 overflow-hidden font-semibold">
           <Avatar
             sx={{ width: 32, height: 32 }}
             src={getProfileImageUrl(review.user?.profileImage)}
@@ -65,7 +65,7 @@ const ReviewCard = ({ review }) => {
           readOnly
         />
       </div>
-      <div className="my-2 font-bold" style={{ wordBreak: "break-word" }}>
+      <div className="my-2 font-semibold" style={{ wordBreak: "break-word" }}>
         {review.title}
       </div>
       <div>

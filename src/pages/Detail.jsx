@@ -36,8 +36,8 @@ const Detail = () => {
   const shortenInfo = restaurant.description.slice(0, maxLength);
 
   return (
-    <div className="mx-9 text-left">
-      <div className="p-6">
+    <div className="mx-9">
+      <div className="py-6 md:px-6">
         <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
           <div className="flex items-center justify-between border-b border-gray-200 pb-4 pr-4">
             <h2 className="text-2xl font-bold">{restaurant.name}</h2>
@@ -106,7 +106,7 @@ const Detail = () => {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="py-6 md:px-6">
         <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm md:flex-row">
           <div className="flex-1 pr-4 md:border-r md:border-gray-200">
             <h2 className="mb-2 font-semibold">ABOUT</h2>
@@ -170,9 +170,10 @@ const Detail = () => {
           </div>
         </div>
       </div>
-      <div className="p-6">
+
+      <div className="py-6 md:px-6">
         <div className="flex flex-col gap-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm md:flex-row">
-          <div className="flex-1 basis-1/4 p-4 md:border-r md:border-gray-200">
+          <div className="p-4 md:w-1/4 md:border-r md:border-gray-200">
             <h2 className="mt-4 font-semibold">RATINGS</h2>
             <div className="my-4 border-t border-gray-300">
               <strong>
@@ -208,7 +209,7 @@ const Detail = () => {
             </div>
           </div>
 
-          <div className="flex-1 basis-3/4 p-6">
+          <div className="p-6 md:w-3/4">
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between gap-2 border-b border-gray-200">
                 <h2 className="font-semibold">REVIEWS</h2>

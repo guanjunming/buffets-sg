@@ -18,7 +18,7 @@ const UserReviewCard = ({ review, user }) => {
   return (
     <div className="border-b border-gray-300 bg-white pb-4">
       <div className="mb-2 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 overflow-hidden">
           <Avatar
             sx={{ width: 40, height: 40 }}
             src={getProfileImageUrl(user.profileImage)}
@@ -26,7 +26,7 @@ const UserReviewCard = ({ review, user }) => {
 
           <div>
             <p className="text-sm">
-              <span className="font-bold">{user.name}</span>
+              <span className="font-semibold">{user.name}</span>
             </p>
             <div className="text-xs text-gray-500">{`${formatDate(review.createdAt, false)}`}</div>
           </div>
