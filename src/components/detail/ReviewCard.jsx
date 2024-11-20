@@ -86,7 +86,7 @@ const ReviewCard = ({ review }) => {
           </button>
         )}
       </div>
-      <div className="mt-4 text-xs">{`Written ${formatDate(review.createdAt)}`}</div>
+      <div className="mt-4 text-sm">{`Written ${formatDate(review.createdAt)}`}</div>
     </div>
   );
 };
