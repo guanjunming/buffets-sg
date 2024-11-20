@@ -202,12 +202,12 @@ const Detail = () => {
 
           <div className="flex-1 basis-3/4 p-6">
             <div className="flex flex-col gap-6">
-              <div className="flex items-center justify-between border-b border-gray-200">
+              <div className="flex items-center justify-between gap-2 border-b border-gray-200">
                 <h2 className="font-semibold">REVIEWS</h2>
                 <div className="mt-4 border-t border-gray-300"></div>
                 <Link
                   to={`/review/${id}`}
-                  className="rounded-md bg-blue-900 px-4 py-3 text-white hover:bg-blue-800"
+                  className="rounded-md bg-blue-900 px-4 py-3 text-center text-white hover:bg-blue-800"
                 >
                   Write a review
                 </Link>
