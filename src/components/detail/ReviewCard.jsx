@@ -2,7 +2,7 @@ import { Avatar, Rating } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import { formatDate } from "../../utils/utils";
+import { formatDate, getProfileImageUrl } from "../../utils/utils";
 import { useAuth } from "../../context/AuthProvider";
 import ReviewActionButton from "../review/ReviewActionButton";
 import { useQueryClient } from "@tanstack/react-query";
@@ -32,10 +32,13 @@ const ReviewCard = ({ review }) => {
     <div className="border-b border-gray-200 pb-4">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2 font-semibold">
-          <Avatar sx={{ width: 32, height: 32 }} />
-          <p>{review.user.name}</p>
+          <Avatar
+            sx={{ width: 32, height: 32 }}
+            src={getProfileImageUrl(review.user.profileImage)}
+          />
+          <p>{review.user.name || "Unknown"}</p>
         </div>
-        {user?.id === review.user._id && (
+        {review.user._id && user?.id === review.user._id && (
           <ReviewActionButton
             reviewId={review._id}
             restaurantId={review.restaurant}
