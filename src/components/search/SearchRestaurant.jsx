@@ -12,12 +12,12 @@ const SearchRestaurant = ({
   max,
 }) => {
   return (
-    <div className="flex h-full flex-col gap-0 rounded-3xl border-y border-l border-r border-neutral-500 p-0 lg:h-auto lg:flex-row lg:items-center lg:justify-start lg:gap-5 lg:rounded-none lg:border-y-0 lg:border-r-0 lg:p-2">
+    <div className="flex h-full flex-col gap-0 rounded-3xl border border-neutral-500 p-0 lg:h-auto lg:flex-row lg:items-center lg:justify-start lg:gap-5 lg:rounded-none lg:border-0 lg:p-2">
       <Link to={"/restaurant/" + id} className="lg:w-1/2">
         <img
           src={img[0]}
           alt={name}
-          className="mb-5 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:outline hover:outline-2 hover:brightness-110 lg:mb-0 lg:rounded-3xl lg:border"
+          className="mb-5 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:brightness-110 lg:mb-0 lg:rounded-3xl lg:border"
           title={name}
         />
       </Link>

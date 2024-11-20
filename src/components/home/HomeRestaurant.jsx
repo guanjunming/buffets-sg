@@ -20,7 +20,7 @@ const HomeRestaurant = ({
         <img
           src={img[0]}
           alt={name}
-          className="mb-5 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:outline hover:outline-2 hover:brightness-110"
+          className="mb-5 aspect-video w-full rounded-t-3xl border-b border-neutral-500 object-cover hover:cursor-pointer hover:border-black hover:brightness-110"
           title={name}
         />
       </Link>
@@ -31,9 +31,11 @@ const HomeRestaurant = ({
         </IconContext.Provider>
       </div>
 
-      <div className="mx-5 flex h-20 items-center justify-center overflow-hidden text-center text-xl font-bold">
-        {name}
-      </div>
+      <Link to={"/restaurant/" + id}>
+        <div className="mx-5 flex h-20 items-center justify-center overflow-hidden text-center text-xl font-bold text-black hover:text-neutral-800">
+          {name}
+        </div>
+      </Link>
 
       <div className="mx-5 flex flex-col items-center justify-center gap-1">
         <Rating
