@@ -19,17 +19,22 @@ Users can update/delete their reviews and also access their favourites in their 
 
 ## Technologies Used
 
-- `React Javascript`
-- `Express`
-- `Node.js`
-- `Vite`
-- `HTML`
-- `CSS`
-- `Visual Studio Code`
-- `MongoDB`
-- `Tailwindcss`
-- `Tanstack`
-- `Axios`
+#### Frontend
+
+- **React**: Front-end JavaScript library for building user interfaces.
+- **Vite**: Development environment and bundler.
+- **React Router**: Declarative routing for React applications.
+- **TanStack Query**: For efficient data fetching, caching and state management.
+- **Axios**: Promise-based HTTP client for API requests.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+
+#### Backend
+
+- **Node.js**: JavaScript runtime environment for server-side development.
+- **Express.js**: Web application framework for Node.js.
+- **MongoDB**: NoSQL database for data storage.
+- **Mongoose**: ODM library for MongoDB.
+- **jsonwebtoken** - Library for creating and verifying JSON Web Tokens (JWTs) for authentication.
 
 ## Wireframe & Planning Materials
 
