@@ -67,6 +67,41 @@ REFRESH_SECRET=<replace-with-a-random-key>
 
 In your terminal, run `npm run dev` for both of the repositories. Follow the link to your localhost.
 
+## Folder Structure
+
+The project structure is organized as follows:
+
+#### Frontend
+
+```
+buffets-sg/
+├── src/
+│   ├── api/            # API call logic using axios
+│   ├── components/     # React components
+│   ├── context/        # React context providers for state management
+│   ├── pages/          # Page-level components for different routes
+│   ├── utils/          # Utility functions
+├── .env                # Environment variables (not tracked in version control)
+├── package.json        # Dependencies and scripts for the client
+```
+
+#### Backend
+
+```
+buffets-server/
+├── controllers/       # Request handling logic for each route
+├── db/                # Database connection and setup
+├── middleware/        # Custom middleware (authentication)
+├── models/            # Mongoose models for MongoDB collections
+├── public/images/     # Static assets (images for profile image)
+├── routes/            # API route definitions
+├── seeds/             # Data for seeding the database
+├── utils/             # Utility modules
+├── validators/        # Input validators
+├── .env               # Environment variables (not tracked in version control)
+├── package.json       # Dependencies and scripts for the server
+```
+
 ## Future Enhancements
 
 Goals that we aim to be developed in the future include:
