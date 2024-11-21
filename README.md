@@ -1,25 +1,46 @@
-# Buffet Sg
+# Buffets SG
 
 ![Homepage Screenshot](public/homepage.png)
 
 ## Background Info
 
-_Buffet Sg_ is designed to allows users to search for buffets around Singapore. This application is created to provide convenice and assist users in looking for dinning options, providing them with the information of the restaurant, such as the opening hours and location:
+**Buffets SG** is a platform designed to help users search for buffets in Singapore conveniently. The application provides essential information, such as restaurant opening hours, location, price ranges, cuisines, and user reviews, enabling users to make informed dining choices.
+
+## Screenshots
+
+### Details Page
 
 ![Details Page](public/details-page.png)
+Displays detailed information about a selected restaurant, including its name, location, description, price range, opening hours, and user reviews.
+
+### Search Page
 
 ![Search Page](public/Search.png)
-They can utilize our search which allows them to filter the restaurants to their preferences such as location, price, cuisines and best rated.
+User can search for restaurants and apply filters based on their preferences, such as location, price, cuisine, and ratings.
+
+### Review Page
 
 ![Review Page](public/review-page.png)
-They can also leave reviews and ratings for the restaurant to help others make their decisons on visiting the restaurant.
+User can leave reviews and ratings for the restaurant to help others make their decisons on visiting the restaurant.
+
+### Profile Page
 
 ![Profile Page](public/profile-page.png)
-Users can update/delete their reviews and also access their favourites in their profile page.
+Users can update or delete their reviews, view a list of their favourite restaurants and change account settings.
+
+## Features
+
+- **Landing Page**: View top-rated, most reviewed and nearest restaurants, giving users an overview of the best buffet options.
+- **Search and Filters**: Locate restaurants quickly using search and refine results by price range, cuisine and various sorting options for a personalized experience.
+- **Restaurant Details**: View detailed information about each restaurant, including descriptions, price ranges, locations, opening hours, and user reviews.
+- **User Reviews**: Share experiences with ratings and reviews to help the community discover the best places.
+- **Profile Management**: Update or delete reviews, view a list of favourite restaurants, and manage account settings.
+- **Favourites**: Save restaurants to a personal list for easy future access.
+- **Responsive Design**: Enjoy a seamless experience across all devices, from smartphones to desktops.
 
 ## Technologies Used
 
-#### Frontend
+### Frontend
 
 - **React**: Front-end JavaScript library for building user interfaces.
 - **Vite**: Development environment and bundler.
@@ -28,7 +49,7 @@ Users can update/delete their reviews and also access their favourites in their 
 - **Axios**: Promise-based HTTP client for API requests.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 
-#### Backend
+### Backend
 
 - **Node.js**: JavaScript runtime environment for server-side development.
 - **Express.js**: Web application framework for Node.js.
