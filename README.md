@@ -66,38 +66,79 @@ User Stories and Stretch Goals : [Trello board](https://trello.com/b/vJzdzWNm/bu
 
 ## Getting Started
 
-1. Ensure [Node.js](https://nodejs.org/en) and [Mongodb](https://www.mongodb.com/try/download/shell) is installed.
+To get started with the project, follow these steps:
 
-1. Fork this front-end repository (buffet-sg) and our back-end repository [buffet-server](https://github.com/guanjunming/buffets-server/).
+### Prerequisites
 
-1. For each file run `npm i`in the terminal of vscode.
+1. Ensure [Node.js](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/try/download/community) is installed.
 
-1. Create a new .env file for the respective repositories with the following:
+### To Run Locally
 
-For front-end (buffet-sg):
+#### Frontend (buffets-sg)
 
-```
-VITE_SERVER_URL=http://localhost:5001
-```
+1. Open terminal and clone the repository:
 
-For back-end (buffet-server):
+   ```bash
+   git clone https://github.com/guanjunming/buffets-sg.git
+   ```
 
-```
-PORT=5001
-MONGODB_URI=mongodb://127.0.0.1:27017/restaurants
-ACCESS_SECRET=<replace-with-a-random-key>
-REFRESH_SECRET=<replace-with-a-random-key>
-```
+2. Navigate to the project directory:
+
+   ```bash
+   cd buffets-sg
+   ```
+
+3. Install the client dependencies:
+
+   ```bash
+   npm i
+   ```
+
+4. Create a `.env` file in the project directory and add the following variable:
+
+   ```
+   VITE_SERVER_URL=http://localhost:5001
+   ```
+
+#### Backend (buffets-server)
+
+1. In another directory, open terminal and clone the repository:
+
+   ```bash
+   git clone https://github.com/guanjunming/buffets-server.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd buffets-server
+   ```
+
+3. Install the server dependencies:
+
+   ```bash
+   npm i
+   ```
+
+4. Create a `.env` file in the project directory and add the following variables:
+
+   ```
+   PORT=5001
+   MONGODB_URI=mongodb://127.0.0.1:27017/buffets
+   ACCESS_SECRET=<secret-key>    # Replace with a secret generated from a random key generator
+   REFRESH_SECRET=<secret-key>   # Replace with a secret generated from a random key generator
+   ```
 
 ## Running The Application
 
-In your terminal, run `npm run dev` for both of the repositories. Follow the link to your localhost.
+- Start the server: run `npm run dev` within the `buffets-server` directory.
+- Start the client: run `npm run dev` within the `buffets-sg` directory.
 
 ## Folder Structure
 
 The project structure is organized as follows:
 
-#### Frontend
+#### Frontend (buffets-sg)
 
 ```
 buffets-sg/
@@ -111,7 +152,7 @@ buffets-sg/
 ├── package.json        # Dependencies and scripts for the client
 ```
 
-#### Backend
+#### Backend (buffets-server)
 
 ```
 buffets-server/
