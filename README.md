@@ -6,6 +6,8 @@
 
 **Buffets SG** is a platform designed to help users search for buffets in Singapore conveniently. The application provides essential information, such as restaurant opening hours, location, price ranges, cuisines, and user reviews, enabling users to make informed dining choices. The application is built using the MERN (MongoDB, Express.js, React, Node.js) stack.
 
+The link to the backend repository can be found here: [Buffets Server](https://github.com/guanjunming/buffets-server)
+
 ## Table of Contents
 
 - [Screenshots](#screenshots)
