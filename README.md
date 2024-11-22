@@ -10,6 +10,7 @@ The link to the backend repository can be found here: [Buffets Server](https://g
 
 ## Table of Contents
 
+- [Demo](#demo)
 - [Screenshots](#screenshots)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
@@ -19,6 +20,10 @@ The link to the backend repository can be found here: [Buffets Server](https://g
 - [Folder Structure](#folder-structure)
 - [Future Enhancements](#future-enhancements)
 - [Attributions](#attributions)
+
+## Demo
+
+Try out the app at: [https://buffets-sg.netlify.app](https://buffets-sg.netlify.app)
 
 ## Screenshots
 
