@@ -4,7 +4,19 @@
 
 ## Background Info
 
-**Buffets SG** is a platform designed to help users search for buffets in Singapore conveniently. The application provides essential information, such as restaurant opening hours, location, price ranges, cuisines, and user reviews, enabling users to make informed dining choices.
+**Buffets SG** is a platform designed to help users search for buffets in Singapore conveniently. The application provides essential information, such as restaurant opening hours, location, price ranges, cuisines, and user reviews, enabling users to make informed dining choices. The application is built using the MERN (MongoDB, Express.js, React, Node.js) stack.
+
+## Table of Contents
+
+- [Screenshots](#screenshots)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [ERD & Planning Materials](#erd--planning-materials)
+- [Getting Started](#getting-started)
+- [Running The Application](#running-the-application)
+- [Folder Structure](#folder-structure)
+- [Future Enhancements](#future-enhancements)
+- [Attributions](#attributions)
 
 ## Screenshots
 
@@ -57,10 +69,10 @@ Users can update or delete their reviews, view a list of their favourite restaur
 - **Mongoose**: ODM library for MongoDB.
 - **jsonwebtoken** - Library for creating and verifying JSON Web Tokens (JWTs) for authentication.
 
-## Wireframe & Planning Materials
+## ERD & Planning Materials
 
 ![ERD](public/erd.png)
-The Review Schema references to the User and Restaurant Model. User can favourite the restaurant and it's Id will be saved into favouites in the User model.
+The `Review` model references the `User` and `Restaurant` model. User can favourite a restaurant and it's id is stored in the `favourites` field of the `User` model.
 
 User Stories and Stretch Goals : [Trello board](https://trello.com/b/vJzdzWNm/buffets-sg)
 
@@ -70,7 +82,7 @@ To get started with the project, follow these steps:
 
 ### Prerequisites
 
-1. Ensure [Node.js](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/try/download/community) is installed.
+1. Ensure [Node.js](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/try/download/community) are installed.
 
 ### To Run Locally
 
@@ -131,8 +143,15 @@ To get started with the project, follow these steps:
 
 ## Running The Application
 
-- Start the server: run `npm run dev` within the `buffets-server` directory.
-- Start the client: run `npm run dev` within the `buffets-sg` directory.
+### Start the server
+
+Run `npm run dev` within the `buffets-server` directory.
+
+To initialize the `restaurants` collection in the database, send a GET request using [Postman](https://www.postman.com/) to http://localhost:5001/api/restaurants/seed.
+
+### Start the client
+
+Run `npm run dev` within the `buffets-sg` directory.
 
 ## Folder Structure
 
@@ -160,7 +179,7 @@ buffets-server/
 ├── db/                # Database connection and setup
 ├── middleware/        # Custom middleware (authentication)
 ├── models/            # Mongoose models for MongoDB collections
-├── public/images/     # Static assets (images for profile image)
+├── public/images/     # Static assets (images for profile picture)
 ├── routes/            # API route definitions
 ├── seeds/             # Data for seeding the database
 ├── utils/             # Utility modules
@@ -171,15 +190,27 @@ buffets-server/
 
 ## Future Enhancements
 
-Goals that we aim to be developed in the future include:
+1. **Recently Viewed Restaurants** : Add a section to display a history of recently viewed restaurants.
+2. **Photo Upload for Reviews**: Enable users to upload images of the restaurant along with their reviews.
+3. **Google Maps Links**: Include direct links to Google Maps for each restaurant's location.
+4. **Change Profile Picture**: Enable users to personalize their profile by uploading and updating profile image.
+5. **Social Features**: Allow users to view other users' profile to see the reviews they have written.
 
-1.  Implementing a 'recently viewed' tab in user profile, to see the list of restaurants from user's most recent visit.
+## Attributions
 
-1.  Creating a functionality to allow users to submit their own photos of the restaurant togther with the review form.
+### Resources
 
-## Resources
+- Buffet restaurants data from [SingSaver](https://www.singsaver.com.sg/blog/28-best-all-you-can-eat-buffets-in-singapore) and [Daniel Food Diary](https://danielfooddiary.com/category/food/food-buffet/).
+- Inter font from [Google Fonts](https://fonts.google.com/specimen/Inter).
+- Components from [Material UI](https://mui.com/material-ui/all-components/).
+- Icons from [React Icons](https://react-icons.github.io/react-icons/).
+- Images from [Pixabay](https://pixabay.com/).
 
-[Material UI](https://mui.com/material-ui/material-icons/) | [Tailwindcss](https://tailwindcss.com/) | [Swiper](https://swiperjs.com/react) |
-[Google Fonts](https://fonts.google.com/selection/embed) | [React Developer Tools](https://react.dev/learn/react-developer-tools) | [React Icons](https://react-icons.github.io/react-icons/) | [Tripadvisor](https://www.tripadvisor.com/) |
-[buffet data](https://www.singsaver.com.sg/blog/28-best-all-you-can-eat-buffets-in-singapore)
-| [buffet data 2](https://danielfooddiary.com/category/food/food-buffet/) |
+### References
+
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [TanStack Query Documentation](https://tanstack.com/query/latest/docs/framework/react/overview)
+- [React Router Documentation](https://reactrouter.com/)
+- [Mongoose Documentation](https://mongoosejs.com/docs/)
+- [Swiper](https://swiperjs.com/react)
+- [Tripadvisor](https://www.tripadvisor.com/)
