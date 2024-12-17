@@ -8,6 +8,11 @@
 
 The link to the backend repository can be found here: [Buffets Server](https://github.com/guanjunming/buffets-server)
 
+## Authors
+- [Guan Junming](https://github.com/guanjunming)
+- [Kevin Pramudyanto](https://github.com/KevinPramudyanto)
+- [Lim Yi Xuan](https://github.com/eeexuanlyx)
+
 ## Table of Contents
 
 - [Demo](#demo)
